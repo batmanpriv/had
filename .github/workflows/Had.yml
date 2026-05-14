@@ -579,11 +579,12 @@ jobs:
           echo "Files in tmp_downloads:"
           ls -la tmp_downloads/
 
-      - name: Zip and Split Manager
+      - name: Zip and Split Manager (Direct for Rubika)
         shell: bash
         run: |
           HAS_PASS="${{ github.event.inputs.password }}"
           SPLIT_SIZE="${{ github.event.inputs.split_size }}"
+          UPLOAD_TO_RUBIKA="${{ github.event.inputs.upload_to_rubika }}"
           
           if [ -z "$SPLIT_SIZE" ] || [ "$SPLIT_SIZE" -eq 0 ]; then
             LIMIT=999999999
@@ -608,21 +609,40 @@ jobs:
             BASENAME=$(basename "$FILE")
             SAFE_NAME=$(echo "$BASENAME" | sed 's/[^a-zA-Z0-9._-]/_/g')
             
+            # Clear old files
             rm -f "dl/${SAFE_NAME}".* 2>/dev/null
+            rm -f "temp_${SAFE_NAME}".* 2>/dev/null
             
             if [ -n "$HAS_PASS" ] || [ "$SIZE" -gt "$LIMIT" ]; then
               PASS_ARG=""
               if [ -n "$HAS_PASS" ]; then
                 PASS_ARG="-P $HAS_PASS"
               fi
-              zip $PASS_ARG $SPLIT_ARG "dl/${SAFE_NAME}.zip" -j "$FILE" > /dev/null 2>&1
               
-              for ZPART in "dl/${SAFE_NAME}.zip" "dl/${SAFE_NAME}".z[0-9]*; do
-                if [ -f "$ZPART" ]; then
-                  basename "$ZPART" >> files_to_process.txt
-                fi
-              done
+              # First zip to a temp location to check size
+              TEMP_ZIP="temp_${SAFE_NAME}.zip"
+              zip $PASS_ARG "$TEMP_ZIP" -j "$FILE" > /dev/null 2>&1
+              ZIP_SIZE=$(stat -c%s "$TEMP_ZIP" 2>/dev/null || echo 0)
+              
+              # Check if zip file needs splitting
+              if [ "$ZIP_SIZE" -gt "$LIMIT" ] && [ -n "$SPLIT_ARG" ] && [ "$SPLIT_SIZE" -gt 0 ]; then
+                # Need to split - use original approach
+                zip $PASS_ARG $SPLIT_ARG "dl/${SAFE_NAME}.zip" -j "$FILE" > /dev/null 2>&1
+                rm -f "$TEMP_ZIP"
+                
+                # List all parts
+                for ZPART in "dl/${SAFE_NAME}.zip" "dl/${SAFE_NAME}".z[0-9]*; do
+                  if [ -f "$ZPART" ]; then
+                    basename "$ZPART" >> files_to_process.txt
+                  fi
+                done
+              else
+                # No split needed - just use the single zip file
+                mv "$TEMP_ZIP" "dl/${SAFE_NAME}.zip"
+                echo "${SAFE_NAME}.zip" >> files_to_process.txt
+              fi
             else
+              # File is small enough, no compression needed (or just copy)
               cp -f "$FILE" "dl/$SAFE_NAME"
               echo "$SAFE_NAME" >> files_to_process.txt
             fi
@@ -630,25 +650,28 @@ jobs:
           
           rm -rf tmp_downloads
 
-      - name: Upload Files
+      - name: Upload Files (Direct without repo storage)
         shell: bash
         run: |
           UPLOAD_TO_UPLOADKON="${{ github.event.inputs.upload_to_uploadkon }}"
           UPLOAD_TO_RUBIKA="${{ github.event.inputs.upload_to_rubika }}"
           RUBIKA_AUTH_STRING="${{ github.event.inputs.rubika_auth_string }}"
+          REPO="${{ github.repository }}"
+          BRANCH="${GITHUB_REF_NAME}"
           
           if [ ! -s files_to_process.txt ]; then
             echo "No files to process"
             exit 0
           fi
           
+          # For Rubika: upload directly and DON'T keep in repository
           if [ "$UPLOAD_TO_RUBIKA" = "true" ]; then
             if [ -z "$RUBIKA_AUTH_STRING" ] || [ "$RUBIKA_AUTH_STRING" = "" ]; then
               echo "ERROR: Rubika auth string is required when upload_to_rubika is true"
               exit 1
             fi
             
-            echo "Uploading files to Rubika..."
+            echo "=== UPLOADING TO RUBIKA (Files will NOT be stored in repository) ==="
             rm -f rubika_uploaded.txt
             touch rubika_uploaded.txt
             
@@ -664,17 +687,26 @@ jobs:
                 python3 rubika_uploader.py "$FILEPATH" "$RUBIKA_AUTH_STRING" "$CAPTION"
                 if [ $? -eq 0 ]; then
                   echo "${FILENAME}|UPLOADED_TO_RUBIKA" >> rubika_uploaded.txt
+                  # Remove the file from dl folder after successful upload
                   rm -f "$FILEPATH"
+                  echo "  ✅ Uploaded and removed from repository"
                 else
                   echo "${FILENAME}|RUBIKA_UPLOAD_FAILED" >> rubika_uploaded.txt
+                  echo "  ❌ Upload failed, file kept in repository"
                 fi
               fi
             done < files_to_process.txt
             
+            # Clean up empty dl directory if needed
+            find dl -type f -size 0 -delete 2>/dev/null
+            rmdir dl 2>/dev/null || true
+            
+            # Replace files_to_process with upload results
             rm -f files_to_process.txt
             if [ -f rubika_uploaded.txt ]; then
               mv rubika_uploaded.txt files_to_process.txt
             fi
+          
           elif [ "$UPLOAD_TO_UPLOADKON" = "true" ]; then
             echo "Uploading files to uploadkon.ir..."
             rm -f uploaded_files.txt
@@ -706,6 +738,7 @@ jobs:
               mv uploaded_files.txt files_to_process.txt
             fi
           else
+            # Keep files in repository
             mv files_to_process.txt new_files.txt
           fi
 
@@ -814,12 +847,25 @@ jobs:
           
           rm -f files_to_process.txt new_files.txt
 
-      - name: Push to Repository
+      - name: Push to Repository (Only if files kept)
+        if: github.event.inputs.upload_to_rubika != 'true' && github.event.inputs.upload_to_uploadkon != 'true'
         run: |
           BRANCH="${GITHUB_REF_NAME}"
           git config user.name "Downloader Bot"
           git config user.email "actions@github.com"
-          git add dl/ Links.md
-          git status
-          git commit -m "Add downloaded files [skip ci]" || echo "No changes to commit"
-          git push origin HEAD:$BRANCH || echo "Push failed"
+          
+          # Only push if there are actual files in dl/
+          if [ -d "dl" ] && [ -n "$(ls -A dl 2>/dev/null)" ]; then
+            git add dl/ Links.md
+            git status
+            git commit -m "Add downloaded files [skip ci]" || echo "No changes to commit"
+            git push origin HEAD:$BRANCH || echo "Push failed"
+          else
+            echo "No files to push to repository"
+            # Still update Links.md if it exists
+            if [ -f Links.md ]; then
+              git add Links.md
+              git commit -m "Update Links.md [skip ci]" || true
+              git push origin HEAD:$BRANCH || true
+            fi
+          fi
