@@ -7,52 +7,81 @@
 
 ---
 
-A powerful, multi-threaded downloader with support for **HTTP/HTTPS**, **FTP/FTPS**, **SFTP**, **Metalink**, **MITM Capture Proxy**, **proxy connections**, **smart resume capabilities**, **JSON-RPC interface**, and **complete website backup tool**. Built for speed and reliability.
+A powerful, multi-threaded downloader with support for **HTTP/HTTPS**, **FTP/FTPS**, **SFTP**, **Metalink**, **MITM Capture Proxy**, **proxy connections**, **smart resume capabilities**, **JSON-RPC interface**, **complete website backup tool**, **HLS streaming support**, **queue management**, and **extensive post-processing**. Built for speed and reliability.
 
-## 🎉 New in v3.2.5
+## 🎉 New in v3.3.2
 
-HAD now includes a **MITM Capture Proxy** that intercepts HTTPS traffic to automatically detect and capture downloadable files, **batch download from captured JSON**, and **automatic CA certificate installation** for seamless HTTPS interception.
+HAD v3.3.2 introduces major new features and significant improvements:
 
-<a href="https://github.com/batmanpriv/had/releases/tag/3.2.5">Release v3.2.5</a>
+### ✨ Core Enhancements
+- 📺 **HLS/M3U8 Streaming Support** - Download HTTP Live Streams with built-in or FFmpeg backend
+- 📋 **Priority Queue System** - Manage downloads with priority-based queues
+- 🔄 **Bandwidth Scheduling** - Set time-based download windows (e.g., only at night)
+- 📢 **Multi-channel Notifications** - Telegram, Discord, and Desktop notifications
+- 🪞 **Smart Mirror Selection** - Auto-select fastest mirror via latency probing
+- 🗜️ **Post-Processing** - Auto-extract archives, rename, and move files after download
+- 🧩 **Deduplication** - Smart duplicate URL detection and filtering
+- 🎯 **Per-file Thread Optimization** - Auto-adjust threads based on file size
+
+### 🔧 Browser Extension Overhaul
+- 🍪 **Full Cookie Management** - View, edit, delete, import/export cookies per site
+- 🎯 **Site-Specific Cookies** - Automatically shows cookies for the current tab
+- 📋 **Multi-format Export** - Export cookies as Header String, JSON, or Netscape format
+- 🔄 **Import Support** - Import cookies from JSON, Netscape, or header strings
+- 🔍 **Cookie Search** - Search and filter cookies by name or value
+- ⚡ **Proxy Presets** - Quick presets for common proxy configurations
+- 🏃 **Auto-Restore** - Automatically restore proxy on browser startup
+
+### 🎯 Smart Capture Proxy Updates
+- 🧠 **Enhanced Detection** - Better confidence scoring and hidden URL extraction
+- 🔍 **Body Scanning** - Deep inspection of HTML, JSON, and JavaScript for hidden links
+- 📊 **Advanced Signals** - Multi-factor URL scoring (path, query, headers, referer)
+- 🎯 **Better Deduplication** - Intelligent normalization to avoid duplicates
+- 📝 **Richer Metadata** - Captures method, status code, content-type, and more
 
 ## ✨ Features
 
 ### Core Downloader
-- 🧵 **Multi-threaded downloads** - Maximize bandwidth utilization
-- 📡 **Multiple protocols** - HTTP, HTTPS, FTP, FTPS, SFTP
-- 🔄 **Resume support** - Interrupt and resume downloads seamlessly
-- 🕸️ **Proxy support** - SOCKS4, SOCKS5, and HTTP proxies
-- 📁 **Batch downloading** - Download from file lists
-- 🕷️ **Web scraping** - Extract and download links from web pages
+- 🧵 **Multi-threaded downloads** - Maximize bandwidth utilization with adaptive buffering (32KB-4MB)
+- 📡 **Multiple protocols** - HTTP, HTTPS, FTP, FTPS, SFTP with full authentication support
+- 🔄 **Resume support** - Interrupt and resume downloads seamlessly with session files
+- 🕸️ **Proxy support** - SOCKS4, SOCKS5, HTTP/HTTPS proxies with authentication
+- 📁 **Batch downloading** - Download from file lists with comments support
+- 🕷️ **Web scraping** - Extract and download links from web pages with interactive selection
 - 🔍 **Extension filtering** - Filter downloads by file extensions
-- ⚡ **Adaptive buffering** - Automatically optimizes buffer sizes (16KB-1MB)
-- 💾 **Session saving** - Save progress and resume later
-- 🎨 **Beautiful progress bars** - Real-time visual feedback
+- ⚡ **Adaptive buffering** - Automatically optimizes buffer sizes based on speed (32KB-4MB)
+- 💾 **Session saving** - Save progress every 10 seconds and resume later
+- 🎨 **Beautiful progress bars** - Real-time visual feedback with per-thread progress
 - 🌍 **Cross-platform** - Windows, Linux, macOS, ARM64
 - 🔐 **Integrity checks** - SHA256, SHA1, MD5 verification
+- 📺 **HLS streaming** - Download M3U8 playlists and segments (FFmpeg or pure-Go)
+- 📋 **Priority queues** - Download URLs with priority-based ordering
+- ⏰ **Bandwidth scheduling** - Set time windows for downloads (e.g., 00:00-06:00)
+- 📢 **Notifications** - Telegram, Discord, and desktop notifications on completion/failure
 
-### MITM Capture Proxy (NEW in v3.2.5)
-- 🔒 **HTTPS interception** - Full Man-in-the-Middle proxy capabilities
+### MITM Capture Proxy
+- 🔒 **HTTPS interception** - Full Man-in-the-Middle proxy capabilities with auto-certificate installation
 - 🎯 **Auto-detection** - Automatically detects videos, music, images, documents, archives
 - 🔍 **Hidden URL extraction** - Scrapes HTML, JSON, and JavaScript for buried links
-- 📊 **Confidence scoring** - 0-100% confidence system to filter false positives
+- 📊 **Confidence scoring** - 0-100% confidence system with multi-factor scoring
 - 📝 **Multi-format output** - Saves captured links to both TXT and JSON
 - 🔧 **Custom extensions** - Add your own file extensions to capture
 - 🎯 **Domain filtering** - Focus on specific domains only
 - 📐 **Size filtering** - Min/max file size constraints
 - 🔄 **Auto-download** - Option to automatically download captured files
 - 🍪 **Cookie support** - Pass cookies through the proxy
-- 🔐 **Auto-certificate** - Automatic CA certificate installation
+- 🔐 **Auto-certificate** - Automatic CA certificate installation (Windows, macOS, Linux)
+- 🧠 **Smart deduplication** - 10-minute dedupe window with URL normalization
 
-### Download from Captured JSON (NEW in v3.2.5)
+### Download from Captured JSON
 - 📦 **Batch download** - Download all captured files with one command
-- ⚡ **Smart threading** - Auto-adjusts threads based on file size
+- ⚡ **Smart threading** - Auto-adjusts threads based on file size (1-8 threads)
 - 🔄 **Concurrent downloads** - Download multiple files simultaneously
 - 📊 **Unified progress** - Track all downloads in a single beautiful interface
 - 💾 **Resume support** - Interrupted downloads can be resumed
 - 🧹 **Filename sanitization** - Automatically cleans titles for safe filenames
 
-### Website Downloader
+### Website Downloader (Web Backup)
 - 🌐 **Full site mirroring** - Crawl and backup entire websites
 - 📄 **Single page backup** - Save page with all dependencies
 - 🎯 **SPA support** - Handle hash-based routing (#!/ and #! paths)
@@ -61,7 +90,9 @@ HAD now includes a **MITM Capture Proxy** that intercepts HTTPS traffic to autom
 - 💾 **Resumable crawls** - Save and resume interrupted backups
 - 🎨 **CSS/JS processing** - Rewrite URLs in stylesheets and scripts
 - 🖼️ **Iframe support** - Download iframe content recursively
-- ⚡ **Rate limiting** - Per-domain request throttling
+- ⚡ **Rate limiting** - Per-domain request throttling (configurable)
+- 🗜️ **Minification** - Optional HTML minification for smaller output
+- 🔄 **Meta-refresh support** - Follow meta-refresh redirects
 
 ### Metalink Support (RFC 5854)
 - 📦 **Version 3 & 4 support** - Full Metalink specification compliance
@@ -74,6 +105,7 @@ HAD now includes a **MITM Capture Proxy** that intercepts HTTPS traffic to autom
 - 🌐 **REST endpoints** - HTTP endpoints for status and control
 - 📊 **Real-time monitoring** - Download progress and statistics
 - 🎮 **Dynamic control** - Pause, resume, speed limiting via API
+- 📋 **Task management** - Add, remove, and monitor download tasks
 
 ### SFTP Support
 - 🔑 **SSH key authentication** - RSA, ECDSA, Ed25519 support
@@ -92,13 +124,14 @@ HAD now includes a **MITM Capture Proxy** that intercepts HTTPS traffic to autom
 | **JSON Export from Proxy** | ![JSON Export](https://github.com/user-attachments/assets/7f098862-e7b4-4baa-9663-b28489e9b5e3) |
 | **Website Backup (Clone)** | ![Website Backup](https://github.com/user-attachments/assets/09883fe7-14d7-4045-8269-ea3c5bd5b1ae) |
 | **Web Scraping** | ![Scraping](https://github.com/user-attachments/assets/fa49cd59-418d-4690-a8dc-b7a8ab2f043b) |
-| **Extension Had** |![Extension](https://github.com/user-attachments/assets/ab0ea00b-7d44-45cf-8824-eb998a6c453d)
+| **HAD Browser Extension** | ![Extension](https://github.com/user-attachments/assets/ab0ea00b-7d44-45cf-8824-eb998a6c453d) |
+
 ## 📦 Installation
 
 ### Go Installation
 
 ```bash
-go install github.com/batmanpriv/had@3.2.5
+go install github.com/batmanpriv/had@3.3.2
 ```
 
 ### From Source
@@ -111,7 +144,98 @@ go build -o had .
 
 ## 🚀 Quick Start
 
-### MITM Capture Proxy (NEW)
+### 📺 HLS/M3U8 Streaming Download (NEW)
+
+Download HTTP Live Streams directly:
+
+```bash
+# Download HLS stream with FFmpeg (recommended)
+./had -hls https://example.com/stream.m3u8 -o ./videos
+
+# Download HLS stream (auto-detects FFmpeg, falls back to pure-Go)
+./had -hls https://example.com/playlist.m3u8 -t 8
+
+# Download HLS from a live stream
+./had -hls "https://example.com/live/index.m3u8" -o ./recordings
+```
+
+### 📋 Priority Queue System (NEW)
+
+Manage downloads with priority-based queues:
+
+```bash
+# Download from queue file (higher priority = higher number)
+./had -queue queue.txt
+
+# Queue file format:
+# https://example.com/important.zip 100
+# https://example.com/normal.zip 50
+# https://example.com/low.zip 10
+
+# Add priority to single download
+./had -priority 100 https://example.com/urgent-file.zip
+```
+
+### ⏰ Bandwidth Scheduling (NEW)
+
+Schedule downloads during specific time windows:
+
+```bash
+# Download only between 02:00 and 06:00
+./had -schedule-from 02:00 -schedule-to 06:00 https://example.com/large-file.zip
+
+# Combined with speed limit during schedule
+./had -schedule-from 23:00 -schedule-to 07:00 -max-speed 1048576 https://example.com/file.zip
+```
+
+### 📢 Notifications (NEW)
+
+Get notified when downloads complete:
+
+```bash
+# Telegram notification
+./had -notify-telegram 123456789 -notify-telegram-bot "your_bot_token" https://example.com/file.zip
+
+# Discord webhook
+./had -notify-discord "https://discord.com/api/webhooks/..." https://example.com/file.zip
+
+# Desktop notification (Linux/macOS/Windows)
+./had -notify-desktop https://example.com/file.zip
+
+# Multiple notifications
+./had -notify-telegram ... -notify-discord ... -notify-desktop https://example.com/file.zip
+```
+
+### 🗜️ Post-Processing (NEW)
+
+Automatically process downloads after completion:
+
+```bash
+# Auto-extract archives after download
+./had -post-extract https://example.com/archive.zip
+
+# Move to specific directory after download
+./had -post-move /completed https://example.com/file.zip
+
+# Rename using pattern ({name}, {time} placeholders)
+./had -post-rename "{name}_{time}.zip" https://example.com/file.zip
+
+# Chain post-processing
+./had -post-extract -post-move /processed -post-rename "dl_{time}" https://example.com/archive.zip
+```
+
+### 🪞 Smart Mirror Selection (NEW)
+
+Automatically select the fastest mirror:
+
+```bash
+# Auto-select fastest mirror
+./had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" https://primary.com/file.zip
+
+# Will probe all mirrors and use the one with lowest latency
+```
+
+### MITM Capture Proxy
 
 Capture download links while browsing:
 
@@ -128,11 +252,30 @@ Capture download links while browsing:
 # Filter by domain and confidence
 ./had -capture-proxy :8085 -filter-domain example.com -capture-confidence 50
 
+# Enable body scanning (finds hidden links)
+./had -capture-proxy :8085 -capture-body -verbose
+
 # Install certificate only
 ./had -install-cert
 ```
 
-### Download from Captured JSON (NEW)
+### Browser Extension (NEW)
+
+HAD includes a redesigned browser extension for easier proxy management and cookie editing.
+
+#### Features
+- 🍪 **Cookie Manager** - View, edit, delete cookies for the current site
+- 📋 **Export/Import** - Export cookies in Header, JSON, or Netscape format
+- ⚡ **Quick Presets** - One-click proxy presets (HAD, HTTP, SOCKS5, TOR)
+- 🏃 **Auto-Restore** - Proxy automatically reconnects on browser start
+- 🔍 **Search & Filter** - Find cookies by name or value
+
+#### Installation
+1. Open `chrome://extensions` (Chromium) or `about:debugging` (Firefox)
+2. Enable Developer Mode
+3. Load unpacked from `./extensions-had/`
+
+### Download from Captured JSON
 
 After capturing links, download everything with one command:
 
@@ -167,6 +310,9 @@ After capturing links, download everything with one command:
 
 # Download with checksum verification
 ./had -checksum-sha256 abc123... https://example.com/file.zip
+
+# Download with custom headers
+./had -H "Authorization: Bearer token123" https://example.com/file.zip
 ```
 
 ### Website Backup
@@ -219,9 +365,6 @@ After capturing links, download everything with one command:
 # Start RPC server on custom address
 ./had -rpc -rpc-addr 0.0.0.0:6800
 
-# Enable WebSocket RPC (experimental)
-./had -rpc -rpc-websocket -rpc-addr :6800
-
 # RPC with downloads directory
 ./had -rpc -rpc-addr localhost:6800 -o /downloads
 ```
@@ -262,6 +405,9 @@ curl http://localhost:6800/api/status
 
 # Get all files
 curl http://localhost:6800/api/files
+
+# Get active tasks
+curl http://localhost:6800/api/tasks
 
 # Pause all downloads
 curl http://localhost:6800/api/pause
@@ -312,6 +458,9 @@ curl http://localhost:6800/api/version
 
 # SFTP with encrypted SSH key
 ./had -protocol sftp -ssh-key ~/.ssh/id_rsa -ssh-key-pass mypassphrase sftp://example.com/file.zip
+
+# FTP multi-part download (auto-detects file size)
+./had -protocol ftp -ftp-multipart -ftp-parts 8 ftp://example.com/large-file.zip
 ```
 
 ### 🕷️ Web Scraping
@@ -389,7 +538,7 @@ curl http://localhost:6800/api/version
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `-t` | CPU cores | Number of parallel download threads per file |
+| `-t` | CPU cores | Number of parallel download threads per file (auto-adjusts for small files) |
 | `-o` | `.` | Destination directory for downloads |
 | `-u` | `2` | Maximum simultaneous file downloads |
 | `-r` | `5` | Retries per segment |
@@ -398,7 +547,52 @@ curl http://localhost:6800/api/version
 | `-save-session` | `true` | Save session to JSON if interrupted |
 | `-f` | `""` | File containing download URLs (one per line) |
 
-### Capture Proxy Options (NEW in v3.2.5)
+### HLS/Streaming Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-hls` | `""` | HLS/M3U8 stream URL to download |
+| FFmpeg | Auto-detected | Uses FFmpeg if available, falls back to pure-Go |
+
+### Queue Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-queue` | `""` | Queue file with URLs and priorities (format: url priority) |
+| `-priority` | `0` | Download priority for this job (higher = first) |
+
+### Bandwidth Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-schedule-from` | `""` | Download window start (HH:MM) |
+| `-schedule-to` | `""` | Download window end (HH:MM) |
+
+### Notification Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-notify-telegram` | `""` | Telegram chat ID for notifications |
+| `-notify-telegram-bot` | `""` | Telegram bot token |
+| `-notify-discord` | `""` | Discord webhook URL |
+| `-notify-desktop` | `false` | Enable desktop notifications |
+
+### Post-Processing Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-post-extract` | `false` | Auto-extract archive after download (zip, tar, gz, rar, 7z) |
+| `-post-move` | `""` | Move file to this directory after download |
+| `-post-rename` | `""` | Rename pattern after download ({name}, {time} placeholders) |
+
+### Mirror Options (NEW)
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-mirrors` | `""` | Comma-separated mirror URLs |
+| `-auto-mirror` | `false` | Auto-select fastest mirror via latency probing |
+
+### Capture Proxy Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -418,7 +612,7 @@ curl http://localhost:6800/api/version
 | `-capture-body` | `false` | Capture request/response bodies |
 | `-install-cert` | `true` | Auto-install CA certificate |
 
-### Download from JSON Options (NEW in v3.2.5)
+### Download from JSON Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -445,7 +639,7 @@ curl http://localhost:6800/api/version
 | Option | Default | Description |
 |--------|---------|-------------|
 | `-max-speed` | `0` | Maximum download speed in bytes/second (0 = unlimited) |
-| `-disk-cache` | `16MB` | Disk cache size in bytes |
+| `-disk-cache` | `32MB` | Disk cache size in bytes (write buffer) |
 
 ### Integrity Check Options
 
@@ -490,6 +684,7 @@ curl http://localhost:6800/api/version
 | `-max-asset-size` | `50` | Maximum asset size in MB |
 | `-crawl-iframes` | `true` | Download iframe content |
 | `-crawl-hash-routes` | `true` | Handle hash-based routing for SPAs |
+| `-follow-meta-refresh` | `true` | Follow meta-refresh redirects |
 
 ### Metalink Options
 
@@ -503,7 +698,6 @@ curl http://localhost:6800/api/version
 |--------|---------|-------------|
 | `-rpc` | `false` | Enable JSON-RPC interface |
 | `-rpc-addr` | `localhost:6800` | RPC server address |
-| `-rpc-websocket` | `false` | Enable WebSocket RPC (experimental) |
 
 ### Parameterized URL Options
 
@@ -541,27 +735,48 @@ https://example.com/document.pdf
 sftp://sftp.example.com/backup.tar.gz
 ```
 
+### Queue File (queue.txt) (NEW)
+
+```text
+# Format: URL priority (higher = processed first)
+https://example.com/urgent.zip 100
+https://example.com/important.zip 75
+https://example.com/normal.zip 50
+https://example.com/low.zip 10
+# Comments are supported
+```
+
 ### Captured Links JSON (captured_links.json)
 
 ```json
 [
   {
-    "URL": "https://example.com/video.mp4",
-    "FileType": "video",
-    "Extension": ".mp4",
-    "Size": 104857600,
-    "Title": "sample video",
-    "Confidence": 85,
-    "Timestamp": "2024-01-15T10:30:00Z"
+    "url": "https://example.com/video.mp4",
+    "file_type": "video",
+    "extension": ".mp4",
+    "size": 104857600,
+    "title": "sample video",
+    "source_url": "https://example.com/",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "confidence": 85,
+    "method": "GET",
+    "status_code": 200,
+    "content_type": "video/mp4",
+    "downloaded": false
   },
   {
-    "URL": "https://example.com/music.mp3",
-    "FileType": "music",
-    "Extension": ".mp3",
-    "Size": 5242880,
-    "Title": "sample song",
-    "Confidence": 90,
-    "Timestamp": "2024-01-15T10:31:00Z"
+    "url": "https://example.com/music.mp3",
+    "file_type": "music",
+    "extension": ".mp3",
+    "size": 5242880,
+    "title": "sample song",
+    "source_url": "https://example.com/",
+    "timestamp": "2024-01-15T10:31:00Z",
+    "confidence": 90,
+    "method": "GET",
+    "status_code": 200,
+    "content_type": "audio/mpeg",
+    "downloaded": false
   }
 ]
 ```
@@ -598,12 +813,39 @@ password user@example.com
 .example.com	TRUE	/	TRUE	1735689600	SECURE	token789
 ```
 
-## 🎯 Workflow Example
+## 🎯 Workflow Examples
+
+### Complete Download Automation (NEW)
+
+```bash
+# Full automated workflow with scheduling, notifications, and post-processing
+./had \
+  -schedule-from 02:00 \
+  -schedule-to 06:00 \
+  -max-speed 5242880 \
+  -post-extract \
+  -post-move /processed \
+  -notify-telegram 123456789 \
+  -notify-telegram-bot "your_bot_token" \
+  -notify-desktop \
+  -queue queue.txt
+```
+
+### HLS Streaming with Notifications (NEW)
+
+```bash
+# Download HLS stream and get notified
+./had -hls https://example.com/live.m3u8 -o ./videos \
+  -notify-telegram 123456789 -notify-telegram-bot "token" \
+  -post-move /completed
+```
+
+### Capture Proxy with Auto-Download
 
 **Step 1: Start the capture proxy**
 
 ```bash
-./had -capture-proxy :8085 -capture-types video -capture-body -verbose
+./had -capture-proxy :8085 -capture-types video -capture-body -verbose -capture-auto -capture-output ./captured
 ```
 
 **Step 2: Configure your browser**
@@ -619,6 +861,31 @@ The proxy captures all video links automatically and saves them to `captured_lin
 ```bash
 ./had -download-json captured_links.json -o ./videos -u 5 -t 8
 ```
+
+### Browser Extension - Quick Proxy (NEW)
+
+1. Click the HAD extension icon in your browser toolbar
+2. Click one of the preset buttons (HAD:8085, HTTP:8080, SOCKS5:1080, TOR:9050)
+3. Click **"ACTIVATE"** to enable proxy
+4. The status bar shows "ACTIVE" with uptime
+
+### Browser Extension - Cookie Management (NEW)
+
+1. Navigate to any website
+2. Click the HAD extension icon
+3. Switch to the **"COOKIES"** tab
+4. View all cookies for the current site
+5. Click on a cookie value to expand and see full value
+6. Use **EDIT**, **DELETE**, or **COPY** buttons
+7. Export cookies in Header, JSON, or Netscape format
+8. Import cookies from JSON, Netscape, or header strings
+
+### Browser Extension - Bypass List (NEW)
+
+1. Click the HAD extension icon
+2. Switch to the **"CONFIG"** tab
+3. Edit the bypass list (hosts that bypass the proxy)
+4. Click **"SAVE BYPASS LIST"**
 
 ## 🎨 Output Preview
 
@@ -641,7 +908,7 @@ Remaining: 45s  Left: 0.6GB
 
 ```text
 ╔════════════════════════════════════════════════════════════════╗
-║              CAPTURE PROXY - ADVANCED MODE v3.2.5             ║
+║              CAPTURE PROXY - ADVANCED MODE v3.3.2             ║
 ╚════════════════════════════════════════════════════════════════╝
 
 ✓ Proxy: :8085
@@ -694,27 +961,42 @@ Configure FoxyProxy:
 
 ```text
 [INFO] Starting JSON-RPC server on localhost:6800
-[INFO] WebSocket RPC: disabled
 [INFO] Available methods:
   - had.addUri
+  - had.addUrls
   - had.remove
+  - had.removeAll
   - had.tellStatus
   - had.tellAllStatus
   - had.getGlobalStat
+  - had.getFiles
   - had.pause
   - had.pauseAll
   - had.resume
   - had.resumeAll
   - had.setSpeedLimit
+  - had.getSpeedLimit
+  - had.setMaxParallel
+  - had.setThreads
+  - had.scrape
   - had.shutdown
+  - had.version
   - system.listMethods
+```
+
+### HLS Download Progress (NEW)
+
+```text
+📺 HLS via ffmpeg: https://example.com/stream.m3u8
+   Downloading HLS stream...
+   Processing segments: 45/67
 ```
 
 ## 🔧 Manual Extension Installation & Certificate Setup
 
 ### Extension for Capturing (extension-had)
 
-HAD includes a browser extension for easier capture proxy integration. The extension files are located in the `extensions-had/` folder.
+HAD includes a redesigned browser extension for easier capture proxy integration. The extension files are located in the `extensions-had/` folder.
 
 #### Manual Installation
 
@@ -723,25 +1005,41 @@ HAD includes a browser extension for easier capture proxy integration. The exten
 1. Open your browser and navigate to `chrome://extensions`
 2. Enable **"Developer mode"** (toggle in top-right corner)
 3. Click **"Load unpacked"** button
-4. Navigate to HAD extension folder: ````./extensions-had```` (or full path like ````/path/to/had/extensions-had````)
+4. Navigate to HAD extension folder: `./extensions-had`
 5. Select the folder and click **"Select Folder"**
-6. The HAD Capture extension should now appear in your extensions list
+6. The HAD extension should now appear in your extensions list
 
 **For Firefox:**
 
 1. Open Firefox and navigate to `about:debugging`
 2. Click on **"This Firefox"** in left sidebar
 3. Click **"Load Temporary Add-on"** button
-4. Navigate to ````./extensions-had/```` folder
-5. Select the ````manifest.json```` file
+4. Navigate to `./extensions-had/` folder
+5. Select the `manifest.json` file
 6. **Note:** Firefox loads extensions temporarily. For permanent installation, you'll need to package and sign the extension
 
-#### Extension Configuration
+#### Extension Features (NEW)
 
-1. Click the HAD extension icon in your browser toolbar
-2. Set the proxy address (default: ````localhost:8085````)
-3. Enable/disable capture modes as needed
-4. The extension automatically redirects traffic through HAD capture proxy when active
+1. **Proxy Management Tab**
+   - Quick presets for common proxy configurations
+   - Host, Port, and Scheme configuration
+   - Test connection button
+   - Activate/Deactivate controls
+   - Status display with uptime
+
+2. **Cookie Management Tab**
+   - View all cookies for the current site
+   - Edit cookie values inline
+   - Delete individual cookies
+   - Copy cookies to clipboard
+   - Export in Header, JSON, or Netscape format
+   - Import from JSON, Netscape, or header strings
+   - Search and filter cookies
+   - Clear all cookies for the site
+
+3. **Configuration Tab**
+   - Auto-restore proxy on browser startup
+   - Bypass list management
 
 ### CA Certificate Installation
 
@@ -773,7 +1071,7 @@ When automatic installation fails, follow these steps:
 **Step 2: Install certificate on your OS**
 
 **Windows:**
-1. Double-click ````had.crt```` file
+1. Double-click `had.crt` file
 2. Click **"Install Certificate"**
 3. Select **"Local Machine"** (requires admin privileges)
 4. Choose **"Place all certificates in the following store"**
@@ -835,6 +1133,7 @@ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keyc
 
 - Go 1.26 or higher
 - GCC (for Windows builds)
+- FFmpeg (optional, for HLS downloads - fallback to pure-Go)
 
 ### Build Commands
 
@@ -879,6 +1178,10 @@ GOOS=darwin GOARCH=arm64 go build -o had-darwin-arm64 main.go
 | **Q: Metalink not working?** | • Verify file is valid XML/RFC 5854 compliant<br>• Check if URLs in metalink are accessible<br>• Try downloading individual URLs directly<br>• Validate checksums if provided |
 | **Q: RPC server not responding?** | • Check if port is open: `netstat -an | grep 6800`<br>• Verify firewall allows the port<br>• Use `localhost` instead of `0.0.0.0` for testing<br>• Check logs for binding errors |
 | **Q: Daemon mode not starting?** | • Verify PID file directory is writable<br>• Check if another instance is running<br>• Review system logs for errors<br>• Try running without daemon mode first |
+| **Q: HLS download not working?** | • Ensure FFmpeg is installed for best results<br>• Check if URL is accessible<br>• Try with `-v` flag for debug output<br>• Verify M3U8 playlist is valid |
+| **Q: Queue not processing?** | • Check queue file format (URL priority)<br>• Ensure priority is a valid number<br>• Verify file path is correct<br>• Check for duplicate entries |
+| **Q: Notifications not working?** | • Verify Telegram bot token and chat ID<br>• Check Discord webhook URL format<br>• Ensure network connectivity<br>• Try with desktop notifications enabled |
+| **Q: Extension not showing cookies?** | • Refresh the page<br>• Click "REFRESH" button in extension<br>• Ensure you're on the correct site<br>• Check if cookies exist in browser storage |
 
 ## 📊 Performance Tips
 
@@ -894,6 +1197,9 @@ GOOS=darwin GOARCH=arm64 go build -o had-darwin-arm64 main.go
 10. **For many concurrent downloads:** Use `-u` with 5-10 to avoid connection limits
 11. **For SFTP transfers:** Use SSH keys instead of passwords for better performance
 12. **For Metalink downloads:** Let had auto-select best mirrors
+13. **For HLS streams:** Ensure FFmpeg is installed for optimal performance
+14. **For scheduled downloads:** Use `-schedule-from` and `-schedule-to` to avoid peak hours
+15. **For post-processing:** Chain commands with `-post-extract` and `-post-move`
 
 ## 🔧 Advanced Usage
 
@@ -978,6 +1284,23 @@ cat urls.txt | xargs -n1 ./had
 
 # Pass cookies through proxy
 ./had -capture-proxy :8085 -capture-cookie "sessionid=abc123; user=test"
+```
+
+### Complete Automated Workflow (NEW)
+
+```bash
+# Download from queue with scheduling, notifications, and post-processing
+./had \
+  -queue queue.txt \
+  -schedule-from 00:00 \
+  -schedule-to 06:00 \
+  -max-speed 1048576 \
+  -post-extract \
+  -post-move /media/completed \
+  -post-rename "{name}_{time}" \
+  -notify-telegram 123456789 \
+  -notify-telegram-bot "your_bot_token" \
+  -notify-desktop
 ```
 
 ## 🔒 Security Note
