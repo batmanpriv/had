@@ -206,7 +206,7 @@
 ### با Go
 
 ```bash
-go install github.com/batmanpriv/had@v3.6.0
+go install github.com/batmanpriv/had@3.6.0
 ```
 
 ### از سورس
