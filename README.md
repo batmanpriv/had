@@ -260,7 +260,7 @@ HAD v3.6.0 brings a **complete Web UI**, smarter capture proxy, better HLS suppo
 ### Using Go
 
 ```bash
-go install github.com/batmanpriv/had@v3.6.0
+go install github.com/batmanpriv/had@3.6.0
 ```
 
 ### From Source
