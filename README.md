@@ -1956,197 +1956,159 @@ password user@example.com
 
 ### General Questions
 
-**Q: What is HAD?**  
-A: HAD (Hyper Advanced Downloader) is a powerful, multi‑threaded downloader that supports HTTP/HTTPS, FTP/FTPS, SFTP, Metalink, MITM capture proxy, proxy connections, smart resume capabilities, JSON‑RPC interface, complete website backup, HLS streaming support, queue management, and extensive post‑processing.
+| Question | Answer |
+|----------|--------|
+| **What is HAD?** | HAD (Hyper Advanced Downloader) is a powerful, multi‑threaded downloader that supports HTTP/HTTPS, FTP/FTPS, SFTP, Metalink, MITM capture proxy, proxy connections, smart resume capabilities, JSON‑RPC interface, complete website backup, HLS streaming support, queue management, and extensive post‑processing. It's designed for speed, reliability, and automation. |
+| **What platforms does HAD support?** | HAD supports **Windows** (7/10/11), **Linux** (all major distributions), **macOS** (10.15+), and **ARM64** (including Raspberry Pi, Apple Silicon, and other ARM‑based devices). |
+| **How do I install HAD?** | You have three options:<br>1. **Go install:** `go install github.com/batmanpriv/had@v3.6.0`<br>2. **From source:** `git clone` + `go build`<br>3. **Pre‑built binaries:** Download from the [Releases page](https://github.com/batmanpriv/had/releases) |
+| **How do I update HAD?** | • **Go install:** Run `go install github.com/batmanpriv/had@v3.6.0` again<br>• **From source:** `git pull` then rebuild<br>• **Binaries:** Download the latest release |
+| **Is HAD free?** | Yes! HAD is **open source** and released under the **MIT License**. You can use it for personal or commercial projects without any cost. |
+| **Where can I report bugs?** | Report bugs on the [GitHub Issues page](https://github.com/batmanpriv/had/issues). Please include your OS, HAD version, and the full command you used. |
+| **Can I contribute to HAD?** | Absolutely! Contributions are welcome. Fork the repository, make your changes, and submit a Pull Request. See the [Contributing](#-contributing) section for details. |
+| **Does HAD have a graphical interface?** | Yes! HAD includes a **Web UI** (introduced in v3.6.0) that provides a full dashboard for managing downloads, viewing stats, and controlling HAD from your browser. Run `./had -web-ui` to start it. |
+| **What's the difference between HAD and wget/curl?** | HAD is a **multi‑threaded downloader** with advanced features like resume, capture proxy, HLS streaming, priority queues, notifications, post‑processing, and a Web UI. wget and curl are single‑threaded and lack these advanced automation features. |
+| **Does HAD support batch processing?** | Yes! You can use `-f` to load URLs from a file, `-queue` for priority‑based processing, or `-parameterized-url` for generating sequential URLs. |
 
-**Q: What platforms does HAD support?**  
-A: HAD supports Windows, Linux, macOS, and ARM64 (including Raspberry Pi).
-
-**Q: How do I install HAD?**  
-A: You can install HAD using `go install github.com/batmanpriv/had@v3.6.0`, build from source, or download pre‑built binaries from the releases page.
-
-**Q: How do I update HAD?**  
-A: If installed via Go, run `go install github.com/batmanpriv/had@v3.6.0` again. If built from source, pull the latest changes and rebuild.
-
-**Q: Is HAD free?**  
-A: Yes, HAD is open source and free to use under the MIT license.
+---
 
 ### Download Questions
 
-**Q: How can I speed up downloads?**  
-A: Use the `-t` flag to increase threads (e.g., `-t 16`). For very large files, you can use up to 32 threads. Also, make sure the server supports range requests.
+| Question | Answer |
+|----------|--------|
+| **How can I speed up downloads?** | • Use `-t` to increase threads: `-t 16` or `-t 32` for very large files<br>• Ensure the server supports **range requests** (most modern servers do)<br>• Use `-u` to download multiple files simultaneously<br>• For FTP, enable `-ftp-multipart`<br>• Use `-auto-mirror` to select the fastest mirror |
+| **How do I resume an interrupted download?** | HAD automatically saves **session files** every 10 seconds. To resume:<br>1. Find the session file: `file.zip.json`<br>2. Run: `./had file.zip.json`<br>Alternatively, use the **Web UI Sessions tab** or the **RPC API** to resume. |
+| **Why is my download stuck or slow?** | Possible causes and solutions:<br>• **Server doesn't support ranges** → single‑thread only, can't speed up<br>• **Network congestion** → use `-schedule-from` to download during off‑peak hours<br>• **Proxy issues** → check proxy settings with `-proxy`<br>• **Timeout too low** → increase with `-timeout 60`<br>• **Speed limit set** → check `-max-speed`<br>• **Disk I/O bottleneck** → reduce `-disk-cache` or use a faster drive |
+| **Can I download multiple files at once?** | Yes! Use `-u` to set the number of concurrent downloads:<br>• `-u 5` downloads up to 5 files simultaneously<br>• Default is `2`<br>• For many small files, use `-u 20` for better throughput |
+| **How do I download from FTP?** | 1. Use `-protocol ftp`<br>2. Provide credentials: `-ftp-user` and `-ftp-pass`<br>3. Example: `./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`<br>4. For FTPS (FTP over TLS), use `-protocol ftps`<br>5. For faster FTP downloads, enable `-ftp-multipart` |
+| **How do I download from SFTP?** | 1. Use `-protocol sftp`<br>2. Authenticate with **password**: `-sftp-user` and `-sftp-pass`<br>3. Or authenticate with **SSH key**: `-ssh-key ~/.ssh/id_rsa`<br>4. For encrypted keys, add `-ssh-key-pass "passphrase"`<br>5. Example: `./had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip` |
+| **Can I set a speed limit?** | Yes! Use `-max-speed` with the speed in **bytes per second**:<br>• `-max-speed 1048576` → 1 MB/s<br>• `-max-speed 5242880` → 5 MB/s<br>• `-max-speed 0` → unlimited (default)<br>You can also combine this with `-schedule-from` and `-schedule-to` for time‑based limits. |
+| **How do I download from a list of URLs?** | 1. Create a text file (e.g., `urls.txt`) with one URL per line<br>2. Comments start with `#`<br>3. Run: `./had -f urls.txt`<br>4. You can combine this with `-u` for concurrent downloads |
+| **Can I filter by file extension?** | Yes! Use `-ex` with extensions separated by commas:<br>• `-ex .mp4,.mp3,.zip` → only download MP4, MP3, and ZIP files<br>• Works with `-scrape` and the Web UI Scrape feature |
+| **How do I download from a website (backup)?** | Use the **web downloader** sub‑command:<br>• `./had web -url https://example.com -mode full` → full site backup<br>• `./had web -url https://example.com/about -mode single` → single page<br>• See the [Website Backup](#website-backup-web-downloader) section for all options |
+| **Can I download password‑protected files?** | Yes! Use:<br>• **HTTP Basic Auth:** `-H "Authorization: Basic base64..."`<br>• **Cookies:** `-load-cookies cookies.txt` or `-c "session=abc"`<br>• **.netrc file:** `-netrc ~/.netrc`<br>• **FTP:** `-ftp-user` and `-ftp-pass`<br>• **SFTP:** `-sftp-user`/`-sftp-pass` or `-ssh-key` |
+| **What happens if I press Ctrl+C?** | HAD **automatically saves a session file** (`file.zip.json`) and exits gracefully. You can resume later with `./had file.zip.json`. |
+| **How do I verify download integrity?** | Use the integrity check flags:<br>• `-checksum-sha256 abc123...`<br>• `-checksum-md5 abc123...`<br>• `-checksum-sha1 abc123...`<br>• `-check-integrity` (auto‑detects from `.sha256` file)<br>You can also use the **Checksum Verifier** tool in the Web UI. |
+| **Can I download from a magnet link?** | Yes! HAD supports **magnet links** with web seeds. Use:<br>`./had -magnet "magnet:?xt=urn:btih:..."`<br>HAD will attempt to download from web seeds (`.ws` parameter) in the magnet link. |
+| **How do I download from WebDAV?** | Use the `-webdav` flag:<br>• `./had -webdav https://example.com/webdav/ -webdav-user user -webdav-pass pass`<br>• HAD will recursively list and download all files from the WebDAV server. |
+| **Can I download from Google Drive or other cloud services?** | Not directly. However, you can use the **capture proxy** to intercept download links from your browser while using Google Drive, or extract direct download URLs and pass them to HAD. |
 
-**Q: How do I resume an interrupted download?**  
-A: HAD automatically saves session files every 10 seconds. To resume, simply run `./had file.zip.json` or use the `-resume` flag in the web downloader.
-
-**Q: Why is my download stuck or slow?**  
-A: Try increasing the timeout with `-timeout 60`. If using a proxy, check your proxy settings. Also, some servers may not support range requests, which limits HAD to single‑thread downloads.
-
-**Q: Can I download multiple files at once?**  
-A: Yes, use the `-u` flag to set the number of concurrent downloads (e.g., `-u 5`).
-
-**Q: How do I download from FTP?**  
-A: Use `-protocol ftp` and provide credentials with `-ftp-user` and `-ftp-pass`. For example: `./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`.
-
-**Q: How do I download from SFTP?**  
-A: Use `-protocol sftp` and authenticate with either a password (`-sftp-user`, `-sftp-pass`) or an SSH key (`-ssh-key`).
-
-**Q: Can I set a speed limit?**  
-A: Yes, use `-max-speed` with the speed in bytes per second. For example, `-max-speed 1048576` limits to 1 MB/s.
-
-**Q: How do I download from a list of URLs?**  
-A: Create a text file with one URL per line and use `-f filename.txt`.
-
-**Q: Can I filter by file extension?**  
-A: Yes, use the `-ex` flag with extensions separated by commas (e.g., `-ex .mp4,.mp3,.zip`).
+---
 
 ### Capture Proxy Questions
 
-**Q: What is the capture proxy?**  
-A: The capture proxy is a MITM (Man‑in‑The‑Middle) proxy that intercepts HTTP/HTTPS traffic and automatically detects and saves download links (videos, music, images, etc.) as you browse.
+| Question | Answer |
+|----------|--------|
+| **What is the capture proxy?** | The capture proxy is a **MITM (Man‑in‑The‑Middle)** proxy that intercepts HTTP/HTTPS traffic and automatically detects and saves download links (videos, music, images, documents, archives, etc.) as you browse. It's useful for capturing media from streaming sites, video platforms, and download pages. |
+| **How do I start the capture proxy?** | 1. Run: `./had -capture-proxy :8085`<br>2. Configure your browser to use `localhost:8085` as a proxy<br>3. Browse normally – HAD will capture links automatically<br>4. Links are saved to `captured_links.txt` and `captured_links.json` |
+| **Why is the capture proxy not capturing anything?** | Check these common issues:<br>• **CA certificate not installed** → run `./had -install-cert`<br>• **Browser not configured** → set proxy to `localhost:8085`<br>• **HTTPS certificate warning** → accept the warning (it's HAD's certificate)<br>• **Confidence threshold too high** → lower with `-capture-confidence 30`<br>• **Domain filter too strict** → check `-filter-domain`<br>• **Body scanning disabled** → enable with `-capture-body` for hidden links |
+| **How do I install the CA certificate?** | 1. Automatic: `./had -install-cert`<br>2. Manual: Follow the instructions displayed in the terminal<br>3. The certificate file is saved as `had.crt` in the current directory<br>4. On Windows: Double‑click → Install Certificate → Trusted Root<br>5. On macOS: Double‑click → Add to Keychain → Always Trust<br>6. On Linux: `sudo cp had.crt /usr/local/share/ca-certificates/ && sudo update-ca-certificates` |
+| **Can I filter by domain?** | Yes! Use `-filter-domain example.com` to only capture links from that domain. This is useful for focusing on a specific site and ignoring other traffic. |
+| **How does confidence scoring work?** | Confidence scoring (0‑100%) is based on multiple **signals**:<br>• **File extension** (e.g., `.mp4` → +45 points)<br>• **Content‑Type** (e.g., `video/mp4` → +40 points)<br>• **URL patterns** (e.g., `/video/`, `/download/` → +10 points)<br>• **CDN hosts** (e.g., `cdn.` → +12 points)<br>• **Query parameters** (e.g., `?video=` → +8 points)<br>• **Headers** (e.g., `Range:` → +10 points)<br>• **Noise patterns** (e.g., `.css`, `.js` → -50 points)<br>Higher confidence means the proxy is more certain the link is a downloadable file. |
+| **Can I auto‑download captured files?** | Yes! Use `-capture-auto` to automatically download captured files. Optionally specify:<br>• `-capture-output ./downloads` → save to a specific directory<br>• HAD uses smart threading based on file size (1‑8 threads) |
+| **What file types does the capture proxy detect?** | By default: **video** (`.mp4`, `.mkv`, `.avi`, `.mov`, `.webm`, `.m3u8`, etc.), **music** (`.mp3`, `.flac`, `.wav`, `.aac`, `.ogg`, etc.), **image** (`.jpg`, `.png`, `.gif`, `.webp`, `.svg`, etc.), **document** (`.pdf`, `.doc`, `.xls`, `.ppt`, `.txt`, etc.), and **archive** (`.zip`, `.rar`, `.7z`, `.tar`, `.gz`, etc.).<br>Customize with `-capture-types` and `-capture-exts`. |
+| **Can I capture from specific sites only?** | Yes! Use `-filter-domain example.com` to only capture links from that domain. You can also use `-filter-pattern` with a regex pattern for more advanced filtering. |
+| **How does deduplication work?** | HAD uses a **10‑minute dedupe window** with URL normalization:<br>• Removes URL fragments (`#`)<br>• Removes noise parameters (`_t`, `_ts`, `timestamp`, `nocache`, `cb`, `random`, `rand`, `t`)<br>• Normalizes and deduplicates URLs within the window<br>• Prevents capturing the same link multiple times |
+| **Can I add custom headers to the capture proxy?** | Yes! Use `-capture-header "Header: Value"` (can be repeated). This is useful for:<br>• Authentication tokens<br>• API keys<br>• Custom user‑agents<br>• Referer headers |
+| **Can I pass cookies through the proxy?** | Yes! Use `-capture-cookie "sessionid=abc123; user=test"` to pass cookies to all requests. This is useful for authenticated sites. |
+| **Can I capture from mobile devices?** | Yes! Start the capture proxy on your machine and configure your mobile device's proxy settings to point to your machine's IP and port (e.g., `192.168.1.100:8085`). |
+| **Is the capture proxy slow?** | The capture proxy may add some latency due to HTTPS interception. To speed it up:<br>• Disable body scanning: `-capture-body false`<br>• Increase confidence threshold: `-capture-confidence 50`<br>• Use a faster machine<br>• Reduce the capture scope with domain filters |
 
-**Q: How do I start the capture proxy?**  
-A: Run `./had -capture-proxy :8085`. Then configure your browser to use `localhost:8085` as a proxy.
-
-**Q: Why is the capture proxy not capturing anything?**  
-A: Make sure the CA certificate is installed (`./had -install-cert`). Also, check that your browser is properly configured to use the proxy and that you're visiting HTTPS sites (you may need to accept certificate warnings).
-
-**Q: How do I install the CA certificate?**  
-A: Run `./had -install-cert`. If auto‑installation fails, follow the manual instructions displayed in the terminal.
-
-**Q: Can I filter by domain?**  
-A: Yes, use `-filter-domain example.com` to only capture links from that domain.
-
-**Q: How does confidence scoring work?**  
-A: Confidence scoring (0‑100%) is based on multiple signals: file extension, content‑type, URL patterns, headers, referer, and more. Higher confidence means the proxy is more certain the link is a downloadable file.
-
-**Q: Can I auto‑download captured files?**  
-A: Yes, use `-capture-auto` and optionally `-capture-output` to specify the directory.
-
-**Q: What file types does the capture proxy detect?**  
-A: By default, it detects video, music, image, document, and archive files. You can customize this with `-capture-types` and `-capture-exts`.
+---
 
 ### Web UI Questions
 
-**Q: How do I start the Web UI?**  
-A: Run `./had -web-ui` or `./had webui`. Then open `http://localhost:8090` in your browser.
+| Question | Answer |
+|----------|--------|
+| **How do I start the Web UI?** | Run `./had -web-ui` or `./had webui`. Then open `http://localhost:8090` in your browser. The Web UI starts the RPC server automatically. |
+| **Can I change the Web UI port?** | Yes! Set the `HAD_WEB_ADDR` environment variable:<br>`HAD_WEB_ADDR=:9000 ./had -web-ui`<br>This binds the Web UI to port 9000. |
+| **Can I secure the Web UI?** | Yes! Set the `HAD_TOKEN` environment variable to enable **bearer token authentication**:<br>`HAD_TOKEN=secret123 ./had -web-ui`<br>Then include the token in requests: `Authorization: Bearer secret123` or `?token=secret123`. |
+| **Why can't I connect to the Web UI?** | Common issues:<br>• HAD not running with `-web-ui`<br>• Port `8090` is already in use → change with `HAD_WEB_ADDR`<br>• Firewall blocking the port<br>• RPC server not running (it starts automatically with Web UI)<br>• Check the console output for error messages |
+| **Does the Web UI work on mobile?** | Yes! The Web UI is **fully responsive** and works on phones, tablets, and desktops. All features are accessible on mobile devices. |
+| **Can I use the Web UI remotely?** | Yes! Start HAD with `-rpc-addr 0.0.0.0:6800` and access the Web UI from another device. Make sure to:<br>1. Secure it with `HAD_TOKEN`<br>2. Open the firewall port<br>3. Use `http://your-ip:8090` to access it |
+| **How do I refresh the Web UI?** | The Web UI **auto‑refreshes** every 2 seconds by default. You can change the interval in the **Settings** tab (1s, 2s, 5s, or off). |
+| **What can I do in the Web UI?** | • **Dashboard** – view all downloads with real‑time progress<br>• **Add URL** – paste URLs, set threads, speed limit, output directory<br>• **Scrape** – enter a URL and auto‑download all detected files<br>• **Sessions** – view and resume saved sessions<br>• **History** – see completed downloads with size, speed, duration<br>• **Console** – live log streaming from HAD<br>• **Stats** – speed chart, total downloaded, ETA, uptime<br>• **Tools** – metadata inspector, mirror tester, checksum verifier, bandwidth scheduler<br>• **Settings** – configure speed limit, parallel downloads, threads, output dir, RPC address, auth token |
+| **Can I add downloads from the Web UI?** | Yes! Go to the **Add URL** tab, paste one or multiple URLs (one per line), configure options, and click **Start Download**. You can also drag and drop URLs into the drop zone. |
+| **Can I pause/resume downloads from the Web UI?** | Yes! Each file card has **Pause**, **Resume**, **Retry**, and **Remove** buttons. You can also use the **Pause All** and **Resume All** buttons in the dashboard header. |
+| **How do I use the Scrape feature in the Web UI?** | 1. Go to the **Scrape** tab<br>2. Enter a URL (e.g., a download page or media site)<br>3. Click **Start Scrape**<br>4. HAD will scan the page and auto‑download all detected files<br>5. The scrape log shows progress and detected links |
+| **How do I use the Tools in the Web UI?** | • **Metadata Inspector** – enter a URL to see file info, size, content type, checksum<br>• **Mirror Speed Test** – enter multiple mirror URLs to test and rank them<br>• **Checksum Verifier** – enter a filename to compute MD5/SHA‑1/SHA‑256<br>• **Bandwidth Scheduler** – set day/night speed limits |
 
-**Q: Can I change the Web UI port?**  
-A: Yes, set the `HAD_WEB_ADDR` environment variable (e.g., `HAD_WEB_ADDR=:9000 ./had -web-ui`).
-
-**Q: Can I secure the Web UI?**  
-A: Yes, set the `HAD_TOKEN` environment variable to enable bearer token authentication.
-
-**Q: Why can't I connect to the Web UI?**  
-A: Make sure HAD is running with `-web-ui`. Check if the port is free and not blocked by a firewall. Also, ensure the RPC server is running (it starts automatically with the Web UI).
-
-**Q: Does the Web UI work on mobile?**  
-A: Yes, the Web UI is fully responsive and works on phones and tablets.
-
-**Q: Can I use the Web UI remotely?**  
-A: Yes, start HAD with `-rpc-addr 0.0.0.0:6800` and access the Web UI from another device. Make sure to secure it with a token.
-
-**Q: How do I refresh the Web UI?**  
-A: The Web UI auto‑refreshes every 2 seconds by default. You can change the interval in the Settings tab.
+---
 
 ### Browser Extension Questions
 
-**Q: How do I install the browser extension?**  
-A: Load the `extensions-had` folder as an unpacked extension in Chrome/Edge (Developer Mode) or Firefox (about:debugging).
+| Question | Answer |
+|----------|--------|
+| **How do I install the browser extension?** | 1. Open `chrome://extensions` (Chrome/Edge) or `about:debugging` (Firefox)<br>2. Enable **Developer Mode**<br>3. Click **Load unpacked**<br>4. Select the `extensions-had` folder<br>5. The extension appears in your toolbar |
+| **What does the extension do?** | The extension provides two main features:<br>1. **Proxy Manager** – quick presets, activation, bypass list<br>2. **Cookie Editor** – view, edit, delete, export, import cookies for the current site |
+| **How do I use the proxy presets?** | 1. Click the extension icon<br>2. Click a preset button (HAD:8085, HTTP:8080, SOCKS5:1080, TOR:9050)<br>3. Click **ACTIVATE** to enable the proxy<br>4. The status bar shows "ACTIVE" with uptime<br>5. Click **DEACTIVATE** to disable |
+| **How do I view cookies?** | 1. Navigate to any website<br>2. Click the extension icon<br>3. Switch to the **COOKIES** tab<br>4. All cookies for the current site are displayed with name, value, flags, and metadata |
+| **Can I edit cookies?** | Yes! Click the **EDIT** button next to any cookie, modify the value in the input field, and click **SAVE**. The cookie is updated immediately. |
+| **How do I export cookies?** | 1. Go to the **COOKIES** tab<br>2. Select a format: **Header String**, **JSON**, or **Netscape**<br>3. Click **EXPORT**<br>4. The file is downloaded to your computer |
+| **How do I import cookies?** | 1. Go to the **COOKIES** tab<br>2. Paste JSON, Netscape, or header string data into the import textarea<br>3. Click **IMPORT & APPLY**<br>4. Cookies are applied to the current site |
+| **What is the bypass list?** | The bypass list specifies hosts that **bypass the proxy**. Defaults are `localhost`, `127.0.0.1`, and `::1`. Add additional hosts (one per line) to exclude them from proxy routing. |
+| **How do I use the bypass list?** | 1. Click the extension icon<br>2. Switch to the **CONFIG** tab<br>3. Edit the bypass list (one host per line)<br>4. Click **SAVE BYPASS LIST**<br>5. The proxy is re‑applied with the updated bypass list |
+| **What is auto‑restore?** | Auto‑restore automatically re‑enables the proxy when the browser starts. This is useful if you always use a proxy. Enable it in the **CONFIG** tab. |
+| **Can I test the proxy connection?** | Yes! In the **PROXY** tab, enter host and port, then click **TEST**. The extension will attempt to connect and show the latency or an error message. |
+| **Does the extension work on Firefox?** | Yes, but Firefox loads extensions **temporarily**. For permanent installation, you need to package and sign the extension. Alternatively, use the **Developer Edition** of Firefox with permanent unsigned extensions. |
+| **Does the extension work on mobile browsers?** | The extension is designed for **desktop browsers** (Chrome, Edge, Firefox). Mobile browsers (Android/iOS) generally don't support extensions or have limited support. |
 
-**Q: What does the extension do?**  
-A: The extension provides a proxy manager (quick presets, activation, bypass list) and a cookie editor (view, edit, delete, export, import cookies for the current site).
-
-**Q: How do I use the proxy presets?**  
-A: Click the extension icon, then click one of the preset buttons (HAD:8085, HTTP:8080, SOCKS5:1080, TOR:9050). Then click "ACTIVATE".
-
-**Q: How do I view cookies?**  
-A: Navigate to any website, click the extension icon, and switch to the "COOKIES" tab. You'll see all cookies for the current site.
-
-**Q: Can I edit cookies?**  
-A: Yes, click the "EDIT" button next to any cookie, modify the value, and click "SAVE".
-
-**Q: How do I export cookies?**  
-A: In the "COOKIES" tab, select a format (Header, JSON, or Netscape) and click "EXPORT".
-
-**Q: How do I import cookies?**  
-A: Paste JSON, Netscape, or header string data into the import textarea and click "IMPORT & APPLY".
+---
 
 ### HLS / Streaming Questions
 
-**Q: What is HLS?**  
-A: HLS (HTTP Live Streaming) is a streaming protocol used by many video platforms. HAD can download HLS streams and save them as MP4 or TS files.
+| Question | Answer |
+|----------|--------|
+| **What is HLS?** | HLS (HTTP Live Streaming) is a streaming protocol developed by Apple. It's used by many video platforms (YouTube Live, Twitch, Hulu, Netflix, etc.) to deliver video content. HLS uses **M3U8 playlists** that reference **TS segments**. |
+| **How do I download an HLS stream?** | Use `-hls` with the M3U8 playlist URL:<br>`./had -hls https://example.com/stream.m3u8`<br>HAD downloads all segments and combines them into a single file. |
+| **Do I need FFmpeg?** | No, HAD has a **pure‑Go fallback**. However:<br>• **With FFmpeg** → faster, produces MP4 output<br>• **Without FFmpeg** → slower, produces TS output<br>HAD auto‑detects FFmpeg and falls back gracefully. |
+| **Can I download live streams?** | Yes! HAD supports live HLS streams. The download continues as new segments become available. The download will keep running until you stop it (Ctrl+C) or the stream ends. |
+| **Why is my HLS download failing?** | Common issues:<br>• **M3U8 URL inaccessible** → check if it works in a browser<br>• **Authentication required** → use cookies or headers<br>• **Invalid playlist** → the M3U8 might be empty or malformed<br>• **Rate limiting** → the server may be blocking multiple requests<br>• **Network issues** → check your connection<br>Use `-v` for debug output to see what's happening. |
+| **How do I specify the output format?** | • **With FFmpeg** → output is automatically MP4<br>• **Without FFmpeg** → output is TS<br>You can change the extension manually after download, or use `-post-rename` to rename it. |
+| **Can I specify the output file name?** | Use `-o` with a filename (not just a directory):<br>`./had -hls https://example.com/stream.m3u8 -o ./videos/my_video.mp4`<br>If you specify a directory, HAD uses the filename from the URL. |
+| **Can I resume an HLS download?** | No, HLS downloads are not resumable because segments are downloaded once and combined. However, if a segment fails, HAD retries it (up to `-r` times). |
+| **Does HAD support DASH (MPD) streaming?** | Not yet. HAD currently supports only **HLS (M3U8)**. DASH support is planned for a future release. |
+| **Can I download DRM‑protected HLS streams?** | No, HAD cannot decrypt DRM‑protected streams (e.g., Widevine, FairPlay). It only works with unencrypted or AES‑128 encrypted streams (if the key is available in the M3U8). |
+| **What's the difference between VOD and live HLS?** | • **VOD (Video on Demand)** – a complete playlist with all segments, downloads quickly<br>• **Live** – the playlist updates continuously, segments become available over time<br>HAD handles both, but live streams require patience as segments are generated in real‑time. |
 
-**Q: How do I download an HLS stream?**  
-A: Use `-hls` with the M3U8 playlist URL: `./had -hls https://example.com/stream.m3u8`.
-
-**Q: Do I need FFmpeg?**  
-A: No, HAD has a pure‑Go fallback. However, FFmpeg provides better performance and produces MP4 output instead of TS.
-
-**Q: Can I download live streams?**  
-A: Yes, HAD supports live HLS streams. The download continues as new segments become available.
-
-**Q: Why is my HLS download failing?**  
-A: Check if the M3U8 URL is accessible. Try with `-v` for debug output. Ensure the playlist is valid and contains segment URLs.
-
-**Q: How do I specify the output format?**  
-A: With FFmpeg, the output is automatically MP4. With pure‑Go, the output is TS. You can change the extension manually after download.
+---
 
 ### RPC & API Questions
 
-**Q: How do I start the RPC server?**  
-A: Use `-rpc`. By default, it listens on `localhost:6800`.
+| Question | Answer |
+|----------|--------|
+| **How do I start the RPC server?** | Use the `-rpc` flag:<br>`./had -rpc`<br>By default, it listens on `localhost:6800`. You can change the address with `-rpc-addr`. |
+| **What is the RPC protocol?** | HAD uses **JSON‑RPC 2.0** over HTTP. There are also **REST endpoints** for common operations at `/api/*`. |
+| **How do I add a download via RPC?** | Send a POST request to `/jsonrpc` with:<br>```json<br>{"method":"had.addUri","params":{"uris":["https://example.com/file.zip"]},"id":1}<br>```<br>Response contains a `gid` (download ID). |
+| **Can I pause downloads via RPC?** | Yes! Use `had.pauseAll` to pause all downloads, or `had.pause` with a specific `gid`.<br>```json<br>{"method":"had.pause","params":{"gid":"..."},"id":2}<br>``` |
+| **How do I get the status of a download?** | Use `had.tellStatus` with a `gid`, or `had.tellAllStatus` for all downloads. Example:<br>```json<br>{"method":"had.tellStatus","params":{"gid":"..."},"id":3}<br>``` |
+| **What methods are available?** | Send `{"method":"system.listMethods","id":1}` to get a list of all available RPC methods. Methods include:<br>• `had.addUri` – add a download<br>• `had.addUrls` – add multiple downloads<br>• `had.remove` – remove a download<br>• `had.removeAll` – remove all downloads<br>• `had.tellStatus` – get status of a download<br>• `had.tellAllStatus` – get status of all downloads<br>• `had.getGlobalStat` – get global statistics<br>• `had.getFiles` – get list of files<br>• `had.pause` – pause a download<br>• `had.pauseAll` – pause all downloads<br>• `had.resume` – resume a download<br>• `had.resumeAll` – resume all downloads<br>• `had.setSpeedLimit` – set speed limit<br>• `had.getSpeedLimit` – get speed limit<br>• `had.setMaxParallel` – set max parallel downloads<br>• `had.setThreads` – set threads per file<br>• `had.setOutDir` – set output directory<br>• `had.scrape` – scrape a URL<br>• `had.shutdown` – shutdown HAD<br>• `had.version` – get version info<br>• `had.getHistory` – get download history<br>• `had.clearHistory` – clear history<br>• `had.setBWSchedule` – set bandwidth schedule<br>• `had.getBWSchedule` – get bandwidth schedule<br>• `had.testMirrors` – test mirror URLs<br>• `had.fetchMeta` – fetch metadata<br>• `had.verifyChecksum` – verify checksum<br>• `had.listSessions` – list sessions<br>• `had.resumeSession` – resume a session<br>• `had.deleteSession` – delete a session<br>• `had.setMirrors` – set mirrors<br>• `had.getMirrors` – get mirrors<br>• `had.addWebDAV` – add WebDAV download<br>• `had.listWebDAV` – list WebDAV files<br>• `had.downloadWebDAVFile` – download WebDAV file<br>• `had.pauseFile` – pause a file by name<br>• `had.resumeFile` – resume a file by name<br>• `had.removeFile` – remove a file by name<br>• `had.pauseAllFiles` – pause all files<br>• `had.getPausedFiles` – get paused files |
+| **How do I use the REST API?** | The REST API is available at `/api/*`:<br>• `GET /api/status` – global status<br>• `GET /api/files` – list files<br>• `GET /api/tasks` – list tasks<br>• `GET /api/pause` – pause all<br>• `GET /api/resume` – resume all<br>• `GET /api/version` – version info |
+| **Can I use the RPC API from other programming languages?** | Yes! The JSON‑RPC API can be called from any language that can make HTTP requests. There are JSON‑RPC client libraries for Python, JavaScript, Java, C#, Ruby, PHP, and many others. |
+| **Can I use the Web UI without the RPC server?** | No, the Web UI communicates with HAD via the RPC server. The RPC server starts automatically when you run `./had -web-ui`. |
+| **How do I secure the RPC server?** | • Use a firewall to restrict access to trusted IPs<br>• Use the `HAD_TOKEN` environment variable for authentication<br>• Run HAD on a non‑standard port<br>• Use SSH tunneling for remote access |
 
-**Q: What is the RPC protocol?**  
-A: HAD uses JSON‑RPC 2.0 over HTTP. There are also REST endpoints for common operations.
-
-**Q: How do I add a download via RPC?**  
-A: Send a POST request to `/jsonrpc` with `{"method":"had.addUri","params":{"uris":["https://example.com/file.zip"]},"id":1}`.
-
-**Q: Can I pause downloads via RPC?**  
-A: Yes, use `had.pauseAll` or `had.pause` with a GID.
-
-**Q: How do I get the status of a download?**  
-A: Use `had.tellStatus` with the GID, or `had.tellAllStatus` for all downloads.
-
-**Q: What methods are available?**  
-A: Send `{"method":"system.listMethods","id":1}` to get a list of all methods.
+---
 
 ### Troubleshooting Questions
 
-**Q: HAD crashes on startup?**  
-A: Check if you have the required Go version (1.26+). Ensure all dependencies are installed. Try rebuilding from source.
-
-**Q: "permission denied" when saving files?**  
-A: Make sure you have write permissions to the output directory. Use `-o` to specify a writable directory.
-
-**Q: "connection refused" error?**  
-A: Check if the server is reachable. If using a proxy, verify the proxy address and port. Increase the timeout with `-timeout 60`.
-
-**Q: "invalid checksum" error?**  
-A: The downloaded file's hash doesn't match the expected value. The file may be corrupted or the checksum is incorrect.
-
-**Q: "too many open files" error?**  
-A: Reduce the number of concurrent downloads with `-u` or the number of threads with `-t`.
-
-**Q: "no space left on device"?**  
-A: Free up disk space or use `-o` to save to a different drive with more space.
-
-**Q: "certificate verify failed"?**  
-A: For HTTPS sites, make sure the CA certificate is installed (`./had -install-cert`). For self‑signed certificates, use `-insecure`.
-
-**Q: HLS download says "no segments found"?**  
-A: The M3U8 playlist might be empty or require authentication. Try accessing the URL in a browser to verify it works.
-
-**Q: The Web UI shows "RPC unreachable"?**  
-A: Make sure the RPC server is running. Check the `HAD_RPC_ADDR` environment variable. Ensure the RPC address is correct.
-
-**Q: The capture proxy is slow?**  
-A: Disable body scanning (`-capture-body false`) or reduce the confidence threshold. Also, consider using a faster machine.
-
-**Q: The browser extension doesn't show cookies?**  
-A: Refresh the page. Click the "REFRESH" button in the extension. Make sure you're on the correct site.
-
+| Question | Answer |
+|----------|--------|
+| **HAD crashes on startup?** | 1. Check your Go version: `go version` (need 1.26+)<br>2. Verify dependencies: `go mod download`<br>3. Try rebuilding: `go build -o had main.go`<br>4. Check for permission issues: run with `sudo` if needed<br>5. Look for error messages in the output |
+| **"permission denied" when saving files?** | 1. Make sure you have write permissions to the output directory<br>2. Use `-o` to specify a writable directory<br>3. Run with `sudo` if necessary (Linux/macOS)<br>4. Check if the directory is on a read‑only filesystem |
+| **"connection refused" error?** | 1. Check if the server is reachable: `ping example.com`<br>2. If using a proxy, verify the proxy address and port<br>3. Increase the timeout: `-timeout 60`<br>4. Check for firewall blocking the connection<br>5. Verify the URL is correct (no typos) |
+| **"invalid checksum" error?** | The downloaded file's hash doesn't match the expected value:<br>1. The file may be **corrupted** – try downloading again<br>2. The **checksum is incorrect** – verify the expected hash<br>3. The file may have been **modified** after upload<br>4. Try a different mirror with `-mirrors` |
+| **"too many open files" error?** | 1. Reduce concurrent downloads: `-u 3`<br>2. Reduce threads per file: `-t 8`<br>3. Increase system file limits: `ulimit -n 4096` (Linux/macOS)<br>4. Restart your terminal or system |
+| **"no space left on device"?** | 1. Free up disk space<br>2. Use `-o` to save to a different drive with more space<br>3. Use `-post-extract` to extract and delete archives<br>4. Set a lower `-disk-cache` to reduce temporary storage |
+| **"certificate verify failed"?** | 1. For HTTPS sites, install the CA certificate: `./had -install-cert`<br>2. For self‑signed certificates, use `-insecure` (not recommended)<br>3. Check that the system date and time are correct<br>4. In the capture proxy, accept the certificate warning in your browser |
+| **HLS download says "no segments found"?** | 1. The M3U8 playlist might be **empty** – check it in a browser<br>2. Authentication required – add cookies or headers<br>3. The playlist might be a **live stream** that hasn't started yet<br>4. Use `-v` to see debug output and the actual playlist content |
+| **The Web UI shows "RPC unreachable"?** | 1. Make sure HAD is running with `-web-ui` (starts RPC automatically)<br>2. Check the `HAD_RPC_ADDR` environment variable<br>3. Ensure the RPC address is correct in the Web UI Settings tab<br>4. Check if the RPC port (6800) is open and not blocked<br>5. Try accessing the RPC directly: `curl http://localhost:6800/api/status` |
+| **The capture proxy is slow?** | 1. Disable body scanning: `-capture-body false`<br>2. Increase confidence threshold: `-capture-confidence 50` (fewer captures)<br>3. Use a faster machine or better network<br>4. Reduce the capture scope with `-filter-domain`<br>5. Use `-capture-types` to capture only what you need |
+| **The browser extension doesn't show cookies?** | 1. Refresh the page<br>2. Click the **REFRESH** button in the extension<br>3. Make sure you're on the correct site<br>4. Check if cookies exist in browser storage (DevTools → Application → Cookies)<br>5. Reload the extension (Developer Mode → Reload) |
+| **Download speed is slower than expected?** | 1. Increase threads: `-t 16` or `-t 32`<br>2. Check if the server supports **range requests** (most do)<br>3. Use `-u` to download multiple files simultaneously<br>4. Enable `-ftp-multipart` for FTP downloads<br>5. Use `-auto-mirror` to select the fastest mirror<br>6. Check your network bandwidth (speed test)<br>7. Reduce background network usage |
+| **Resume doesn't work?** | 1. Ensure the server supports **range requests** (`Accept-Ranges: bytes`)<br>2. Check if the session file exists (`file.zip.json`)<br>3. The file might have changed on the server (different size)<br>4. Try manual resume: `./had file.zip.json`<br>5. Some servers don't support resume – you'll need to start over |
+| **Daemon mode doesn't work?** | 1. Daemon mode is **not supported on Windows**<br>2. On Linux/macOS, check if the PID file is created<br>3. Verify permissions: `/tmp/had.pid` must be writable<br>4. Check if another instance is already running<br>5. Use `ps aux | grep had` to check for running processes |
+| **Magnet link download fails?** | 1. Magnet links require **web seeds** (`ws=` parameter)<br>2. No web seeds → HAD cannot download the file<br>3. Install a BitTorrent client to download torrent files<br>4. Try using the `-magnet` flag directly: `./had -magnet "magnet:?...&ws=http://..."`<br>5. Some trackers may be blocked – try different mirrors |
+| **WebDAV download fails?** | 1. Check if the WebDAV server is reachable<br>2. Verify credentials: `-webdav-user` and `-webdav-pass`<br>3. The server might require a specific path – try `-webdav https://example.com/dav/`<br>4. Some WebDAV servers don't support recursive listing – HAD may fail<br>5. Check the server logs for more information |
 ---
 
 ## 📊 Performance Tips
