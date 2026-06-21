@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 540px;
+      background: linear-gradient(160deg, #0d0d0d 0%, #1a0505 50%, #0d0d0d 100%);
+      font-family: 'Segoe UI', 'Consolas', monospace;
+      color: #e0e0e0;
+      padding: 16px;
+      border: 1px solid #6b0000;
+      border-radius: 14px;
+      box-shadow: 0 0 40px rgba(139,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: radial-gradient(circle at 50% 50%, rgba(100,0,0,0.08) 0%, transparent 60%);
+      animation: bgRotate 25s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes bgRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .z1 { position: relative; z-index: 1; }
+
+    .header {
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .spider { font-size: 28px; display: block; margin-bottom: 2px;
+      filter: drop-shadow(0 0 6px rgba(255,0,0,0.5));
+      animation: spiderBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes spiderBounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    h3 {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff4444, #aa0000, #ff4444);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 5px;
+      animation: titleGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 4px rgba(255,0,0,0.4)); }
+      100% { filter: drop-shadow(0 0 12px rgba(255,0,0,0.7)); }
+    }
+
+    .sub {
+      font-size: 10px;
+      color: #884444;
+      letter-spacing: 3px;
+      margin-top: 2px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: rgba(20, 5, 5, 0.8);
+      border: 1px solid #3a0000;
+      padding: 9px 6px;
+      color: #aa6666;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+      letter-spacing: 1px;
+      transition: all 0.25s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(100,0,0,0.25);
+      border-color: #cc0000;
+      color: #ffaaaa;
+      transform: translateY(-1px);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #230000, #140000);
+      border-color: #ee0000;
+      color: #ff7777;
+      box-shadow: 0 0 12px rgba(255,0,0,0.2);
+    }
+
+    .tab-content { display: none; position: relative; z-index: 1; }
+    .tab-content.active { display: block; animation: fadeSlide 0.25s ease; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+    .status-bar.on {
+      background: linear-gradient(135deg, #1c0202, #0e0000);
+      border: 1px solid #ee0000;
+      color: #ff6666;
+      box-shadow: 0 0 18px rgba(255,0,0,0.3);
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+    .status-bar.off {
+      background: linear-gradient(135deg, #0e0e0e, #070707);
+      border: 1px solid #2a1010;
+      color: #665555;
+    }
+    @keyframes statusPulse {
+      0%,100% { box-shadow: 0 0 15px rgba(255,0,0,0.2); }
+      50% { box-shadow: 0 0 28px rgba(255,0,0,0.5); }
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #333;
+      transition: all 0.3s;
+    }
+    .status-dot.on {
+      background: #ff3333;
+      box-shadow: 0 0 8px #ff0000;
+      animation: dotBlink 1.5s ease-in-out infinite;
+    }
+    @keyframes dotBlink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .status-info { display: flex; gap: 14px; font-size: 11px; color: #886666; }
+    .status-info span { letter-spacing: 0; }
+    .status-info .val { color: #cc8888; font-weight: 700; }
+
+    .group { margin-bottom: 12px; }
+    label {
+      display: block;
+      font-size: 11px;
+      color: #cc7777;
+      margin-bottom: 5px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 9px 11px;
+      background: rgba(15,2,2,0.85);
+      border: 1px solid #550000;
+      border-radius: 7px;
+      color: #ffbbbb;
+      font-size: 13px;
+      font-family: 'Consolas', monospace;
+      transition: all 0.25s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #ff0000;
+      box-shadow: 0 0 10px rgba(255,0,0,0.3);
+      background: #160303;
+    }
+    input::placeholder, textarea::placeholder { color: #4a2020; }
+    textarea { resize: vertical; min-height: 70px; }
+
+    .row { display: flex; gap: 8px; }
+    .row .group { flex: 1; }
+    .row .group.sm { flex: 0 0 110px; }
+
+    .presets {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .preset-btn {
+      padding: 5px 10px;
+      background: rgba(30,5,5,0.8);
+      border: 1px solid #440000;
+      border-radius: 6px;
+      color: #cc7777;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+    }
+    .preset-btn:hover {
+      border-color: #cc0000;
+      color: #ff9999;
+      background: rgba(80,0,0,0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    button::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      transition: left 0.4s;
+    }
+    button:hover::after { left: 100%; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #280000, #180000);
+      border: 1px solid #990000;
+      color: #ff7777;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #380000, #280000);
+      border-color: #ff3333;
+      color: #ffaaaa;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 18px rgba(255,0,0,0.3);
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #160000, #0a0000);
+      border: 1px solid #550000;
+      color: #bb6666;
+    }
+    .btn-danger:hover {
+      border-color: #bb0000;
+      color: #ff8888;
+      transform: translateY(-2px);
+    }
+    .btn-sm {
+      width: auto;
+      padding: 4px 10px;
+      font-size: 10px;
+      margin: 0;
+      letter-spacing: 1px;
+      display: inline-block;
+    }
+    .btn-success {
+      background: linear-gradient(135deg, #001a00, #000f00);
+      border: 1px solid #004400;
+      color: #44bb44;
+    }
+    .btn-success:hover {
+      border-color: #008800;
+      color: #88ff88;
+      transform: translateY(-2px);
+    }
+
+    .test-result {
+      text-align: center;
+      font-size: 11px;
+      padding: 5px;
+      border-radius: 5px;
+      margin-top: 6px;
+      display: none;
+      letter-spacing: 1px;
+    }
+    .test-ok { background: #001800; border: 1px solid #004400; color: #44cc44; }
+    .test-fail { background: #180000; border: 1px solid #440000; color: #cc4444; }
+
+    .btn-group { display: flex; gap: 8px; margin-top: 6px; }
+    .btn-group button { flex: 1; margin-top: 0; }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      background: rgba(15,3,3,0.6);
+      border: 1px solid #3a0000;
+      border-radius: 7px;
+      margin-bottom: 8px;
+    }
+    .toggle-label { font-size: 12px; color: #cc8888; letter-spacing: 0.5px; }
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 19px;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #2a0000;
+      border: 1px solid #440000;
+      border-radius: 19px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .slider:before {
+      content: '';
+      position: absolute;
+      height: 13px; width: 13px;
+      left: 2px; bottom: 2px;
+      background: #662222;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    input:checked + .slider { background: #440000; border-color: #cc0000; }
+    input:checked + .slider:before { transform: translateX(17px); background: #ff4444; box-shadow: 0 0 6px #ff0000; }
+
+    hr {
+      margin: 14px 0;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #660000, #ff0000, #660000, transparent);
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-bar {
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .search-bar input { padding-left: 30px; }
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #662222;
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .cookie-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #770000 #120000;
+    }
+    .cookie-list::-webkit-scrollbar { width: 5px; }
+    .cookie-list::-webkit-scrollbar-track { background: #120000; border-radius: 3px; }
+    .cookie-list::-webkit-scrollbar-thumb { background: #770000; border-radius: 3px; }
+    .cookie-list::-webkit-scrollbar-thumb:hover { background: #bb0000; }
+
+    .cookie-count {
+      font-size: 11px;
+      color: #886666;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .cookie-item {
+      background: linear-gradient(135deg, rgba(22,4,4,0.7), rgba(10,2,2,0.9));
+      border: 1px solid #3a0000;
+      border-radius: 8px;
+      padding: 9px 11px;
+      margin-bottom: 7px;
+      font-size: 12px;
+      transition: all 0.2s ease;
+    }
+    .cookie-item:hover { border-color: #990000; transform: translateX(2px); }
+
+    .cookie-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .cookie-name { color: #ff8888; font-weight: 700; font-size: 13px; word-break: break-all; }
+    .cookie-flags { display: flex; gap: 4px; flex-shrink: 0; margin-left: 8px; }
+    .flag {
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 1px solid;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+    .flag-secure { color: #44cc88; border-color: #225533; background: #001a0a; }
+    .flag-http { color: #4488cc; border-color: #223355; background: #000f1a; }
+    .flag-session { color: #cc9944; border-color: #553322; background: #1a0f00; }
+
+    .cookie-value {
+      color: #bb9999;
+      word-break: break-all;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      max-height: 40px;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 4px;
+      transition: max-height 0.3s, background 0.2s;
+    }
+    .cookie-value.expanded { max-height: 200px; background: rgba(30,5,5,0.5); }
+    .cookie-value:hover { background: rgba(30,5,5,0.4); }
+
+    .cookie-meta {
+      font-size: 10px;
+      color: #664444;
+      margin-top: 4px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .cookie-actions { margin-top: 7px; display: flex; gap: 6px; align-items: center; }
+
+    .edit-overlay {
+      margin-top: 8px;
+      display: none;
+      background: rgba(10,2,2,0.9);
+      border: 1px solid #550000;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .edit-overlay.open { display: block; animation: fadeSlide 0.2s ease; }
+    .edit-overlay input {
+      padding: 6px 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .edit-overlay .btn-group { margin-top: 0; }
+
+    .bypass-list textarea { min-height: 55px; font-size: 12px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px;
+      color: #664444;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
+      font-size: 10px;
+      color: #885555;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-left: 4px;
+      border-left: 2px solid #660000;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #160303;
+      border: 1px solid #cc0000;
+      color: #ff8888;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      z-index: 999;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(200,0,0,0.25);
+    }
+    .notification.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .notification.success { border-color: #008800; color: #55cc55; background: #001400; }
+    .notification.error { border-color: #cc0000; color: #ff6666; }
+
+    .footer {
+      text-align: center;
+      font-size: 9px;
+      color: #553333;
+      letter-spacing: 2px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="spider">🕷️</span>
+    <h3>HAD</h3>
+    <div class="sub">/// PROXY COMMANDER + COOKIE VAULT ///</div>
+  </div>
+
+  <div class="tabs z1">
+    <button class="tab-btn active" data-tab="proxy">⚡ PROXY</button>
+    <button class="tab-btn" data-tab="cookies">🍪 COOKIES</button>
+    <button class="tab-btn" data-tab="settings">⚙️ CONFIG</button>
+  </div>
+
+  <!-- PROXY TAB -->
+  <div id="proxy-tab" class="tab-content active">
+    <div class="status-bar off" id="statusBar">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">INACTIVE</span>
+      </div>
+      <div class="status-info" id="statusInfo"></div>
+    </div>
+
+    <div class="section-title">Quick Presets</div>
+    <div class="presets">
+      <button class="preset-btn" data-host="127.0.0.1" data-port="8085" data-scheme="http">🔴 HAD :8085</button>
+      <button class="preset-btn" data-host="127.0.0.1" data-port="8080" data-scheme="http">HTTP :8080</button>
+      <button class="preset-btn" data-host="127.0.0.1" data-port="1080" data-scheme="socks5">SOCKS5 :1080</button>
+      <button class="preset-btn" data-host="127.0.0.1" data-port="9050" data-scheme="socks5">TOR :9050</button>
+    </div>
+
+    <div class="row">
+      <div class="group">
+        <label>🔴 Type</label>
+        <select id="scheme">
+          <option value="http">HTTP</option>
+          <option value="https">HTTPS</option>
+          <option value="socks4">SOCKS4</option>
+          <option value="socks5">SOCKS5</option>
+        </select>
+      </div>
+      <div class="group">
+        <label>🏚️ Host</label>
+        <input type="text" id="host" placeholder="127.0.0.1" value="127.0.0.1">
+      </div>
+      <div class="group sm">
+        <label>🗡️ Port</label>
+        <input type="number" id="port" placeholder="8085" value="8085">
+      </div>
+    </div>
+
+    <div id="testResult" class="test-result"></div>
+
+    <div class="btn-group">
+      <button id="testBtn" class="btn-primary">🔍 TEST</button>
+      <button id="enableBtn" class="btn-primary">⚡ ACTIVATE</button>
+    </div>
+    <button id="disableBtn" class="btn-danger">✖ DEACTIVATE</button>
+  </div>
+
+  <!-- COOKIES TAB -->
+  <div id="cookies-tab" class="tab-content">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="cookieSearch" placeholder="Search cookies by name or value...">
+    </div>
+
+    <div class="cookie-count" id="cookieCount">Loading...</div>
+
+    <div id="cookieList" class="cookie-list">
+      <div class="empty-state">🍪 Loading cookies...</div>
+    </div>
+
+    <div class="btn-group">
+      <button id="refreshCookiesBtn" class="btn-primary">⟳ REFRESH</button>
+      <button id="copyCookiesBtn" class="btn-primary">📋 COPY</button>
+      <button id="clearCookiesBtn" class="btn-danger">🗑 CLEAR ALL</button>
+    </div>
+
+    <hr>
+
+    <div class="section-title">Export</div>
+    <div class="row" style="margin-bottom:6px;">
+      <div class="group">
+        <select id="exportFormat">
+          <option value="header">Header String</option>
+          <option value="json">JSON</option>
+          <option value="netscape">Netscape (.txt)</option>
+        </select>
+      </div>
+      <div class="group sm">
+        <button id="exportBtn" class="btn-primary" style="margin-top:0;">💾 EXPORT</button>
+      </div>
+    </div>
+
+    <div class="section-title">Import</div>
+    <div class="group">
+      <textarea id="importData" placeholder="Paste JSON / Netscape / header string..."></textarea>
+      <button id="importBtn" class="btn-success">📂 IMPORT & APPLY</button>
+    </div>
+  </div>
+
+  <!-- CONFIG TAB -->
+  <div id="settings-tab" class="tab-content">
+    <div class="section-title">Behavior</div>
+    <div class="toggle-row">
+      <span class="toggle-label">Auto-restore proxy on browser start</span>
+      <label class="toggle">
+        <input type="checkbox" id="autoRestore">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <hr>
+
+    <div class="section-title">Bypass List</div>
+    <div class="group bypass-list">
+      <label>Hosts that bypass the proxy (one per line)</label>
+      <textarea id="bypassList" placeholder="localhost&#10;127.0.0.1&#10;::1&#10;example.com"></textarea>
+    </div>
+    <button id="saveBypassBtn" class="btn-primary">💾 SAVE BYPASS LIST</button>
+  </div>
+
+  <hr>
+  <div class="footer">HAD v2.0 // DARKNESS RISING</div>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
