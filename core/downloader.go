@@ -800,110 +800,114 @@ func (gs *GlobalStatus) reportAllFiles() {
 	var buf strings.Builder
 
 	render := func(final bool) {
-		buf.Reset()
-		title := "DOWNLOAD STATUS"
-		if final {
-			title = "FINAL STATUS"
-		}
-		buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
-		pad := (w - len(title) - 2) / 2
-		buf.WriteString(strings.Repeat(" ", pad) + colors["bold"] + title + colors["reset"] + "\n")
-		buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
-
-		gs.mu.RLock()
-		var totalDone, totalSize, activeDownloads, completedFiles int64
-		lines := 3
-
-		for i, f := range gs.files {
-			if f == nil {
-				continue
-			}
-			pct := pctOf(f.Done, f.Total)
-			filled := clampInt(int(pct/100*float64(barW)), 0, barW)
-			bar := colors["green"] + strings.Repeat("█", filled) +
-				colors["reset"] + strings.Repeat("░", barW-filled)
-
-			name := truncateString(f.Name, nameW)
-			icon := statusIcon(f.Status)
-			sc := statusColor(f.Status)
-
-			buf.WriteString(fmt.Sprintf("%s%2d.%s %s %s%-*s%s [%s] %5.1f%% %s/%s",
-				colors["bold"], i+1, colors["reset"],
-				icon, sc, nameW, name, colors["reset"],
-				bar, pct,
-				Size4Human(f.Done), Size4Human(f.Total)))
-
-			switch f.Status {
-			case "downloading", "hls":
-				activeDownloads++
-				elapsed := time.Since(f.StartTime).Seconds()
-				if elapsed > 0 && f.Done > 0 {
-					spd := float64(f.Done) / 1024 / 1024 / elapsed
-					buf.WriteString(fmt.Sprintf(" %s%.1fMB/s%s", colors["yellow"], spd, colors["reset"]))
-					if spd > 0 && f.Total > f.Done {
-						rem := float64(f.Total-f.Done) / 1024 / 1024 / spd
-						buf.WriteString(fmt.Sprintf(" %sETA:%s%s", colors["cyan"], formatDuration(rem), colors["reset"]))
-					}
-				}
-			case "downloaded":
-				completedFiles++
-				buf.WriteString(colors["green"] + " done" + colors["reset"])
-			case "error":
-				buf.WriteString(colors["red"] + " fail" + colors["reset"])
-			case "queued":
-				buf.WriteString(colors["gray"] + " waiting" + colors["reset"])
-			}
-			buf.WriteByte('\n')
-			lines++
-
-			if f.Status == "downloaded" {
-				totalDone += f.Size
-			} else {
-				totalDone += f.Done
-			}
-			totalSize += f.Size
-		}
-		gs.mu.RUnlock()
-
-		elapsed := time.Since(gs.startTime).Seconds()
-		curBytes := atomic.LoadInt64(&gs.totalDone)
-		diff := curBytes - prevBytes
-		prevBytes = curBytes
-
-		avgSpd := float64(curBytes) / 1024 / 1024 / maxF64(elapsed, 0.001)
-		instSpd := float64(diff) / 1024 / 1024 / 0.5
-		downloaded := atomic.LoadInt64(&gs.downloadedCount)
-		totalPct := pctOf(totalDone, totalSize)
-
-		buf.WriteString(colors["cyan"] + sep + colors["reset"] + "\n")
-		buf.WriteString(fmt.Sprintf(" Avg:%.1fMB/s Inst:%.1fMB/s Active:%s%d%s Files:%d/%d %.1f%% T:%s\n",
-			avgSpd, instSpd,
-			colors["cyan"], activeDownloads, colors["reset"],
-			downloaded, len(gs.files), totalPct,
-			formatDuration(elapsed)))
-		lines += 2
-
-		if totalPct > 0 && totalPct < 100 && avgSpd > 0 {
-			remBytes := float64(totalSize-totalDone) / 1024 / 1024
-			remSec := remBytes / avgSpd
-			if remSec < 86400 {
-				buf.WriteString(fmt.Sprintf(" ETA:%s  Rem:%.1fMB\n",
-					formatDuration(remSec), remBytes))
-				lines++
-			}
-		}
-
-		if final || (completedFiles > 0 && completedFiles == int64(len(gs.files))) {
-			buf.WriteString(colors["green"] + " All downloads completed!" + colors["reset"] + "\n")
-			lines++
-		}
-
-		if lineCount > 0 {
-			moveCursor(lineCount)
-		}
-		fmt.Print(buf.String())
-		lineCount = lines
+	buf.Reset()
+	title := "DOWNLOAD STATUS"
+	if final {
+		title = "FINAL STATUS"
 	}
+	heavy = strings.Repeat("═", 60)
+	buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
+	pad := (60 - len(title) - 2) / 2
+	buf.WriteString(strings.Repeat(" ", pad) + colors["bold"] + title + colors["reset"] + "\n")
+	buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
+
+	gs.mu.RLock()
+	var totalDone, totalSize, activeDownloads, completedFiles int64
+	lines := 3
+
+	for i, f := range gs.files {
+		if f == nil {
+			continue
+		}
+		pct := pctOf(f.Done, f.Total)
+		barW = 20
+		filled := clampInt(int(pct/100*float64(barW)), 0, barW)
+		bar := colors["green"] + strings.Repeat("█", filled) +
+			colors["reset"] + strings.Repeat("░", barW-filled)
+
+		nameW = 25
+		name := truncateString(f.Name, nameW)
+		icon := statusIcon(f.Status)
+		sc := statusColor(f.Status)
+
+		buf.WriteString(fmt.Sprintf("%s%2d.%s %s %s%-*s%s [%s] %5.1f%% %s/%s",
+			colors["bold"], i+1, colors["reset"],
+			icon, sc, nameW, name, colors["reset"],
+			bar, pct,
+			Size4Human(f.Done), Size4Human(f.Total)))
+
+		switch f.Status {
+		case "downloading", "hls":
+			activeDownloads++
+			elapsed := time.Since(f.StartTime).Seconds()
+			if elapsed > 0 && f.Done > 0 {
+				spd := float64(f.Done) / 1024 / 1024 / elapsed
+				buf.WriteString(fmt.Sprintf(" %s%.1fMB/s%s", colors["yellow"], spd, colors["reset"]))
+				if spd > 0 && f.Total > f.Done {
+					rem := float64(f.Total-f.Done) / 1024 / 1024 / spd
+					buf.WriteString(fmt.Sprintf(" %sETA:%s%s", colors["cyan"], formatDuration(rem), colors["reset"]))
+				}
+			}
+		case "downloaded":
+			completedFiles++
+			buf.WriteString(colors["green"] + " done" + colors["reset"])
+		case "error":
+			buf.WriteString(colors["red"] + " fail" + colors["reset"])
+		case "queued":
+			buf.WriteString(colors["gray"] + " waiting" + colors["reset"])
+		}
+		buf.WriteByte('\n')
+		lines++
+
+		if f.Status == "downloaded" {
+			totalDone += f.Size
+		} else {
+			totalDone += f.Done
+		}
+		totalSize += f.Size
+	}
+	gs.mu.RUnlock()
+
+	elapsed := time.Since(gs.startTime).Seconds()
+	curBytes := atomic.LoadInt64(&gs.totalDone)
+	diff := curBytes - prevBytes
+	prevBytes = curBytes
+
+	avgSpd := float64(curBytes) / 1024 / 1024 / maxF64(elapsed, 0.001)
+	instSpd := float64(diff) / 1024 / 1024 / 0.5
+	downloaded := atomic.LoadInt64(&gs.downloadedCount)
+	totalPct := pctOf(totalDone, totalSize)
+
+	sep = strings.Repeat("─", 60)
+	buf.WriteString(colors["cyan"] + sep + colors["reset"] + "\n")
+	buf.WriteString(fmt.Sprintf(" Avg:%.1fMB/s Inst:%.1fMB/s Active:%s%d%s Files:%d/%d %.1f%% T:%s\n",
+		avgSpd, instSpd,
+		colors["cyan"], activeDownloads, colors["reset"],
+		downloaded, len(gs.files), totalPct,
+		formatDuration(elapsed)))
+	lines += 2
+
+	if totalPct > 0 && totalPct < 100 && avgSpd > 0 {
+		remBytes := float64(totalSize-totalDone) / 1024 / 1024
+		remSec := remBytes / avgSpd
+		if remSec < 86400 {
+			buf.WriteString(fmt.Sprintf(" ETA:%s  Rem:%.1fMB\n",
+				formatDuration(remSec), remBytes))
+			lines++
+		}
+	}
+
+	if final || (completedFiles > 0 && completedFiles == int64(len(gs.files))) {
+		buf.WriteString(colors["green"] + " All downloads completed!" + colors["reset"] + "\n")
+		lines++
+	}
+
+	if lineCount > 0 {
+		moveCursor(lineCount)
+	}
+	fmt.Print(buf.String())
+	lineCount = lines
+}
 
 	for {
 		select {
