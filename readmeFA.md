@@ -198,7 +198,7 @@
 | **پشتیبان وب (کلون)** | ![Website Backup](https://github.com/user-attachments/assets/09883fe7-14d7-4045-8269-ea3c5bd5b1ae) |
 | **وب اسکرپینگ** | ![Scraping](https://github.com/user-attachments/assets/fa49cd59-418d-4690-a8dc-b7a8ab2f043b) |
 | **افزونه HAD** | ![Extension](https://github.com/user-attachments/assets/ab0ea00b-7d44-45cf-8824-eb998a6c453d) |
-
+| **نسخه موبایل** | ![Mobile Version](https://github.com/user-attachments/assets/91af36e9-a884-443c-aec6-bb1051ba465f)
 ---
 
 ## 📦 نصب
