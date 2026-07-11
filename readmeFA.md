@@ -242,7 +242,7 @@ go build -o had .
 ### ۱. دانلود ساده – یک فایل
 
 ```bash
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **چیکار می‌کنه؟**
@@ -253,7 +253,7 @@ go build -o had .
 ### ۲. دانلود با نخ‌های سفارشی
 
 ```bash
-./had -t 16 https://example.com/large-file.zip
+had -t 16 https://example.com/large-file.zip
 ```
 
 **چیکار می‌کنه؟**
@@ -263,7 +263,7 @@ go build -o had .
 ### ۳. دانلود چند فایل
 
 ```bash
-./had https://example.com/file1.zip https://example.com/file2.zip
+had https://example.com/file1.zip https://example.com/file2.zip
 ```
 
 **چیکار می‌کنه؟**
@@ -273,7 +273,7 @@ go build -o had .
 ### ۴. دانلود از لیست
 
 ```bash
-./had -f urls.txt
+had -f urls.txt
 ```
 
 **چیکار می‌کنه؟**
@@ -283,7 +283,7 @@ go build -o had .
 ### ۵. محدودیت سرعت (۱ مگابایت بر ثانیه)
 
 ```bash
-./had -max-speed 1048576 https://example.com/file.zip
+had -max-speed 1048576 https://example.com/file.zip
 ```
 
 **چیکار می‌کنه؟**
@@ -293,7 +293,7 @@ go build -o had .
 ### ۶. ادامه دانلود قطع شده
 
 ```bash
-./had session_20250622_143022.json
+had session_20250622_143022.json
 ```
 
 **چیکار می‌کنه؟**
@@ -309,13 +309,13 @@ go build -o had .
 ### شروع رابط کاربری وب
 
 ```bash
-./had -web-ui
+had -web-ui
 ```
 
 یا با فرم کوتاه:
 
 ```bash
-./had webui
+had webui
 ```
 
 بعد مرورگرت رو باز کن و برو به:  
@@ -332,7 +332,7 @@ go build -o had .
 **مثال با تنظیمات سفارشی:**
 
 ```bash
-HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
+HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 had -web-ui
 ```
 
 ### امکانات رابط کاربری وب به تفصیل
@@ -408,7 +408,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود یک فایل
 
 ```bash
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -419,7 +419,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود با نخ‌های سفارشی
 
 ```bash
-./had -t 16 https://example.com/large-file.zip
+had -t 16 https://example.com/large-file.zip
 ```
 
 **توضیح:**
@@ -430,7 +430,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود چند فایل
 
 ```bash
-./had https://example.com/file1.zip https://example.com/file2.zip https://example.com/file3.zip
+had https://example.com/file1.zip https://example.com/file2.zip https://example.com/file3.zip
 ```
 
 **توضیح:**
@@ -441,7 +441,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود از لیست فایل
 
 ```bash
-./had -f urls.txt
+had -f urls.txt
 ```
 
 **توضیح:**
@@ -458,7 +458,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود با محدودیت سرعت
 
 ```bash
-./had -max-speed 1048576 https://example.com/file.zip
+had -max-speed 1048576 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -469,7 +469,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود با دایرکتوری خروجی سفارشی
 
 ```bash
-./had -o ./downloads https://example.com/file.zip
+had -o ./downloads https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -479,7 +479,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود با خروجی مفصل
 
 ```bash
-./had -v https://example.com/file.zip
+had -v https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -494,7 +494,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود استریم HLS (تشخیص خودکار FFmpeg)
 
 ```bash
-./had -hls https://example.com/stream.m3u8 -o ./videos
+had -hls https://example.com/stream.m3u8 -o ./videos
 ```
 
 **توضیح:**
@@ -506,7 +506,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### اجبار به استفاده از دانلودر خالص گو
 
 ```bash
-./had -hls https://example.com/playlist.m3u8 -t 8
+had -hls https://example.com/playlist.m3u8 -t 8
 ```
 
 **توضیح:**
@@ -517,7 +517,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### دانلود استریم زنده HLS
 
 ```bash
-./had -hls "https://example.com/live/index.m3u8" -o ./recordings
+had -hls "https://example.com/live/index.m3u8" -o ./recordings
 ```
 
 **توضیح:**
@@ -528,7 +528,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### HLS با اعلان
 
 ```bash
-./had -hls https://example.com/live.m3u8 -o ./videos \
+had -hls https://example.com/live.m3u8 -o ./videos \
   -notify-telegram 123456789 -notify-telegram-bot "token" \
   -post-move /completed
 ```
@@ -559,7 +559,7 @@ https://example.com/very-low.zip 1
 #### دانلود از صف
 
 ```bash
-./had -queue queue.txt
+had -queue queue.txt
 ```
 
 **توضیح:**
@@ -571,7 +571,7 @@ https://example.com/very-low.zip 1
 #### دانلود تکی با اولویت
 
 ```bash
-./had -priority 100 https://example.com/urgent-file.zip
+had -priority 100 https://example.com/urgent-file.zip
 ```
 
 **توضیح:**
@@ -582,7 +582,7 @@ https://example.com/very-low.zip 1
 #### صف با پردازش پس از دانلود
 
 ```bash
-./had -queue queue.txt -post-extract -post-move /processed
+had -queue queue.txt -post-extract -post-move /processed
 ```
 
 **توضیح:**
@@ -597,7 +597,7 @@ https://example.com/very-low.zip 1
 #### دانلود فقط در ساعات خاص
 
 ```bash
-./had -schedule-from 02:00 -schedule-to 06:00 https://example.com/large-file.zip
+had -schedule-from 02:00 -schedule-to 06:00 https://example.com/large-file.zip
 ```
 
 **توضیح:**
@@ -608,7 +608,7 @@ https://example.com/very-low.zip 1
 #### ترکیب با محدودیت سرعت
 
 ```bash
-./had -schedule-from 23:00 -schedule-to 07:00 -max-speed 1048576 https://example.com/file.zip
+had -schedule-from 23:00 -schedule-to 07:00 -max-speed 1048576 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -619,7 +619,7 @@ https://example.com/very-low.zip 1
 #### زمان‌بندی با چندین دانلود
 
 ```bash
-./had -schedule-from 00:00 -schedule-to 06:00 -f urls.txt
+had -schedule-from 00:00 -schedule-to 06:00 -f urls.txt
 ```
 
 **توضیح:**
@@ -634,7 +634,7 @@ https://example.com/very-low.zip 1
 #### اعلان تلگرام
 
 ```bash
-./had -notify-telegram 123456789 -notify-telegram-bot "your_bot_token" https://example.com/file.zip
+had -notify-telegram 123456789 -notify-telegram-bot "your_bot_token" https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -645,7 +645,7 @@ https://example.com/very-low.zip 1
 #### اعلان دیسکورد
 
 ```bash
-./had -notify-discord "https://discord.com/api/webhooks/..." https://example.com/file.zip
+had -notify-discord "https://discord.com/api/webhooks/..." https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -656,7 +656,7 @@ https://example.com/very-low.zip 1
 #### اعلان دسکتاپ
 
 ```bash
-./had -notify-desktop https://example.com/file.zip
+had -notify-desktop https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -667,7 +667,7 @@ https://example.com/very-low.zip 1
 #### چندین کانال اعلان همزمان
 
 ```bash
-./had -notify-telegram 123456789 -notify-telegram-bot "token" \
+had -notify-telegram 123456789 -notify-telegram-bot "token" \
   -notify-discord "https://discord.com/api/webhooks/..." \
   -notify-desktop https://example.com/file.zip
 ```
@@ -683,7 +683,7 @@ https://example.com/very-low.zip 1
 #### اکسترکت خودکار آرشیو
 
 ```bash
-./had -post-extract https://example.com/archive.zip
+had -post-extract https://example.com/archive.zip
 ```
 
 **توضیح:**
@@ -694,7 +694,7 @@ https://example.com/very-low.zip 1
 #### جابجایی فایل بعد از دانلود
 
 ```bash
-./had -post-move /completed https://example.com/file.zip
+had -post-move /completed https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -705,7 +705,7 @@ https://example.com/very-low.zip 1
 #### تغییر اسم فایل بعد از دانلود
 
 ```bash
-./had -post-rename "{name}_{time}.zip" https://example.com/file.zip
+had -post-rename "{name}_{time}.zip" https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -717,7 +717,7 @@ https://example.com/very-low.zip 1
 #### زنجیره‌ای کردن چندین عملیات پس از دانلود
 
 ```bash
-./had -post-extract -post-move /processed -post-rename "dl_{time}" https://example.com/archive.zip
+had -post-extract -post-move /processed -post-rename "dl_{time}" https://example.com/archive.zip
 ```
 
 **توضیح:**
@@ -728,7 +728,7 @@ https://example.com/very-low.zip 1
 #### پردازش پس از دانلود با صف
 
 ```bash
-./had -queue queue.txt -post-extract -post-move /media/completed
+had -queue queue.txt -post-extract -post-move /media/completed
 ```
 
 **توضیح:**
@@ -743,7 +743,7 @@ https://example.com/very-low.zip 1
 #### انتخاب خودکار سریع‌ترین آینه
 
 ```bash
-./had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" https://primary.com/file.zip
+had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" https://primary.com/file.zip
 ```
 
 **توضیح:**
@@ -754,7 +754,7 @@ https://example.com/very-low.zip 1
 #### آینه‌های با چندین آدرس
 
 ```bash
-./had -mirrors "https://us.example.com/file.zip,https://eu.example.com/file.zip,https://asia.example.com/file.zip" https://primary.com/file.zip
+had -mirrors "https://us.example.com/file.zip,https://eu.example.com/file.zip,https://asia.example.com/file.zip" https://primary.com/file.zip
 ```
 
 **توضیح:**
@@ -765,7 +765,7 @@ https://example.com/very-low.zip 1
 #### انتخاب آینه با پشتیبان
 
 ```bash
-./had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" -retries 10 https://primary.com/file.zip
+had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" -retries 10 https://primary.com/file.zip
 ```
 
 **توضیح:**
@@ -780,7 +780,7 @@ https://example.com/very-low.zip 1
 #### پروکسی ضبط پایه
 
 ```bash
-./had -capture-proxy :8085 -capture-types video,music
+had -capture-proxy :8085 -capture-types video,music
 ```
 
 **توضیح:**
@@ -791,7 +791,7 @@ https://example.com/very-low.zip 1
 #### ضبط با پسوندهای سفارشی
 
 ```bash
-./had -capture-proxy :9090 -capture-types video,archive -capture-exts .webm,.mka
+had -capture-proxy :9090 -capture-types video,archive -capture-exts .webm,.mka
 ```
 
 **توضیح:**
@@ -802,7 +802,7 @@ https://example.com/very-low.zip 1
 #### دانلود خودکار فایل‌های ضبط شده
 
 ```bash
-./had -capture-proxy :8085 -capture-auto -capture-output ./downloads
+had -capture-proxy :8085 -capture-auto -capture-output ./downloads
 ```
 
 **توضیح:**
@@ -813,7 +813,7 @@ https://example.com/very-low.zip 1
 #### فیلتر دامنه
 
 ```bash
-./had -capture-proxy :8085 -filter-domain example.com -capture-confidence 50
+had -capture-proxy :8085 -filter-domain example.com -capture-confidence 50
 ```
 
 **توضیح:**
@@ -824,7 +824,7 @@ https://example.com/very-low.zip 1
 #### اسکن بدنه (پیدا کردن لینک‌های مخفی)
 
 ```bash
-./had -capture-proxy :8085 -capture-body -verbose
+had -capture-proxy :8085 -capture-body -verbose
 ```
 
 **توضیح:**
@@ -835,7 +835,7 @@ https://example.com/very-low.zip 1
 #### فقط نصب گواهی
 
 ```bash
-./had -install-cert
+had -install-cert
 ```
 
 **توضیح:**
@@ -846,7 +846,7 @@ https://example.com/very-low.zip 1
 #### پروکسی ضبط با هدرهای سفارشی
 
 ```bash
-./had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
+had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
 ```
 
 **توضیح:**
@@ -857,7 +857,7 @@ https://example.com/very-low.zip 1
 #### ضبط با فیلتر اندازه
 
 ```bash
-./had -capture-proxy :8085 -capture-min-size 1048576 -capture-max-size 1073741824
+had -capture-proxy :8085 -capture-min-size 1048576 -capture-max-size 1073741824
 ```
 
 **توضیح:**
@@ -936,7 +936,7 @@ https://example.com/very-low.zip 1
 #### پشتیبان کامل از سایت
 
 ```bash
-./had web -url https://example.com -mode full
+had web -url https://example.com -mode full
 ```
 
 **توضیح:**
@@ -947,7 +947,7 @@ https://example.com/very-low.zip 1
 #### پشتیبان صفحه تکی با دارایی‌ها
 
 ```bash
-./had web -url https://example.com/about -mode single -download-external
+had web -url https://example.com/about -mode single -download-external
 ```
 
 **توضیح:**
@@ -958,7 +958,7 @@ https://example.com/very-low.zip 1
 #### پشتیبان با دارایی‌های CDN خارجی
 
 ```bash
-./had web -url https://example.com -mode full -download-external -external-domains cdn.example.com,images.example.com
+had web -url https://example.com -mode full -download-external -external-domains cdn.example.com,images.example.com
 ```
 
 **توضیح:**
@@ -969,7 +969,7 @@ https://example.com/very-low.zip 1
 #### خزش با کارایی بالا
 
 ```bash
-./had web -url https://example.com -mode full -concurrency 10 -max-pages 500
+had web -url https://example.com -mode full -concurrency 10 -max-pages 500
 ```
 
 **توضیح:**
@@ -980,7 +980,7 @@ https://example.com/very-low.zip 1
 #### ادامه پشتیبان قطع شده
 
 ```bash
-./had web -url https://example.com -mode full -resume -output ./backup
+had web -url https://example.com -mode full -resume -output ./backup
 ```
 
 **توضیح:**
@@ -991,7 +991,7 @@ https://example.com/very-low.zip 1
 #### SPA با مسیریابی هش
 
 ```bash
-./had web -url https://app.example.com/#!/home -mode full -crawl-hash-routes
+had web -url https://app.example.com/#!/home -mode full -crawl-hash-routes
 ```
 
 **توضیح:**
@@ -1002,7 +1002,7 @@ https://example.com/very-low.zip 1
 #### محدودیت نرخ و اندازه
 
 ```bash
-./had web -url https://example.com -mode full -max-asset-size 20 -rate-limit 5
+had web -url https://example.com -mode full -max-asset-size 20 -rate-limit 5
 ```
 
 **توضیح:**
@@ -1017,7 +1017,7 @@ https://example.com/very-low.zip 1
 #### دانلود FTP استاندارد
 
 ```bash
-./had -protocol ftp ftp://example.com/file.zip
+had -protocol ftp ftp://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1028,7 +1028,7 @@ https://example.com/very-low.zip 1
 #### FTP با مشخصات کاربری
 
 ```bash
-./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip
+had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1038,7 +1038,7 @@ https://example.com/very-low.zip 1
 #### FTPS (FTP روی TLS)
 
 ```bash
-./had -protocol ftps ftps://example.com/secure-file.zip
+had -protocol ftps ftps://example.com/secure-file.zip
 ```
 
 **توضیح:**
@@ -1048,7 +1048,7 @@ https://example.com/very-low.zip 1
 #### SFTP با رمز عبور
 
 ```bash
-./had -protocol sftp -sftp-user myuser -sftp-pass mypass sftp://example.com/file.zip
+had -protocol sftp -sftp-user myuser -sftp-pass mypass sftp://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1058,7 +1058,7 @@ https://example.com/very-low.zip 1
 #### SFTP با کلید SSH
 
 ```bash
-./had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip
+had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1068,7 +1068,7 @@ https://example.com/very-low.zip 1
 #### SFTP با کلید SSH رمزگذاری شده
 
 ```bash
-./had -protocol sftp -ssh-key ~/.ssh/id_rsa -ssh-key-pass mypassphrase sftp://example.com/file.zip
+had -protocol sftp -ssh-key ~/.ssh/id_rsa -ssh-key-pass mypassphrase sftp://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1078,7 +1078,7 @@ https://example.com/very-low.zip 1
 #### دانلود چندبخشی FTP
 
 ```bash
-./had -protocol ftp -ftp-multipart -ftp-parts 8 ftp://example.com/large-file.zip
+had -protocol ftp -ftp-multipart -ftp-parts 8 ftp://example.com/large-file.zip
 ```
 
 **توضیح:**
@@ -1093,7 +1093,7 @@ https://example.com/very-low.zip 1
 #### اسکرپینگ پایه
 
 ```bash
-./had -scrape https://example.com/downloads/
+had -scrape https://example.com/downloads/
 ```
 
 **توضیح:**
@@ -1104,7 +1104,7 @@ https://example.com/very-low.zip 1
 #### اسکرپ با فیلتر پسوند
 
 ```bash
-./had -scrape https://example.com/downloads/ -ex .mp4,.mp3,.zip
+had -scrape https://example.com/downloads/ -ex .mp4,.mp3,.zip
 ```
 
 **توضیح:**
@@ -1114,7 +1114,7 @@ https://example.com/very-low.zip 1
 #### اسکرپ با نخ‌های سفارشی
 
 ```bash
-./had -scrape https://example.com/files/ -t 16 -ex .pdf,.doc,.xls
+had -scrape https://example.com/files/ -t 16 -ex .pdf,.doc,.xls
 ```
 
 **توضیح:**
@@ -1124,7 +1124,7 @@ https://example.com/very-low.zip 1
 #### اسکرپ با خروجی مفصل
 
 ```bash
-./had -scrape https://example.com/media/ -ex .jpg,.png,.gif -v
+had -scrape https://example.com/media/ -ex .jpg,.png,.gif -v
 ```
 
 **توضیح:**
@@ -1138,7 +1138,7 @@ https://example.com/very-low.zip 1
 #### جای‌گذاری عددی ساده
 
 ```bash
-./had -parameterized-url 'https://example.com/file{}.zip' -start 1 -end 50
+had -parameterized-url 'https://example.com/file{}.zip' -start 1 -end 50
 ```
 
 **توضیح:**
@@ -1149,7 +1149,7 @@ https://example.com/very-low.zip 1
 #### جای‌گذاری با صفر تا ابتدا
 
 ```bash
-./had -parameterized-url 'https://example.com/image{0}.jpg' -start 1 -end 100
+had -parameterized-url 'https://example.com/image{0}.jpg' -start 1 -end 100
 ```
 
 **توضیح:**
@@ -1160,7 +1160,7 @@ https://example.com/very-low.zip 1
 #### سه صفر تا ابتدا
 
 ```bash
-./had -parameterized-url 'https://example.com/page{00}.html' -start 1 -end 500 -step 2
+had -parameterized-url 'https://example.com/page{00}.html' -start 1 -end 500 -step 2
 ```
 
 **توضیح:**
@@ -1171,7 +1171,7 @@ https://example.com/very-low.zip 1
 #### گام سفارشی
 
 ```bash
-./had -parameterized-url 'https://example.com/chunk{}.bin' -start 0 -end 200 -step 10
+had -parameterized-url 'https://example.com/chunk{}.bin' -start 0 -end 200 -step 10
 ```
 
 **توضیح:**
@@ -1186,7 +1186,7 @@ https://example.com/very-low.zip 1
 #### بارگذاری کوکی از فایل نت‌اسکیپ
 
 ```bash
-./had -load-cookies cookies.txt https://example.com/private-file.zip
+had -load-cookies cookies.txt https://example.com/private-file.zip
 ```
 
 **توضیح:**
@@ -1204,7 +1204,7 @@ https://example.com/very-low.zip 1
 #### ذخیره کوکی بعد از دانلود
 
 ```bash
-./had -save-cookies output.txt https://example.com/file.zip
+had -save-cookies output.txt https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1214,7 +1214,7 @@ https://example.com/very-low.zip 1
 #### رشته کوکی مستقیم
 
 ```bash
-./had -c "sessionid=abc123; user=test" https://example.com/file.zip
+had -c "sessionid=abc123; user=test" https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1224,7 +1224,7 @@ https://example.com/very-low.zip 1
 #### بارگذاری و ذخیره همزمان
 
 ```bash
-./had -load-cookies cookies.txt -save-cookies newcookies.txt https://example.com/file.zip
+had -load-cookies cookies.txt -save-cookies newcookies.txt https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1239,7 +1239,7 @@ https://example.com/very-low.zip 1
 #### پروکسی SOCKS5
 
 ```bash
-./had -proxy socks5://127.0.0.1:1080 https://example.com/file.zip
+had -proxy socks5://127.0.0.1:1080 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1249,7 +1249,7 @@ https://example.com/very-low.zip 1
 #### SOCKS5 با احراز هویت
 
 ```bash
-./had -proxy socks5://user:pass@127.0.0.1:1080 https://example.com/file.zip
+had -proxy socks5://user:pass@127.0.0.1:1080 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1259,7 +1259,7 @@ https://example.com/very-low.zip 1
 #### پروکسی SOCKS4
 
 ```bash
-./had -proxy socks4://192.168.1.1:9050 -t 16 https://example.com/file.zip
+had -proxy socks4://192.168.1.1:9050 -t 16 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1269,7 +1269,7 @@ https://example.com/very-low.zip 1
 #### پروکسی HTTP
 
 ```bash
-./had -proxy http://proxy.company.com:8080 https://example.com/file.zip
+had -proxy http://proxy.company.com:8080 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1279,7 +1279,7 @@ https://example.com/very-low.zip 1
 #### پروکسی HTTPS با احراز هویت
 
 ```bash
-./had -proxy https://user:pass@proxy.company.com:8080 https://example.com/file.zip
+had -proxy https://user:pass@proxy.company.com:8080 https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1292,7 +1292,7 @@ https://example.com/very-low.zip 1
 export HTTP_PROXY=http://proxy:8080
 export HTTPS_PROXY=http://proxy:8080
 export NO_PROXY=localhost,127.0.0.1
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1307,7 +1307,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### دانلود از آدرس Metalink
 
 ```bash
-./had -metalink https://example.com/file.metalink
+had -metalink https://example.com/file.metalink
 ```
 
 **توضیح:**
@@ -1318,7 +1318,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### دانلود از فایل Metalink محلی
 
 ```bash
-./had -metalink ./downloads/ubuntu.metalink4
+had -metalink ./downloads/ubuntu.metalink4
 ```
 
 **توضیح:**
@@ -1329,7 +1329,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Metalink با دایرکتوری خروجی سفارشی
 
 ```bash
-./had -metalink https://example.com/file.metalink -o ./downloads
+had -metalink https://example.com/file.metalink -o ./downloads
 ```
 
 **توضیح:**
@@ -1343,7 +1343,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### شروع سرور RPC
 
 ```bash
-./had -rpc
+had -rpc
 ```
 
 **توضیح:**
@@ -1354,7 +1354,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### شروع RPC روی آدرس سفارشی
 
 ```bash
-./had -rpc -rpc-addr 0.0.0.0:6800
+had -rpc -rpc-addr 0.0.0.0:6800
 ```
 
 **توضیح:**
@@ -1365,7 +1365,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### RPC با دایرکتوری دانلود
 
 ```bash
-./had -rpc -rpc-addr localhost:6800 -o /downloads
+had -rpc -rpc-addr localhost:6800 -o /downloads
 ```
 
 **توضیح:**
@@ -1501,7 +1501,7 @@ curl http://localhost:6800/api/version
 #### ادامه از جلسه ذخیره شده
 
 ```bash
-./had session_20250622_143022.json
+had session_20250622_143022.json
 ```
 
 **توضیح:**
@@ -1516,7 +1516,7 @@ curl http://localhost:6800/api/version
 #### ادامه دستی
 
 ```bash
-./had file.zip.json
+had file.zip.json
 ```
 
 **توضیح:**
@@ -1530,7 +1530,7 @@ curl http://localhost:6800/api/version
 #### بررسی چکسام SHA‑۲۵۶
 
 ```bash
-./had -checksum-sha256 abc123... https://example.com/file.zip
+had -checksum-sha256 abc123... https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1540,7 +1540,7 @@ curl http://localhost:6800/api/version
 #### بررسی چکسام MD5
 
 ```bash
-./had -checksum-md5 abc123... https://example.com/file.zip
+had -checksum-md5 abc123... https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1550,7 +1550,7 @@ curl http://localhost:6800/api/version
 #### بررسی چکسام SHA‑۱
 
 ```bash
-./had -checksum-sha1 abc123... https://example.com/file.zip
+had -checksum-sha1 abc123... https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1560,7 +1560,7 @@ curl http://localhost:6800/api/version
 #### بررسی یکپارچگی (تشخیص خودکار)
 
 ```bash
-./had -check-integrity https://example.com/file.zip
+had -check-integrity https://example.com/file.zip
 ```
 
 **توضیح:**
@@ -1575,7 +1575,7 @@ curl http://localhost:6800/api/version
 #### شروع دیمون
 
 ```bash
-./had -daemon -o /downloads https://example.com/bigfile.zip
+had -daemon -o /downloads https://example.com/bigfile.zip
 ```
 
 **توضیح:**
@@ -1883,7 +1883,7 @@ https://example.com/low.zip 10
 فایل‌های جلسه به صورت `{filename}.json` ذخیره می‌شن. برای ادامه:
 
 ```bash
-./had file.zip.json
+had file.zip.json
 ```
 
 ### فرمت فایل .netrc
@@ -1925,7 +1925,7 @@ password user@example.com
 | **هَد رایگانه؟** | بله! هَد **متن‌باز** هست و تحت **مجوز MIT** منتشر شده. می‌تونی برای پروژه‌های شخصی یا تجاری بدون هیچ هزینه‌ای استفاده کنی. |
 | **باگ‌ها رو کجا گزارش کنم؟** | باگ‌ها رو توی [صفحه Issues گیت‌هاب](https://github.com/batmanpriv/had/issues) گزارش کن. لطفاً سیستم‌عامل، نسخه هَد و دستور کامل رو بنویس. |
 | **می‌تونم توی هَد مشارکت کنم؟** | حتماً! مشارکت‌ها خوش‌آمدن. مخزن رو فورک کن، تغییراتت رو اعمال کن و یه Pull Request بفرست. بخش [مشارکت](#-مشارکت) رو ببین. |
-| **هَد رابط گرافیکی داره؟** | بله! هَد یه **رابط کاربری وب** داره (از نسخه ۳.۶.۰) که یه داشبورد کامل برای مدیریت دانلودها، مشاهده آمار و کنترل هَد از مرورگر فراهم می‌کنه. برای شروع `./had -web-ui` رو اجرا کن. |
+| **هَد رابط گرافیکی داره؟** | بله! هَد یه **رابط کاربری وب** داره (از نسخه ۳.۶.۰) که یه داشبورد کامل برای مدیریت دانلودها، مشاهده آمار و کنترل هَد از مرورگر فراهم می‌کنه. برای شروع `had -web-ui` رو اجرا کن. |
 | **فرق هَد با wget/curl چیه؟** | هَد یه **دانلودر چندنخی** با قابلیت‌های پیشرفته‌ست مثل ادامه، پروکسی ضبط، پخش زنده HLS، صف اولویت‌دار، اعلان‌ها، پردازش پس از دانلود و رابط کاربری وب. wget و curl تک‌نخی هستن و این قابلیت‌های پیشرفته اتوماسیون رو ندارن. |
 | **هَد از پردازش دسته‌ای پشتیبانی می‌کنه؟** | بله! می‌تونی از `-f` برای بارگذاری آدرس‌ها از فایل، `-queue` برای پردازش مبتنی بر اولویت، یا `-parameterized-url` برای تولید آدرس‌های متوالی استفاده کنی. |
 
@@ -1936,20 +1936,20 @@ password user@example.com
 | سوال | پاسخ |
 |------|------|
 | **چطور می‌تونم سرعت دانلود رو بالا ببرم؟** | • از `-t` برای افزایش نخ‌ها استفاده کن: `-t 16` یا `-t 32` برای فایل‌های خیلی بزرگ<br>• مطمئن شو سرور از **درخواست‌های محدوده** پشتیبانی می‌کنه (اکثر سرورهای مدرن این کار رو می‌کنن)<br>• از `-u` برای دانلود همزمان چند فایل استفاده کن<br>• برای FTP، `-ftp-multipart` رو فعال کن<br>• از `-auto-mirror` برای انتخاب سریع‌ترین آینه استفاده کن |
-| **چطور دانلود قطع شده رو ادامه بدم؟** | هَد هر ۱۰ ثانیه یک بار **فایل جلسه** ذخیره می‌کنه. برای ادامه:<br>۱. فایل جلسه رو پیدا کن: `file.zip.json`<br>۲. اجرا کن: `./had file.zip.json`<br>یا از **تب جلسات رابط کاربری وب** یا **API RPC** استفاده کن. |
+| **چطور دانلود قطع شده رو ادامه بدم؟** | هَد هر ۱۰ ثانیه یک بار **فایل جلسه** ذخیره می‌کنه. برای ادامه:<br>۱. فایل جلسه رو پیدا کن: `file.zip.json`<br>۲. اجرا کن: `had file.zip.json`<br>یا از **تب جلسات رابط کاربری وب** یا **API RPC** استفاده کن. |
 | **چرا دانلودم گیر کرده یا کند شده؟** | دلایل و راه‌حل‌های احتمالی:<br>• **سرور از محدوده پشتیبانی نمی‌کنه** → فقط تک‌نخی، نمی‌تونی سرعت رو بالا ببری<br>• **ازدحام شبکه** → از `-schedule-from` برای دانلود در ساعات غیر پیک استفاده کن<br>• **مشکل پروکسی** → تنظیمات پروکسی رو با `-proxy` چک کن<br>• **تایم‌اوت کم** → با `-timeout 60` زیادش کن<br>• **محدودیت سرعت** → `-max-speed` رو چک کن<br>• **گلوگاه ورودی/خروجی دیسک** → `-disk-cache` رو کم کن یا از درایو سریع‌تر استفاده کن |
 | **می‌تونم چند فایل رو همزمان دانلود کنم؟** | بله! از `-u` برای تنظیم تعداد دانلودهای همزمان استفاده کن:<br>• `-u 5` تا ۵ فایل رو همزمان دانلود می‌کنه<br>• پیش‌فرض `2` هست<br>• برای فایل‌های کوچک زیاد، از `-u 20` برای توان عملیاتی بهتر استفاده کن |
-| **چطور از FTP دانلود کنم؟** | ۱. از `-protocol ftp` استفاده کن<br>۲. مشخصات کاربری رو بده: `-ftp-user` و `-ftp-pass`<br>۳. مثال: `./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`<br>۴. برای FTPS (FTP روی TLS)، از `-protocol ftps` استفاده کن<br>۵. برای دانلود سریع‌تر FTP، `-ftp-multipart` رو فعال کن |
-| **چطور از SFTP دانلود کنم؟** | ۱. از `-protocol sftp` استفاده کن<br>۲. با **رمز عبور** احراز هویت کن: `-sftp-user` و `-sftp-pass`<br>۳. یا با **کلید SSH** احراز هویت کن: `-ssh-key ~/.ssh/id_rsa`<br>۴. برای کلیدهای رمزگذاری شده، `-ssh-key-pass "passphrase"` رو اضافه کن<br>۵. مثال: `./had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip` |
+| **چطور از FTP دانلود کنم؟** | ۱. از `-protocol ftp` استفاده کن<br>۲. مشخصات کاربری رو بده: `-ftp-user` و `-ftp-pass`<br>۳. مثال: `had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`<br>۴. برای FTPS (FTP روی TLS)، از `-protocol ftps` استفاده کن<br>۵. برای دانلود سریع‌تر FTP، `-ftp-multipart` رو فعال کن |
+| **چطور از SFTP دانلود کنم؟** | ۱. از `-protocol sftp` استفاده کن<br>۲. با **رمز عبور** احراز هویت کن: `-sftp-user` و `-sftp-pass`<br>۳. یا با **کلید SSH** احراز هویت کن: `-ssh-key ~/.ssh/id_rsa`<br>۴. برای کلیدهای رمزگذاری شده، `-ssh-key-pass "passphrase"` رو اضافه کن<br>۵. مثال: `had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip` |
 | **می‌تونم محدودیت سرعت بذارم؟** | بله! از `-max-speed` با سرعت بر حسب **بایت بر ثانیه** استفاده کن:<br>• `-max-speed 1048576` → ۱ مگابایت بر ثانیه<br>• `-max-speed 5242880` → ۵ مگابایت بر ثانیه<br>• `-max-speed 0` → نامحدود (پیش‌فرض)<br>می‌تونی این رو با `-schedule-from` و `-schedule-to` برای محدودیت‌های مبتنی بر زمان ترکیب کنی. |
-| **چطور از لیست آدرس‌ها دانلود کنم؟** | ۱. یه فایل متنی بساز (مثلاً `urls.txt`) با هر خط یک آدرس<br>۲. کامنت‌ها با `#` شروع می‌شن<br>۳. اجرا کن: `./had -f urls.txt`<br>۴. می‌تونی این رو با `-u` برای دانلود همزمان ترکیب کنی |
+| **چطور از لیست آدرس‌ها دانلود کنم؟** | ۱. یه فایل متنی بساز (مثلاً `urls.txt`) با هر خط یک آدرس<br>۲. کامنت‌ها با `#` شروع می‌شن<br>۳. اجرا کن: `had -f urls.txt`<br>۴. می‌تونی این رو با `-u` برای دانلود همزمان ترکیب کنی |
 | **می‌تونم بر اساس پسوند فایل فیلتر کنم؟** | بله! از `-ex` با پسوندهای جدا شده با کاما استفاده کن:<br>• `-ex .mp4,.mp3,.zip` → فقط فایل‌های MP4، MP3 و ZIP رو دانلود می‌کنه<br>• با `-scrape` و قابلیت اسکرپ رابط کاربری وب کار می‌کنه |
-| **چطور از یه وب‌سایت (پشتیبان) دانلود کنم؟** | از زیردستور **دانلودر وب** استفاده کن:<br>• `./had web -url https://example.com -mode full` → پشتیبان کامل سایت<br>• `./had web -url https://example.com/about -mode single` → صفحه تکی<br>• بخش [پشتیبان‌گیری از وب‌سایت](#پشتیبان‌گیری-از-وب‌سایت-دانلودر-وب) رو برای همه گزینه‌ها ببین |
+| **چطور از یه وب‌سایت (پشتیبان) دانلود کنم؟** | از زیردستور **دانلودر وب** استفاده کن:<br>• `had web -url https://example.com -mode full` → پشتیبان کامل سایت<br>• `had web -url https://example.com/about -mode single` → صفحه تکی<br>• بخش [پشتیبان‌گیری از وب‌سایت](#پشتیبان‌گیری-از-وب‌سایت-دانلودر-وب) رو برای همه گزینه‌ها ببین |
 | **می‌تونم فایل‌های محافظت شده با رمز رو دانلود کنم؟** | بله! از:<br>• **احراز هویت پایه HTTP:** `-H "Authorization: Basic base64..."`<br>• **کوکی‌ها:** `-load-cookies cookies.txt` یا `-c "session=abc"`<br>• **فایل .netrc:** `-netrc ~/.netrc`<br>• **FTP:** `-ftp-user` و `-ftp-pass`<br>• **SFTP:** `-sftp-user`/`-sftp-pass` یا `-ssh-key` |
-| **وقتی Ctrl+C می‌زنم چه اتفاقی می‌افته؟** | هَد **خودکار یه فایل جلسه** (`file.zip.json`) ذخیره می‌کنه و با ظرافت خارج میشه. می‌تونی بعداً با `./had file.zip.json` ادامه بدی. |
+| **وقتی Ctrl+C می‌زنم چه اتفاقی می‌افته؟** | هَد **خودکار یه فایل جلسه** (`file.zip.json`) ذخیره می‌کنه و با ظرافت خارج میشه. می‌تونی بعداً با `had file.zip.json` ادامه بدی. |
 | **چطور یکپارچگی دانلود رو بررسی کنم؟** | از پرچم‌های بررسی یکپارچگی استفاده کن:<br>• `-checksum-sha256 abc123...`<br>• `-checksum-md5 abc123...`<br>• `-checksum-sha1 abc123...`<br>• `-check-integrity` (تشخیص خودکار از فایل `.sha256`)<br>همچنین می‌تونی از ابزار **بررسی چکسام** توی رابط کاربری وب استفاده کنی. |
-| **می‌تونم از لینک مگنت دانلود کنم؟** | بله! هَد از **لینک‌های مگنت** با وب‌سید پشتیبانی می‌کنه. استفاده کن:<br>`./had -magnet "magnet:?xt=urn:btih:..."`<br>هَد سعی می‌کنه از وب‌سیدها (پارامتر `.ws`) توی لینک مگنت دانلود کنه. |
-| **چطور از WebDAV دانلود کنم؟** | از پرچم `-webdav` استفاده کن:<br>• `./had -webdav https://example.com/webdav/ -webdav-user user -webdav-pass pass`<br>• هَد به صورت بازگشتی همه فایل‌های سرور WebDAV رو لیست و دانلود می‌کنه. |
+| **می‌تونم از لینک مگنت دانلود کنم؟** | بله! هَد از **لینک‌های مگنت** با وب‌سید پشتیبانی می‌کنه. استفاده کن:<br>`had -magnet "magnet:?xt=urn:btih:..."`<br>هَد سعی می‌کنه از وب‌سیدها (پارامتر `.ws`) توی لینک مگنت دانلود کنه. |
+| **چطور از WebDAV دانلود کنم؟** | از پرچم `-webdav` استفاده کن:<br>• `had -webdav https://example.com/webdav/ -webdav-user user -webdav-pass pass`<br>• هَد به صورت بازگشتی همه فایل‌های سرور WebDAV رو لیست و دانلود می‌کنه. |
 | **می‌تونم از گوگل درایو یا سرویس‌های ابری دیگه دانلود کنم؟** | به طور مستقیم نه. اما می‌تونی از **پروکسی ضبط** برای رهگیری لینک‌های دانلود از مرورگرت هنگام استفاده از گوگل درایو استفاده کنی، یا لینک‌های مستقیم دانلود رو استخراج کنی و به هَد بدی. |
 
 ---
@@ -1959,9 +1959,9 @@ password user@example.com
 | سوال | پاسخ |
 |------|------|
 | **پروکسی ضبط چیه؟** | پروکسی ضبط یه پروکسی **MITM (مرد میانی)** هست که ترافیک HTTP/HTTPS رو رهگیری می‌کنه و به طور خودکار لینک‌های دانلود (ویدیو، موسیقی، تصویر، سند، آرشیو و...) رو در حین مرور شما شناسایی و ذخیره می‌کنه. برای ضبط مدیا از سایت‌های استریم، پلتفرم‌های ویدیو و صفحات دانلود مفیده. |
-| **چطور پروکسی ضبط رو شروع کنم؟** | ۱. اجرا کن: `./had -capture-proxy :8085`<br>۲. مرورگرت رو تنظیم کن تا از `localhost:8085` به عنوان پروکسی استفاده کنه<br>۳. به طور عادی مرور کن – هَد لینک‌ها رو خودکار ضبط می‌کنه<br>۴. لینک‌ها توی `captured_links.txt` و `captured_links.json` ذخیره می‌شن |
-| **چرا پروکسی ضبط چیزی ضبط نمی‌کنه؟** | این مشکلات رایج رو چک کن:<br>• **گواهی CA نصب نیست** → `./had -install-cert` رو اجرا کن<br>• **مرورگر تنظیم نشده** → پروکسی رو روی `localhost:8085` بذار<br>• **هشدار گواهی HTTPS** → هشدار رو بپذیر (این گواهی هَد هست)<br>• **آستانه اطمینان خیلی بالاست** → با `-capture-confidence 30` کمش کن<br>• **فیلتر دامنه خیلی سخت‌گیرانه** → `-filter-domain` رو چک کن<br>• **اسکن بدنه غیرفعال** → با `-capture-body` برای لینک‌های مخفی فعالش کن |
-| **چطور گواهی CA رو نصب کنم؟** | ۱. خودکار: `./had -install-cert`<br>۲. دستی: دستورالعمل‌های نمایش داده شده در ترمینال رو دنبال کن<br>۳. فایل گواهی به اسم `had.crt` توی دایرکتوری فعلی ذخیره میشه<br>۴. روی ویندوز: دابل‌کلیک → Install Certificate → Trusted Root<br>۵. روی مک: دابل‌کلیک → Add to Keychain → Always Trust<br>۶. روی لینوکس: `sudo cp had.crt /usr/local/share/ca-certificates/ && sudo update-ca-certificates` |
+| **چطور پروکسی ضبط رو شروع کنم؟** | ۱. اجرا کن: `had -capture-proxy :8085`<br>۲. مرورگرت رو تنظیم کن تا از `localhost:8085` به عنوان پروکسی استفاده کنه<br>۳. به طور عادی مرور کن – هَد لینک‌ها رو خودکار ضبط می‌کنه<br>۴. لینک‌ها توی `captured_links.txt` و `captured_links.json` ذخیره می‌شن |
+| **چرا پروکسی ضبط چیزی ضبط نمی‌کنه؟** | این مشکلات رایج رو چک کن:<br>• **گواهی CA نصب نیست** → `had -install-cert` رو اجرا کن<br>• **مرورگر تنظیم نشده** → پروکسی رو روی `localhost:8085` بذار<br>• **هشدار گواهی HTTPS** → هشدار رو بپذیر (این گواهی هَد هست)<br>• **آستانه اطمینان خیلی بالاست** → با `-capture-confidence 30` کمش کن<br>• **فیلتر دامنه خیلی سخت‌گیرانه** → `-filter-domain` رو چک کن<br>• **اسکن بدنه غیرفعال** → با `-capture-body` برای لینک‌های مخفی فعالش کن |
+| **چطور گواهی CA رو نصب کنم؟** | ۱. خودکار: `had -install-cert`<br>۲. دستی: دستورالعمل‌های نمایش داده شده در ترمینال رو دنبال کن<br>۳. فایل گواهی به اسم `had.crt` توی دایرکتوری فعلی ذخیره میشه<br>۴. روی ویندوز: دابل‌کلیک → Install Certificate → Trusted Root<br>۵. روی مک: دابل‌کلیک → Add to Keychain → Always Trust<br>۶. روی لینوکس: `sudo cp had.crt /usr/local/share/ca-certificates/ && sudo update-ca-certificates` |
 | **می‌تونم بر اساس دامنه فیلتر کنم؟** | بله! از `-filter-domain example.com` استفاده کن تا فقط لینک‌های اون دامنه رو ضبط کنی. این برای تمرکز روی یه سایت خاص و نادیده گرفتن ترافیک دیگه مفیده. |
 | **امتیازدهی اطمینان چطور کار می‌کنه؟** | امتیازدهی اطمینان (۰‑۱۰۰٪) بر اساس **سیگنال‌های** متعدده:<br>• **پسوند فایل** (مثلاً `.mp4` → +۴۵ امتیاز)<br>• **نوع محتوا** (مثلاً `video/mp4` → +۴۰ امتیاز)<br>• **الگوهای آدرس** (مثلاً `/video/`، `/download/` → +۱۰ امتیاز)<br>• **میزبان‌های CDN** (مثلاً `cdn.` → +۱۲ امتیاز)<br>• **پارامترهای کوئری** (مثلاً `?video=` → +۸ امتیاز)<br>• **هدرها** (مثلاً `Range:` → +۱۰ امتیاز)<br>• **الگوهای نویز** (مثلاً `.css`، `.js` → -۵۰ امتیاز)<br>اطمینان بالاتر یعنی پروکسی مطمئن‌تره که لینک یه فایل قابل دانلوده. |
 | **می‌تونم فایل‌های ضبط شده رو خودکار دانلود کنم؟** | بله! از `-capture-auto` برای دانلود خودکار فایل‌های ضبط شده استفاده کن. به طور اختیاری مشخص کن:<br>• `-capture-output ./downloads` → ذخیره در دایرکتوری خاص<br>• هَد از نخ‌های هوشمند بر اساس حجم فایل استفاده می‌کنه (۱‑۸ نخ) |
@@ -1978,9 +1978,9 @@ password user@example.com
 
 | سوال | پاسخ |
 |------|------|
-| **چطور رابط کاربری وب رو شروع کنم؟** | `./had -web-ui` یا `./had webui` رو اجرا کن. بعد `http://localhost:8090` رو توی مرورگرت باز کن. رابط کاربری وب سرور RPC رو خودکار شروع می‌کنه. |
-| **می‌تونم پورت رابط کاربری وب رو عوض کنم؟** | بله! متغیر محیطی `HAD_WEB_ADDR` رو تنظیم کن:<br>`HAD_WEB_ADDR=:9000 ./had -web-ui`<br>این رابط کاربری وب رو به پورت ۹۰۰۰ متصل می‌کنه. |
-| **می‌تونم رابط کاربری وب رو امن کنم؟** | بله! متغیر محیطی `HAD_TOKEN` رو تنظیم کن تا **احراز هویت توکن بریر** فعال بشه:<br>`HAD_TOKEN=secret123 ./had -web-ui`<br>بعد توکن رو توی درخواست‌ها قرار بده: `Authorization: Bearer secret123` یا `?token=secret123`. |
+| **چطور رابط کاربری وب رو شروع کنم؟** | `had -web-ui` یا `had webui` رو اجرا کن. بعد `http://localhost:8090` رو توی مرورگرت باز کن. رابط کاربری وب سرور RPC رو خودکار شروع می‌کنه. |
+| **می‌تونم پورت رابط کاربری وب رو عوض کنم؟** | بله! متغیر محیطی `HAD_WEB_ADDR` رو تنظیم کن:<br>`HAD_WEB_ADDR=:9000 had -web-ui`<br>این رابط کاربری وب رو به پورت ۹۰۰۰ متصل می‌کنه. |
+| **می‌تونم رابط کاربری وب رو امن کنم؟** | بله! متغیر محیطی `HAD_TOKEN` رو تنظیم کن تا **احراز هویت توکن بریر** فعال بشه:<br>`HAD_TOKEN=secret123 had -web-ui`<br>بعد توکن رو توی درخواست‌ها قرار بده: `Authorization: Bearer secret123` یا `?token=secret123`. |
 | **چرا نمی‌تونم به رابط کاربری وب متصل شم؟** | مشکلات رایج:<br>• هَد با `-web-ui` اجرا نشده<br>• پورت `8090` قبلاً استفاده میشه → با `HAD_WEB_ADDR` تغییرش بده<br>• فایروال پورت رو مسدود کرده<br>• سرور RPC اجرا نشده (با رابط کاربری وب خودکار شروع میشه)<br>• خروجی کنسول رو برای پیام‌های خطا چک کن |
 | **رابط کاربری وب روی موبایل کار می‌کنه؟** | بله! رابط کاربری وب **کاملاً واکنش‌گرا** هست و روی گوشی‌ها، تبلت‌ها و دسکتاپ کار می‌کنه. همه قابلیت‌ها روی دستگاه‌های موبایل در دسترس هستن. |
 | **می‌تونم از راه دور از رابط کاربری وب استفاده کنم؟** | بله! هَد رو با `-rpc-addr 0.0.0.0:6800` شروع کن و از دستگاه دیگه به رابط کاربری وب دسترسی پیدا کن. مطمئن شو که:<br>۱. با `HAD_TOKEN` امنش کنی<br>۲. پورت فایروال رو باز کنی<br>۳. از `http://your-ip:8090` برای دسترسی استفاده کنی |
@@ -2018,12 +2018,12 @@ password user@example.com
 | سوال | پاسخ |
 |------|------|
 | **HLS چیه؟** | HLS (پخش زنده HTTP) یه پروتکل استریمینگ هست که توسط اپل توسعه داده شده. بسیاری از پلتفرم‌های ویدیو (یوتیوب زنده، توئیچ، هولو، نتفلیکس و...) برای ارائه محتوای ویدیویی ازش استفاده می‌کنن. HLS از **پلی‌لیست‌های M3U8** استفاده می‌کنه که به **سگمنت‌های TS** اشاره می‌کنن. |
-| **چطور یه استریم HLS دانلود کنم؟** | از `-hls` با آدرس پلی‌لیست M3U8 استفاده کن:<br>`./had -hls https://example.com/stream.m3u8`<br>هَد همه سگمنت‌ها رو دانلود و توی یه فایل ترکیب می‌کنه. |
+| **چطور یه استریم HLS دانلود کنم؟** | از `-hls` با آدرس پلی‌لیست M3U8 استفاده کن:<br>`had -hls https://example.com/stream.m3u8`<br>هَد همه سگمنت‌ها رو دانلود و توی یه فایل ترکیب می‌کنه. |
 | **به FFmpeg نیاز دارم؟** | نه، هَد یه **پشتیبان خالص گو** داره. اما:<br>• **با FFmpeg** → سریع‌تر، خروجی MP4 تولید می‌کنه<br>• **بدون FFmpeg** → کندتر، خروجی TS تولید می‌کنه<br>هَد FFmpeg رو خودکار تشخیص میده و با ظرافت به پشتیبان برمی‌گرده. |
 | **می‌تونم استریم‌های زنده رو دانلود کنم؟** | بله! هَد از استریم‌های زنده HLS پشتیبانی می‌کنه. دانلود تا زمانی که سگمنت‌های جدید در دسترس بشن ادامه پیدا می‌کنه. دانلود تا زمانی که متوقفش کنی (Ctrl+C) یا استریم تموم بشه، ادامه داره. |
 | **چرا دانلود HLS من fail میشه؟** | مشکلات رایج:<br>• **آدرس M3U8 قابل دسترس نیست** → بررسی کن توی مرورگر کار می‌کنه<br>• **احراز هویت لازمه** → از کوکی یا هدر استفاده کن<br>• **پلی‌لیست نامعتبر** → M3U8 ممکنه خالی یا خراب باشه<br>• **محدودیت نرخ** → سرور ممکنه درخواست‌های متعدد رو مسدود کنه<br>• **مشکلات شبکه** → اتصالت رو چک کن<br>برای دیدن اینکه چه اتفاقی می‌افته، از `-v` برای خروجی دیباگ استفاده کن. |
 | **چطور فرمت خروجی رو مشخص کنم؟** | • **با FFmpeg** → خروجی خودکار MP4 هست<br>• **بدون FFmpeg** → خروجی TS هست<br>می‌تونی پسوند رو بعد از دانلود دستی تغییر بدی، یا از `-post-rename` برای تغییر اسم استفاده کنی. |
-| **می‌تونم اسم فایل خروجی رو مشخص کنم؟** | از `-o` با یه اسم فایل (نه فقط دایرکتوری) استفاده کن:<br>`./had -hls https://example.com/stream.m3u8 -o ./videos/my_video.mp4`<br>اگه دایرکتوری مشخص کنی، هَد از اسم فایل توی آدرس استفاده می‌کنه. |
+| **می‌تونم اسم فایل خروجی رو مشخص کنم؟** | از `-o` با یه اسم فایل (نه فقط دایرکتوری) استفاده کن:<br>`had -hls https://example.com/stream.m3u8 -o ./videos/my_video.mp4`<br>اگه دایرکتوری مشخص کنی، هَد از اسم فایل توی آدرس استفاده می‌کنه. |
 | **می‌تونم دانلود HLS رو ادامه بدم؟** | نه، دانلودهای HLS قابل ادامه نیستن چون سگمنت‌ها یک بار دانلود و ترکیب می‌شن. اما اگه سگمنتی fail بشه، هَد دوباره تلاش می‌کنه (تا `-r` بار). |
 | **هَد از DASH (MPD) پشتیبانی می‌کنه؟** | نه هنوز. هَد فعلاً فقط از **HLS (M3U8)** پشتیبانی می‌کنه. پشتیبانی از DASH برای نسخه‌های آینده برنامه‌ریزی شده. |
 | **می‌تونم استریم‌های HLS محافظت شده با DRM رو دانلود کنم؟** | نه، هَد نمی‌تونه استریم‌های محافظت شده با DRM (مثل Widevine، FairPlay) رو رمزگشایی کنه. فقط با استریم‌های رمزگذاری نشده یا رمزگذاری شده با AES‑۱۲۸ کار می‌کنه (اگر کلید توی M3U8 موجود باشه). |
@@ -2035,7 +2035,7 @@ password user@example.com
 
 | سوال | پاسخ |
 |------|------|
-| **چطور سرور RPC رو شروع کنم؟** | از پرچم `-rpc` استفاده کن:<br>`./had -rpc`<br>به طور پیش‌فرض روی `localhost:6800` گوش میده. می‌تونی آدرس رو با `-rpc-addr` تغییر بدی. |
+| **چطور سرور RPC رو شروع کنم؟** | از پرچم `-rpc` استفاده کن:<br>`had -rpc`<br>به طور پیش‌فرض روی `localhost:6800` گوش میده. می‌تونی آدرس رو با `-rpc-addr` تغییر بدی. |
 | **پروتکل RPC چیه؟** | هَد از **JSON‑RPC 2.0** روی HTTP استفاده می‌کنه. همچنین **نقاط پایانی REST** برای عملیات‌های رایج در `/api/*` وجود دارن. |
 | **چطور از طریق RPC دانلود اضافه کنم؟** | یه درخواست POST به `/jsonrpc` بفرست با:<br>```json<br>{"method":"had.addUri","params":{"uris":["https://example.com/file.zip"]},"id":1}<br>```<br>پاسخ شامل یه `gid` (آیدی دانلود) هست. |
 | **می‌تونم از طریق RPC دانلودها رو توقف کنم؟** | بله! از `had.pauseAll` برای توقف همه دانلودها استفاده کن، یا `had.pause` با یه `gid` خاص.<br>```json<br>{"method":"had.pause","params":{"gid":"..."},"id":2}<br>``` |
@@ -2043,7 +2043,7 @@ password user@example.com
 | **چه متدهایی در دسترس هستن؟** | `{"method":"system.listMethods","id":1}` رو بفرست تا لیست همه متدهای RPC موجود رو بگیری. متدها شامل:<br>• `had.addUri` – اضافه کردن دانلود<br>• `had.addUrls` – اضافه کردن چندین دانلود<br>• `had.remove` – حذف یه دانلود<br>• `had.removeAll` – حذف همه دانلودها<br>• `had.tellStatus` – گرفتن وضعیت یه دانلود<br>• `had.tellAllStatus` – گرفتن وضعیت همه دانلودها<br>• `had.getGlobalStat` – گرفتن آمار کلی<br>• `had.getFiles` – گرفتن لیست فایل‌ها<br>• `had.pause` – توقف یه دانلود<br>• `had.pauseAll` – توقف همه دانلودها<br>• `had.resume` – ادامه یه دانلود<br>• `had.resumeAll` – ادامه همه دانلودها<br>• `had.setSpeedLimit` – تنظیم محدودیت سرعت<br>• `had.getSpeedLimit` – گرفتن محدودیت سرعت<br>• `had.setMaxParallel` – تنظیم حداکثر دانلود همزمان<br>• `had.setThreads` – تنظیم نخ‌های هر فایل<br>• `had.setOutDir` – تنظیم دایرکتوری خروجی<br>• `had.scrape` – اسکرپ یه آدرس<br>• `had.shutdown` – خاموش کردن هَد<br>• `had.version` – گرفتن اطلاعات نسخه<br>• `had.getHistory` – گرفتن تاریخچه دانلود<br>• `had.clearHistory` – پاک کردن تاریخچه<br>• `had.setBWSchedule` – تنظیم زمان‌بندی پهنای باند<br>• `had.getBWSchedule` – گرفتن زمان‌بندی پهنای باند<br>• `had.testMirrors` – تست آدرس‌های آینه<br>• `had.fetchMeta` – دریافت متادیتا<br>• `had.verifyChecksum` – بررسی چکسام<br>• `had.listSessions` – لیست جلسات<br>• `had.resumeSession` – ادامه جلسه<br>• `had.deleteSession` – حذف جلسه<br>• `had.setMirrors` – تنظیم آینه‌ها<br>• `had.getMirrors` – گرفتن آینه‌ها<br>• `had.addWebDAV` – اضافه کردن دانلود WebDAV<br>• `had.listWebDAV` – لیست فایل‌های WebDAV<br>• `had.downloadWebDAVFile` – دانلود فایل WebDAV<br>• `had.pauseFile` – توقف فایل با اسم<br>• `had.resumeFile` – ادامه فایل با اسم<br>• `had.removeFile` – حذف فایل با اسم<br>• `had.pauseAllFiles` – توقف همه فایل‌ها<br>• `had.getPausedFiles` – گرفتن فایل‌های متوقف شده |
 | **چطور از REST API استفاده کنم؟** | REST API در `/api/*` در دسترسه:<br>• `GET /api/status` – وضعیت کلی<br>• `GET /api/files` – لیست فایل‌ها<br>• `GET /api/tasks` – لیست تسک‌ها<br>• `GET /api/pause` – توقف همه<br>• `GET /api/resume` – ادامه همه<br>• `GET /api/version` – اطلاعات نسخه |
 | **می‌تونم از API RPC از زبان‌های برنامه‌نویسی دیگه استفاده کنم؟** | بله! API JSON‑RPC رو می‌تونی از هر زبونی که می‌تونه درخواست HTTP بفرسته، فراخوانی کنی. کتابخانه‌های کلاینت JSON‑RPC برای پایتون، جاوااسکریپت، جاوا، سی‌شارپ، روبی، پی‌اچ‌پی و خیلی‌های دیگه وجود دارن. |
-| **می‌تونم از رابط کاربری وب بدون سرور RPC استفاده کنم؟** | نه، رابط کاربری وب از طریق سرور RPC با هَد ارتباط برقرار می‌کنه. سرور RPC وقتی `./had -web-ui` رو اجرا می‌کنی خودکار شروع میشه. |
+| **می‌تونم از رابط کاربری وب بدون سرور RPC استفاده کنم؟** | نه، رابط کاربری وب از طریق سرور RPC با هَد ارتباط برقرار می‌کنه. سرور RPC وقتی `had -web-ui` رو اجرا می‌کنی خودکار شروع میشه. |
 | **چطور سرور RPC رو امن کنم؟** | • از فایروال برای محدود کردن دسترسی به آی‌پی‌های معتبر استفاده کن<br>• از متغیر محیطی `HAD_TOKEN` برای احراز هویت استفاده کن<br>• هَد رو روی پورت غیراستاندارد اجرا کن<br>• برای دسترسی از راه دور از تونل SSH استفاده کن |
 
 ---
@@ -2058,15 +2058,15 @@ password user@example.com
 | **خطای "invalid checksum"؟** | هش فایل دانلود شده با مقدار مورد انتظار مطابقت نداره:<br>۱. فایل ممکنه **خراب** شده باشه – دوباره دانلود کن<br>۲. **چکسام اشتباه** هست – هش مورد انتظار رو بررسی کن<br>۳. فایل ممکنه بعد از آپلود **تغییر** کرده باشه<br>۴. با `-mirrors` یه آینه دیگه امتحان کن |
 | **خطای "too many open files"؟** | ۱. دانلودهای همزمان رو کم کن: `-u 3`<br>۲. نخ‌های هر فایل رو کم کن: `-t 8`<br>۳. محدودیت فایل سیستم رو زیاد کن: `ulimit -n 4096` (لینوکس/مک)<br>۴. ترمینال یا سیستم رو ریستارت کن |
 | **"no space left on device"؟** | ۱. فضای دیسک رو آزاد کن<br>۲. از `-o` برای ذخیره در درایو دیگه با فضای بیشتر استفاده کن<br>۳. از `-post-extract` برای اکسترکت و حذف آرشیوها استفاده کن<br>۴. `-disk-cache` رو کمتر بذار تا فضای موقت کمتری اشغال بشه |
-| **"certificate verify failed"؟** | ۱. برای سایت‌های HTTPS، گواهی CA رو نصب کن: `./had -install-cert`<br>۲. برای گواهی‌های خودامضا، از `-insecure` استفاده کن (توصیه نمیشه)<br>۳. تاریخ و زمان سیستم رو بررسی کن<br>۴. توی پروکسی ضبط، هشدار گواهی رو توی مرورگر بپذیر |
+| **"certificate verify failed"؟** | ۱. برای سایت‌های HTTPS، گواهی CA رو نصب کن: `had -install-cert`<br>۲. برای گواهی‌های خودامضا، از `-insecure` استفاده کن (توصیه نمیشه)<br>۳. تاریخ و زمان سیستم رو بررسی کن<br>۴. توی پروکسی ضبط، هشدار گواهی رو توی مرورگر بپذیر |
 | **دانلود HLS میگه "no segments found"؟** | ۱. پلی‌لیست M3U8 ممکنه **خالی** باشه – توی مرورگر چک کن<br>۲. احراز هویت لازمه – کوکی یا هدر اضافه کن<br>۳. پلی‌لیست ممکنه یه **استریم زنده** باشه که هنوز شروع نشده<br>۴. از `-v` برای دیدن خروجی دیباگ و محتوای واقعی پلی‌لیست استفاده کن |
 | **رابط کاربری وب "RPC unreachable" نشون میده؟** | ۱. مطمئن شو هَد با `-web-ui` اجرا شده (RPC خودکار شروع میشه)<br>۲. متغیر محیطی `HAD_RPC_ADDR` رو چک کن<br>۳. آدرس RPC توی تب تنظیمات رابط کاربری وب رو بررسی کن<br>۴. بررسی کن پورت RPC (۶۸۰۰) باز باشه و مسدود نباشه<br>۵. مستقیم RPC رو امتحان کن: `curl http://localhost:6800/api/status` |
 | **پروکسی ضبط کند هست؟** | ۱. اسکن بدنه رو غیرفعال کن: `-capture-body false`<br>۲. آستانه اطمینان رو زیاد کن: `-capture-confidence 50` (ضبط کمتر)<br>۳. از ماشین سریع‌تر یا شبکه بهتر استفاده کن<br>۴. دامنه ضبط رو با `-filter-domain` محدود کن<br>۵. از `-capture-types` برای ضبط فقط چیزایی که نیاز داری استفاده کن |
 | **افزونه مرورگر کوکی‌ها رو نشون نمیده؟** | ۱. صفحه رو رفرش کن<br>۲. روی دکمه **REFRESH** توی افزونه کلیک کن<br>۳. مطمئن شو توی سایت درست هستی<br>۴. بررسی کن کوکی‌ها توی حافظه مرورگر وجود دارن (DevTools → Application → Cookies)<br>۵. افزونه رو دوباره بارگذاری کن (حالت توسعه‌دهنده → Reload) |
 | **سرعت دانلود کمتر از حد انتظاره؟** | ۱. نخ‌ها رو زیاد کن: `-t 16` یا `-t 32`<br>۲. بررسی کن سرور از **درخواست‌های محدوده** پشتیبانی می‌کنه (اکثراً می‌کنن)<br>۳. از `-u` برای دانلود همزمان چند فایل استفاده کن<br>۴. `-ftp-multipart` رو برای دانلودهای FTP فعال کن<br>۵. از `-auto-mirror` برای انتخاب سریع‌ترین آینه استفاده کن<br>۶. پهنای باند شبکه رو چک کن (تست سرعت)<br>۷. مصرف شبکه پس‌زمینه رو کم کن |
-| **ادامه دانلود کار نمی‌کنه؟** | ۱. مطمئن شو سرور از **درخواست‌های محدوده** پشتیبانی می‌کنه (`Accept-Ranges: bytes`)<br>۲. بررسی کن فایل جلسه وجود داره (`file.zip.json`)<br>۳. فایل ممکنه روی سرور تغییر کرده باشه (حجم متفاوت)<br>۴. ادامه دستی رو امتحان کن: `./had file.zip.json`<br>۵. بعضی سرورها از ادامه پشتیبانی نمی‌کنن – باید از اول شروع کنی |
+| **ادامه دانلود کار نمی‌کنه؟** | ۱. مطمئن شو سرور از **درخواست‌های محدوده** پشتیبانی می‌کنه (`Accept-Ranges: bytes`)<br>۲. بررسی کن فایل جلسه وجود داره (`file.zip.json`)<br>۳. فایل ممکنه روی سرور تغییر کرده باشه (حجم متفاوت)<br>۴. ادامه دستی رو امتحان کن: `had file.zip.json`<br>۵. بعضی سرورها از ادامه پشتیبانی نمی‌کنن – باید از اول شروع کنی |
 | **حالت دیمون کار نمی‌کنه؟** | ۱. حالت دیمون روی **ویندوز پشتیبانی نمیشه**<br>۲. روی لینوکس/مک، بررسی کن فایل PID ساخته شده<br>۳. مجوزها رو بررسی کن: `/tmp/had.pid` باید قابل نوشتن باشه<br>۴. بررسی کن نمونه دیگه‌ای در حال اجراست<br>۵. از `ps aux | grep had` برای بررسی فرآیندهای در حال اجرا استفاده کن |
-| **دانلود لینک مگنت fail میشه؟** | ۱. لینک‌های مگنت به **وب‌سید** نیاز دارن (پارامتر `ws=`)<br>۲. بدون وب‌سید → هَد نمی‌تونه فایل رو دانلود کنه<br>۳. یه کلاینت تورنت نصب کن تا فایل‌های تورنت رو دانلود کنی<br>۴. استفاده از پرچم `-magnet` رو مستقیم امتحان کن: `./had -magnet "magnet:?...&ws=http://..."`<br>۵. بعضی ترکرها ممکنه مسدود باشن – آینه‌های دیگه امتحان کن |
+| **دانلود لینک مگنت fail میشه؟** | ۱. لینک‌های مگنت به **وب‌سید** نیاز دارن (پارامتر `ws=`)<br>۲. بدون وب‌سید → هَد نمی‌تونه فایل رو دانلود کنه<br>۳. یه کلاینت تورنت نصب کن تا فایل‌های تورنت رو دانلود کنی<br>۴. استفاده از پرچم `-magnet` رو مستقیم امتحان کن: `had -magnet "magnet:?...&ws=http://..."`<br>۵. بعضی ترکرها ممکنه مسدود باشن – آینه‌های دیگه امتحان کن |
 | **دانلود WebDAV fail میشه؟** | ۱. بررسی کن سرور WebDAV قابل دسترسه<br>۲. مشخصات کاربری رو بررسی کن: `-webdav-user` و `-webdav-pass`<br>۳. سرور ممکنه به مسیر خاصی نیاز داشته باشه – `-webdav https://example.com/dav/` رو امتحان کن<br>۴. بعضی سرورهای WebDAV از لیست بازگشتی پشتیبانی نمی‌کنن – هَد ممکنه fail بشه<br>۵. لاگ‌های سرور رو برای اطلاعات بیشتر چک کن |
 
 ---
@@ -2097,7 +2097,7 @@ password user@example.com
 
 ```bash
 # شروع دیمون
-./had -daemon -o /downloads https://example.com/bigfile.zip
+had -daemon -o /downloads https://example.com/bigfile.zip
 
 # بررسی وضعیت
 cat /tmp/had.pid
@@ -2143,56 +2143,56 @@ export HAD_WEB_ADDR=:8090
 export HAD_TOKEN=secret123
 
 # اجرا با محیط
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 ### ترکیب با ابزارهای دیگر
 
 ```bash
 # دانلود و اکسترکت
-./had https://example.com/archive.zip && unzip archive.zip
+had https://example.com/archive.zip && unzip archive.zip
 
 # دانلود و بررسی امضا
-./had https://example.com/file.iso && sha256sum -c file.iso.sha256
+had https://example.com/file.iso && sha256sum -c file.iso.sha256
 
 # دانلود لیست از خروجی برنامه دیگه
-cat urls.txt | xargs -n1 ./had
+cat urls.txt | xargs -n1 had
 
 # دانلود زمان‌بندی شده با cron
 0 2 * * * /usr/local/bin/had https://example.com/daily-backup.zip -o /backups
 
 # دانلود و انتقال به دایرکتوری خاص
-./had -post-move /media/videos https://example.com/video.mp4
+had -post-move /media/videos https://example.com/video.mp4
 ```
 
 ### هدرهای سفارشی
 
 ```bash
 # چند هدر سفارشی
-./had -H "Authorization: Bearer token123" -H "X-Custom-Header: value" https://api.example.com/file.zip
+had -H "Authorization: Bearer token123" -H "X-Custom-Header: value" https://api.example.com/file.zip
 
 # تغییر User-Agent
-./had -H "User-Agent: MyCustomBot/1.0" https://example.com/file.zip
+had -H "User-Agent: MyCustomBot/1.0" https://example.com/file.zip
 
 # هدر Referer
-./had -H "Referer: https://google.com" https://example.com/file.zip
+had -H "Referer: https://google.com" https://example.com/file.zip
 ```
 
 ### پروکسی ضبط با هدرهای سفارشی
 
 ```bash
 # اضافه کردن هدر احراز هویت به پروکسی ضبط
-./had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
+had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
 
 # عبور کوکی از پروکسی
-./had -capture-proxy :8085 -capture-cookie "sessionid=abc123; user=test"
+had -capture-proxy :8085 -capture-cookie "sessionid=abc123; user=test"
 ```
 
 ### گردش کار کامل خودکار
 
 ```bash
 # دانلود از صف با زمان‌بندی، اعلان و پردازش پس از دانلود
-./had \
+had \
   -queue queue.txt \
   -schedule-from 00:00 \
   -schedule-to 06:00 \
@@ -2277,7 +2277,7 @@ git clone https://github.com/batmanpriv/had.git
 cd had
 go mod download
 go build -o had main.go
-./had -v https://example.com/test.zip
+had -v https://example.com/test.zip
 ```
 
 ---
