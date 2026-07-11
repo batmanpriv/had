@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20ARM64-lightgrey)]()
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Caveat&weight=600&size=28&pause=1000&color=00D4FFFF&center=true&vCenter=true&random=false&width=700&height=70&lines=با+حداکثر+سرعت+دانلود+کن;چندتردی+یعنی+چندبرابر+سرعت;از+همون+جایی+که+قطع+شد;هر+نوع+لینکی،+هر+زمانی;خودش+سریع‌ترین+آینه+رو+پیدا+کن;حالت+پروکسی+برای+ضبط+ترافیک;یه+ابزار+برای+بک‌آپ+گرفتن+از+وب;حتی+HLS+رو+هم+دانلود+میکنه" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Caveat&weight=600&size=28&pause=1000&color=00D4FFFF&center=true&vCenter=true&random=false&width=700&height=70&lines=با+تمام+توان+دانلود+کن;چندتردی=چندین+ابر+همزمان;قطع+شد؟+همون‌جا+ادامه+میده;هر+لینکی+رو+میتونه+بکشه;خودش+سریع‌ترین+سرور+رو+پیدا+میکنه;پروکسی+برای+دزدیدن+لینک+ها;یه+بار+کل+سایت+رو+ذخیره+کن;حتی+فیلم+زنده+رو+هم+دانلود+میکنه" alt="Typing SVG" />
 </p>
 
 [**English**](https://github.com/batmanpriv/had/blob/main/README.md) | **فارسی**
