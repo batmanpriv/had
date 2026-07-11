@@ -2451,9 +2451,13 @@ func createHTTPClient() *http.Client {
 		Timeout:   time.Duration(timeoutSec) * time.Second,
 		KeepAlive: 90 * time.Second,
 	}
+	threads := numThreads
+    if threads <= 0 {
+        threads = runtime.NumCPU() * 2
+    }
 	tr := &http.Transport{
 		MaxIdleConns:          2000,
-		MaxIdleConnsPerHost:   numThreads * 4,
+		MaxIdleConnsPerHost:   threads * 4,
 		TLSHandshakeTimeout:   20 * time.Second,
 		DisableCompression:    !enableGzip,
 		IdleConnTimeout:       120 * time.Second,
@@ -2697,6 +2701,10 @@ func downloadSingleFromURL(rawURL string, client *http.Client, gs *GlobalStatus,
 	}
 
 	nThreads := numThreads
+    if nThreads <= 0 {
+        nThreads = runtime.NumCPU() * 2
+    }
+    
 	if !supportsRanges(rawURL, client) {
 		nThreads = 1
 		logDebug("server does not support ranges — single thread")
@@ -2845,15 +2853,20 @@ func createTLSConfig(host string, insecure bool) *tls.Config {
 }
 
 func downloadFTP(fileURL string, gs *GlobalStatus) {
-	if !ftpMultiPart {
-		downloadFTPSingle(fileURL, gs)
-		return
-	}
-	parts := ftpParts
-	if parts <= 0 {
-		parts = clampInt(numThreads, 2, 16)
-	}
-	downloadFTPMultiPart(fileURL, gs, parts)
+    if !ftpMultiPart {
+        downloadFTPSingle(fileURL, gs)
+        return
+    }
+    parts := ftpParts
+    if parts <= 0 {
+        if numThreads > 0 {
+            parts = numThreads
+        } else {
+            parts = runtime.NumCPU() * 2
+        }
+        parts = clampInt(parts, 2, 16)
+    }
+    downloadFTPMultiPart(fileURL, gs, parts)
 }
 
 func downloadFTPSingle(fileURL string, gs *GlobalStatus) {
@@ -3350,58 +3363,74 @@ func computeFileHash(filePath, algo string) (string, error) {
 }
 
 func DownloadFromCapturedJSON(jsonFile string, maxConcurrent int) error {
-	data, err := os.ReadFile(jsonFile)
-	if err != nil {
-		return fmt.Errorf("read JSON: %v", err)
-	}
-	var items []CapturedItem
-	if err := json.Unmarshal(data, &items); err != nil {
-		return fmt.Errorf("parse JSON: %v", err)
-	}
-	if len(items) == 0 {
-		return fmt.Errorf("no items in %s", jsonFile)
-	}
+    data, err := os.ReadFile(jsonFile)
+    if err != nil {
+        return fmt.Errorf("read JSON: %v", err)
+    }
 
-	valid := items[:0]
-	for _, it := range items {
-		if it.URL != "" {
-			valid = append(valid, it)
-		}
-	}
-	if len(valid) == 0 {
-		return fmt.Errorf("no downloadable items")
-	}
-	if maxConcurrent <= 0 {
-		maxConcurrent = 3
-	}
+    var items []CapturedItem
+    if err := json.Unmarshal(data, &items); err != nil {
+        return fmt.Errorf("parse JSON: %v", err)
+    }
 
-	gs := NewGlobalStatus()
-	for _, it := range valid {
-		gs.addFile(getFileNameFromItem(it), it.Size)
-	}
+    if len(items) == 0 {
+        return fmt.Errorf("no items in %s", jsonFile)
+    }
 
-	sem := make(chan struct{}, maxConcurrent)
-	var wg sync.WaitGroup
-	go gs.reportAllFiles()
+    valid := make([]CapturedItem, 0, len(items))
+    for _, it := range items {
+        if it.URL != "" {
+            valid = append(valid, it)
+        }
+    }
 
-	for _, it := range valid {
-		wg.Add(1)
-		sem <- struct{}{}
-		go func(item CapturedItem) {
-			defer wg.Done()
-			defer func() { <-sem }()
-			oldN := numThreads
-			numThreads = determineThreadsBySize(item.Size)
-			os.MkdirAll(outDir, 0755)
-			downloadSingleFromURL(item.URL, createHTTPClient(), gs, item.Size, getFileNameFromItem(item))
-			numThreads = oldN
-		}(it)
-	}
+    if len(valid) == 0 {
+        return fmt.Errorf("no downloadable items")
+    }
 
-	wg.Wait()
-	gs.closeDone()
-	logSuccess("all captured downloads complete")
-	return nil
+    if maxConcurrent <= 0 {
+        maxConcurrent = 3
+    }
+
+    gs := NewGlobalStatus()
+    for _, it := range valid {
+        gs.addFile(getFileNameFromItem(it), it.Size)
+    }
+
+    sem := make(chan struct{}, maxConcurrent)
+    var wg sync.WaitGroup
+    go gs.reportAllFiles()
+
+    savedThreads := numThreads
+    defer func() {
+        numThreads = savedThreads
+    }()
+
+    for _, it := range valid {
+        wg.Add(1)
+        sem <- struct{}{}
+
+        go func(item CapturedItem) {
+            defer wg.Done()
+            defer func() { <-sem }()
+
+            numThreads = determineThreadsBySize(item.Size)
+            os.MkdirAll(outDir, 0755)
+
+            downloadSingleFromURL(
+                item.URL,
+                createHTTPClient(),
+                gs,
+                item.Size,
+                getFileNameFromItem(item),
+            )
+        }(it)
+    }
+
+    wg.Wait()
+    gs.closeDone()
+    logSuccess("all captured downloads complete")
+    return nil
 }
 
 func getFileNameFromItem(item CapturedItem) string {
@@ -3426,20 +3455,58 @@ func sanitizeFileName(s string) string {
 }
 
 func determineThreadsBySize(size int64) int {
-	switch {
-	case size > 500*1024*1024:
-		return 8
-	case size > 200*1024*1024:
-		return 6
-	case size > 50*1024*1024:
-		return 4
-	case size > 10*1024*1024:
-		return 3
-	case size > 1024*1024:
-		return 2
-	default:
-		return 1
-	}
+    if numThreads > 0 {
+        return numThreads
+    }
+
+    cpuCores := runtime.NumCPU()
+    baseThreads := cpuCores * 2
+
+    if size <= 0 {
+        return clampInt(baseThreads, 2, 8)
+    }
+
+    if size > 2*1024*1024*1024 {
+        return clampInt(baseThreads*4, 8, 64)
+    }
+
+    if size > 1*1024*1024*1024 {
+        return clampInt(baseThreads*3, 6, 48)
+    }
+
+    if size > 500*1024*1024 {
+        return clampInt(baseThreads*2, 4, 32)
+    }
+
+    if size > 200*1024*1024 {
+        return clampInt(baseThreads, 3, 16)
+    }
+
+    if size > 100*1024*1024 {
+        return clampInt(baseThreads, 2, 12)
+    }
+
+    if size > 50*1024*1024 {
+        return clampInt(baseThreads, 2, 8)
+    }
+
+    if size > 20*1024*1024 {
+        return clampInt(baseThreads, 2, 6)
+    }
+
+    if size > 5*1024*1024 {
+        return clampInt(baseThreads, 2, 4)
+    }
+
+    if size > 1*1024*1024 {
+        return clampInt(baseThreads, 2, 3)
+    }
+
+    if size > 512*1024 {
+        return 2
+    }
+
+    return 1
 }
 
 func generateParameterizedURLs() []string {
@@ -3846,7 +3913,7 @@ func (h *headerSlice) String() string  { return strings.Join(*h, ", ") }
 func (h *headerSlice) Set(v string) error { *h = append(*h, v); return nil }
 
 func initFlags() {
-	flag.IntVar(&numThreads, "t", 0, "Number of download threads (default: num CPUs)")
+	flag.IntVar(&numThreads, "t", -1, "Number of download threads (default: num CPUs)")
 	flag.Var(&headers, "H", "Custom HTTP header (repeatable, format: 'Name: value')")
 	flag.StringVar(&cookie, "b", "", "Cookie string (Name=value; ...)")
 	flag.StringVar(&outDir, "o", ".", "Output directory")
