@@ -2336,6 +2336,15 @@ had -v https://example.com/test.zip
 
 ---
 
+### Crypto Donations
+
+| Currency | Address |
+|----------|---------|
+| **Bitcoin (BTC)** | `bc1q7rags3da9a549u22e8t9fmw7j94kgxwflfy2f8` |
+| **Tron (TRX)** | `TQsUASZzfcKg4AckFFv1YjKgU8QCniUwhv` |
+
+[![Donate](https://img.shields.io/badge/Donate-coffeete.ir-FF8C42?style=for-the-badge)](https://www.coffeete.ir/specter)
+
 ## 🙏 Acknowledgments
 
 - Thanks to all contributors and users who reported issues
