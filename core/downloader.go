@@ -800,115 +800,140 @@ func (gs *GlobalStatus) reportAllFiles() {
 	var buf strings.Builder
 
 	render := func(final bool) {
-	buf.Reset()
-	title := "DOWNLOAD STATUS"
-	if final {
-		title = "FINAL STATUS"
-	}
-	heavy = strings.Repeat("═", 60)
-	buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
-	pad := (60 - len(title) - 2) / 2
-	buf.WriteString(strings.Repeat(" ", pad) + colors["bold"] + title + colors["reset"] + "\n")
-	buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
-
-	gs.mu.RLock()
-	var totalDone, totalSize, activeDownloads, completedFiles int64
-	lines := 3
-
-	for i, f := range gs.files {
-		if f == nil {
-			continue
+		buf.Reset()
+		title := "DOWNLOAD STATUS"
+		if final {
+			title = "FINAL STATUS"
 		}
-		pct := pctOf(f.Done, f.Total)
-		barW = 20
-		filled := clampInt(int(pct/100*float64(barW)), 0, barW)
-		bar := colors["green"] + strings.Repeat("█", filled) +
-			colors["reset"] + strings.Repeat("░", barW-filled)
+		buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
+		pad := (w - len(title) - 2) / 2
+		buf.WriteString(strings.Repeat(" ", pad) + colors["bold"] + title + colors["reset"] + "\n")
+		buf.WriteString(colors["cyan"] + heavy + colors["reset"] + "\n")
 
-		nameW = 25
-		name := truncateString(f.Name, nameW)
-		icon := statusIcon(f.Status)
-		sc := statusColor(f.Status)
+		gs.mu.RLock()
+		var totalDone, totalSize, activeDownloads, completedFiles int64
+		lines := 3
 
-		buf.WriteString(fmt.Sprintf("%s%2d.%s %s %s%-*s%s [%s] %5.1f%% %s/%s",
-			colors["bold"], i+1, colors["reset"],
-			icon, sc, nameW, name, colors["reset"],
-			bar, pct,
-			Size4Human(f.Done), Size4Human(f.Total)))
+		for i, f := range gs.files {
+			if f == nil {
+				continue
+			}
+			pct := pctOf(f.Done, f.Total)
+			filled := clampInt(int(pct/100*float64(barW)), 0, barW)
+			bar := colors["green"] + strings.Repeat("█", filled) +
+				colors["reset"] + strings.Repeat("░", barW-filled)
 
-		switch f.Status {
-		case "downloading", "hls":
-			activeDownloads++
-			elapsed := time.Since(f.StartTime).Seconds()
-			if elapsed > 0 && f.Done > 0 {
-				spd := float64(f.Done) / 1024 / 1024 / elapsed
-				buf.WriteString(fmt.Sprintf(" %s%.1fMB/s%s", colors["yellow"], spd, colors["reset"]))
-				if spd > 0 && f.Total > f.Done {
-					rem := float64(f.Total-f.Done) / 1024 / 1024 / spd
-					buf.WriteString(fmt.Sprintf(" %sETA:%s%s", colors["cyan"], formatDuration(rem), colors["reset"]))
+			name := truncateString(f.Name, nameW)
+			icon := statusIcon(f.Status)
+			sc := statusColor(f.Status)
+
+			buf.WriteString(fmt.Sprintf("%s%2d.%s %s %s%-*s%s [%s] %5.1f%% %s/%s",
+				colors["bold"], i+1, colors["reset"],
+				icon, sc, nameW, name, colors["reset"],
+				bar, pct,
+				Size4Human(f.Done), Size4Human(f.Total)))
+
+			switch f.Status {
+			case "downloading", "hls":
+				activeDownloads++
+				elapsed := time.Since(f.StartTime).Seconds()
+				if elapsed > 0 && f.Done > 0 {
+					spd := float64(f.Done) / 1024 / 1024 / elapsed
+					buf.WriteString(fmt.Sprintf(" %s%.1fMB/s%s", colors["yellow"], spd, colors["reset"]))
+					if spd > 0 && f.Total > f.Done {
+						rem := float64(f.Total-f.Done) / 1024 / 1024 / spd
+						buf.WriteString(fmt.Sprintf(" %sETA:%s%s", colors["cyan"], formatDuration(rem), colors["reset"]))
+					}
+				}
+			case "downloaded":
+				completedFiles++
+				buf.WriteString(colors["green"] + " done" + colors["reset"])
+			case "error":
+				buf.WriteString(colors["red"] + " fail" + colors["reset"])
+			case "queued":
+				buf.WriteString(colors["gray"] + " waiting" + colors["reset"])
+			}
+			buf.WriteByte('\n')
+			lines++
+
+			// نمایش اطلاعات تردها در حالت verbose
+			if verbose && f.TotalThreads > 0 && len(f.ThreadProg) > 0 {
+				segBase := int64(0)
+				if f.Total > 0 && f.TotalThreads > 0 {
+					segBase = f.Total / int64(f.TotalThreads)
+				}
+				buf.WriteString(fmt.Sprintf("  %s└ threads [%d/%d]:%s\n",
+					colors["gray"], f.DoneThreads, f.TotalThreads, colors["reset"]))
+				lines++
+				for ti, tp := range f.ThreadProg {
+					seg := segBase
+					if ti == f.TotalThreads-1 && f.Total > 0 {
+						seg = f.Total - segBase*int64(ti)
+					}
+					tpct := pctOf(tp, seg)
+					tf := clampInt(int(tpct/100*10), 0, 10)
+					tbar := colors["green"] + strings.Repeat("█", tf) +
+						colors["reset"] + strings.Repeat("░", 10-tf)
+					icon2 := "⬇"
+					if tpct >= 100 {
+						icon2 = "✅"
+					} else if tp == 0 {
+						icon2 = "⏳"
+					}
+					buf.WriteString(fmt.Sprintf("  %s  T%d:%s [%s] %.0f%%%s\n",
+						colors["gray"], ti+1, icon2, tbar, tpct, colors["reset"]))
+					lines++
 				}
 			}
-		case "downloaded":
-			completedFiles++
-			buf.WriteString(colors["green"] + " done" + colors["reset"])
-		case "error":
-			buf.WriteString(colors["red"] + " fail" + colors["reset"])
-		case "queued":
-			buf.WriteString(colors["gray"] + " waiting" + colors["reset"])
+
+			if f.Status == "downloaded" {
+				totalDone += f.Size
+			} else {
+				totalDone += f.Done
+			}
+			totalSize += f.Size
 		}
-		buf.WriteByte('\n')
-		lines++
+		gs.mu.RUnlock()
 
-		if f.Status == "downloaded" {
-			totalDone += f.Size
-		} else {
-			totalDone += f.Done
+		elapsed := time.Since(gs.startTime).Seconds()
+		curBytes := atomic.LoadInt64(&gs.totalDone)
+		diff := curBytes - prevBytes
+		prevBytes = curBytes
+
+		avgSpd := float64(curBytes) / 1024 / 1024 / maxF64(elapsed, 0.001)
+		instSpd := float64(diff) / 1024 / 1024 / 0.5
+		downloaded := atomic.LoadInt64(&gs.downloadedCount)
+		totalPct := pctOf(totalDone, totalSize)
+
+		buf.WriteString(colors["cyan"] + sep + colors["reset"] + "\n")
+		buf.WriteString(fmt.Sprintf(" Avg:%.1fMB/s Inst:%.1fMB/s Active:%s%d%s Files:%d/%d %.1f%% T:%s\n",
+			avgSpd, instSpd,
+			colors["cyan"], activeDownloads, colors["reset"],
+			downloaded, len(gs.files), totalPct,
+			formatDuration(elapsed)))
+		lines += 2
+
+		if totalPct > 0 && totalPct < 100 && avgSpd > 0 {
+			remBytes := float64(totalSize-totalDone) / 1024 / 1024
+			remSec := remBytes / avgSpd
+			if remSec < 86400 {
+				buf.WriteString(fmt.Sprintf(" ETA:%s  Rem:%.1fMB\n",
+					formatDuration(remSec), remBytes))
+				lines++
+			}
 		}
-		totalSize += f.Size
-	}
-	gs.mu.RUnlock()
 
-	elapsed := time.Since(gs.startTime).Seconds()
-	curBytes := atomic.LoadInt64(&gs.totalDone)
-	diff := curBytes - prevBytes
-	prevBytes = curBytes
-
-	avgSpd := float64(curBytes) / 1024 / 1024 / maxF64(elapsed, 0.001)
-	instSpd := float64(diff) / 1024 / 1024 / 0.5
-	downloaded := atomic.LoadInt64(&gs.downloadedCount)
-	totalPct := pctOf(totalDone, totalSize)
-
-	sep = strings.Repeat("─", 60)
-	buf.WriteString(colors["cyan"] + sep + colors["reset"] + "\n")
-	buf.WriteString(fmt.Sprintf(" Avg:%.1fMB/s Inst:%.1fMB/s Active:%s%d%s Files:%d/%d %.1f%% T:%s\n",
-		avgSpd, instSpd,
-		colors["cyan"], activeDownloads, colors["reset"],
-		downloaded, len(gs.files), totalPct,
-		formatDuration(elapsed)))
-	lines += 2
-
-	if totalPct > 0 && totalPct < 100 && avgSpd > 0 {
-		remBytes := float64(totalSize-totalDone) / 1024 / 1024
-		remSec := remBytes / avgSpd
-		if remSec < 86400 {
-			buf.WriteString(fmt.Sprintf(" ETA:%s  Rem:%.1fMB\n",
-				formatDuration(remSec), remBytes))
+		if final || (completedFiles > 0 && completedFiles == int64(len(gs.files))) {
+			buf.WriteString(colors["green"] + " All downloads completed!" + colors["reset"] + "\n")
 			lines++
 		}
-	}
 
-	if final || (completedFiles > 0 && completedFiles == int64(len(gs.files))) {
-		buf.WriteString(colors["green"] + " All downloads completed!" + colors["reset"] + "\n")
-		lines++
+		if lineCount > 0 {
+			moveCursor(lineCount)
+		}
+		fmt.Print(buf.String())
+		lineCount = lines
 	}
-
-	if lineCount > 0 {
-		moveCursor(lineCount)
-	}
-	fmt.Print("\033[H\033[2J")
-	fmt.Print(buf.String())
-	lineCount = lines
-}
 
 	for {
 		select {
@@ -1321,12 +1346,35 @@ func (h *HLSDownloader) downloadWithFFmpeg(ffmpegPath string) error {
 }
 
 func (h *HLSDownloader) downloadPureGo() error {
+	logInfo("starting pure-Go HLS download: %s", h.url)
+	
 	playlist, err := h.fetchPlaylist(h.url)
 	if err != nil {
 		return fmt.Errorf("fetch playlist: %v", err)
 	}
+	
+	if playlist == "" {
+		return fmt.Errorf("empty playlist")
+	}
 
-	segments := h.parseM3U8(playlist, h.url)
+	logDebug("playlist content preview: %s...", truncateString(playlist, 200))
+
+	segments, isMaster := h.parseM3U8(playlist, h.url)
+	
+	// اگر پلی‌لیست master بود و segments خالی برگشت، سعی میکنیم از تگ‌های #EXT-X-STREAM-INF استفاده کنیم
+	if isMaster && len(segments) == 0 {
+		logInfo("detected master playlist, fetching variant")
+		// سعی میکنیم بهترین کیفیت رو انتخاب کنیم
+		if variant := h.selectBestVariant(playlist, h.url); variant != "" {
+			logInfo("selected variant: %s", variant)
+			subPlaylist, err := h.fetchPlaylist(variant)
+			if err != nil {
+				return fmt.Errorf("fetch variant playlist: %v", err)
+			}
+			segments, _ = h.parseM3U8(subPlaylist, variant)
+		}
+	}
+	
 	if len(segments) == 0 {
 		return fmt.Errorf("no segments found in playlist")
 	}
@@ -1334,7 +1382,7 @@ func (h *HLSDownloader) downloadPureGo() error {
 	logInfo("HLS: %d segments found", len(segments))
 
 	out := h.outPath
-	if !strings.HasSuffix(out, ".ts") && !strings.HasSuffix(out, ".mp4") {
+	if !strings.HasSuffix(out, ".ts") && !strings.HasSuffix(out, ".mp4") && !strings.HasSuffix(out, ".mkv") {
 		out = out + ".ts"
 	}
 
@@ -1344,63 +1392,209 @@ func (h *HLSDownloader) downloadPureGo() error {
 	}
 	defer f.Close()
 
-	totalSize := int64(len(segments)) * 2 * 1024 * 1024
+	totalSize := int64(len(segments)) * 2 * 1024 * 1024 // تخمین اندازه
 	if h.gs != nil {
 		h.gs.addFile(h.fileName, totalSize)
 	}
 
 	var downloaded int64
+	var wg sync.WaitGroup
+	var mu sync.Mutex
+	errors := make([]error, 0)
+	
+	// دانلود موازی سگمنت‌ها
+	sem := make(chan struct{}, 5) // حداکثر ۵ سگمنت همزمان
+	
 	for i, segURL := range segments {
-		data, err := h.fetchSegment(segURL)
-		if err != nil {
-			logWarning("HLS segment %d/%d failed: %v", i+1, len(segments), err)
-			continue
-		}
-		f.Write(data)
-		downloaded += int64(len(data))
-		if h.gs != nil {
-			h.gs.updateProgress(h.fileName, downloaded)
+		wg.Add(1)
+		sem <- struct{}{}
+		go func(idx int, url string) {
+			defer wg.Done()
+			defer func() { <-sem }()
+			
+			data, err := h.fetchSegment(url)
+			if err != nil {
+				logWarning("HLS segment %d/%d failed: %v", idx+1, len(segments), err)
+				mu.Lock()
+				errors = append(errors, fmt.Errorf("segment %d: %v", idx+1, err))
+				mu.Unlock()
+				return
+			}
+			
+			mu.Lock()
+			if _, err := f.WriteAt(data, downloaded); err != nil {
+				errors = append(errors, err)
+			}
+			downloaded += int64(len(data))
+			if h.gs != nil {
+				h.gs.updateProgress(h.fileName, downloaded)
+			}
+			logDebug("segment %d/%d downloaded (%d bytes)", idx+1, len(segments), len(data))
+			mu.Unlock()
+		}(i, segURL)
+	}
+	
+	wg.Wait()
+	
+	if len(errors) > 0 {
+		return fmt.Errorf("some segments failed: %v", errors[0])
+	}
+	
+	// تنظیم size نهایی
+	if h.gs != nil {
+		if fi, err := os.Stat(out); err == nil {
+			h.gs.updateProgress(h.fileName, fi.Size())
 		}
 	}
+	
+	logSuccess("HLS download complete: %s (%d segments)", h.fileName, len(segments))
 	return nil
 }
 
+// انتخاب بهترین واریانت از پلی‌لیست master
+func (h *HLSDownloader) selectBestVariant(playlist, baseURL string) string {
+	lines := strings.Split(playlist, "\n")
+	var variants []string
+	var bestBandwidth int
+	var bestURL string
+	
+	for i, line := range lines {
+		line = strings.TrimSpace(line)
+		if strings.Contains(line, "#EXT-X-STREAM-INF") {
+			// استخراج bandwidth
+			bandwidth := 0
+			if idx := strings.Index(line, "BANDWIDTH="); idx != -1 {
+				end := strings.Index(line[idx:], ",")
+				if end == -1 {
+					end = len(line)
+				}
+				if bw, err := strconv.Atoi(line[idx+10 : idx+end]); err == nil {
+					bandwidth = bw
+				}
+			}
+			// سگمنت بعدی URL واریانته
+			if i+1 < len(lines) {
+				nextLine := strings.TrimSpace(lines[i+1])
+				if !strings.HasPrefix(nextLine, "#") {
+					abs := toAbsoluteURL(nextLine, baseURL)
+					if bandwidth > bestBandwidth {
+						bestBandwidth = bandwidth
+						bestURL = abs
+					}
+					variants = append(variants, abs)
+				}
+			}
+		}
+	}
+	
+	if bestURL != "" {
+		logInfo("selected variant with bandwidth: %d", bestBandwidth)
+		return bestURL
+	}
+	
+	if len(variants) > 0 {
+		return variants[0] // اولین واریانت رو انتخاب کن
+	}
+	
+	return ""
+}
+
 func (h *HLSDownloader) fetchPlaylist(rawURL string) (string, error) {
+	logDebug("fetching playlist: %s", rawURL)
+	
 	req, err := http.NewRequest("GET", rawURL, nil)
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("User-Agent", "Mozilla/5.0")
+	
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+	req.Header.Set("Accept", "*/*")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
+	req.Header.Set("Connection", "keep-alive")
+	
+	// اضافه کردن هدرهای سفارشی
+	if cookie != "" {
+		req.Header.Set("Cookie", cookie)
+	}
+	for _, hdr := range headers {
+		parts := strings.SplitN(hdr, ":", 2)
+		if len(parts) == 2 {
+			req.Header.Set(strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1]))
+		}
+	}
+	
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	req = req.WithContext(ctx)
+	
 	resp, err := h.client.Do(req)
 	if err != nil {
 		return "", err
 	}
 	defer resp.Body.Close()
+	
+	if resp.StatusCode != 200 {
+		return "", fmt.Errorf("HTTP %d", resp.StatusCode)
+	}
+	
+	// بررسی content-type
+	contentType := resp.Header.Get("Content-Type")
+	if !strings.Contains(contentType, "application/vnd.apple.mpegurl") && 
+	   !strings.Contains(contentType, "audio/mpegurl") &&
+	   !strings.Contains(contentType, "text/plain") {
+		logWarning("unexpected content-type: %s", contentType)
+	}
+	
 	data, err := io.ReadAll(resp.Body)
-	return string(data), err
+	if err != nil {
+		return "", err
+	}
+	
+	result := string(data)
+	logDebug("playlist size: %d bytes", len(result))
+	
+	// اگر پلی‌لیست خالی بود یا محتوای نامعتبر داشت
+	if len(result) == 0 {
+		return "", fmt.Errorf("empty playlist")
+	}
+	
+	if !strings.Contains(result, "#EXTM3U") && !strings.Contains(result, "#EXT-X") {
+		// ممکنه فایل مانیفست نباشه، شاید یه لینک مستقیم به فایل ویدئویی باشه
+		logWarning("response doesn't look like a valid HLS playlist")
+	}
+	
+	return result, nil
 }
 
-func (h *HLSDownloader) parseM3U8(content, baseURL string) []string {
+func (h *HLSDownloader) parseM3U8(content, baseURL string) ([]string, bool) {
 	var segments []string
 	lines := strings.Split(content, "\n")
-
+	isMaster := false
+	
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
+		
+		// چک کردن اینکه آیا پلی‌لیست master هست
+		if strings.Contains(line, "#EXT-X-STREAM-INF") {
+			isMaster = true
+			continue
+		}
+		
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
+		
+		// اگر URL کامل نیست، absolute کن
 		abs := toAbsoluteURL(line, baseURL)
 		segments = append(segments, abs)
 	}
-
-	if len(segments) == 1 && (strings.Contains(segments[0], ".m3u8") || strings.Contains(content, "#EXT-X-STREAM-INF")) {
-		subPlaylist, err := h.fetchPlaylist(segments[0])
-		if err == nil {
-			return h.parseM3U8(subPlaylist, segments[0])
-		}
+	
+	// اگر master بود و سگمنتی پیدا نشد، برمی‌گردیم
+	if isMaster && len(segments) == 0 {
+		return segments, true
 	}
-
-	return segments
+	
+	return segments, false
 }
 
 func (h *HLSDownloader) fetchSegment(segURL string) ([]byte, error) {
@@ -1434,11 +1628,21 @@ func (h *HLSDownloader) fetchSegment(segURL string) ([]byte, error) {
 
 func isHLSURL(rawURL string) bool {
 	lower := strings.ToLower(rawURL)
-	return strings.HasSuffix(lower, ".m3u8") ||
-		strings.HasSuffix(lower, ".m3u") ||
-		strings.Contains(lower, "/hls/") ||
-		strings.Contains(lower, "playlist.m3u8") ||
-		strings.Contains(lower, "index.m3u8")
+	if strings.HasSuffix(lower, ".m3u8") || strings.HasSuffix(lower, ".m3u") {
+		return true
+	}
+	if strings.Contains(lower, "/hls/") || 
+	   strings.Contains(lower, "playlist.m3u8") || 
+	   strings.Contains(lower, "index.m3u8") ||
+	   strings.Contains(lower, "master.m3u8") ||
+	   strings.Contains(lower, "manifest.m3u8") ||
+	   strings.Contains(lower, "playlist.m3u") {
+		return true
+	}
+	if strings.Contains(lower, ".m3u8?") || strings.Contains(lower, ".m3u?") {
+		return true
+	}
+	return false
 }
 
 func isMagnetLink(s string) bool {
@@ -2393,12 +2597,19 @@ func downloadSingle(rawURL string, client *http.Client, gs *GlobalStatus) {
 	}
 
 	if isHLSURL(rawURL) {
+		logInfo("detected HLS stream: %s", rawURL)
 		fileName := getFileName(rawURL, nil)
+		if fileName == "" {
+			fileName = fmt.Sprintf("hls_%d", time.Now().Unix())
+		}
+		if !strings.HasSuffix(fileName, ".ts") && !strings.HasSuffix(fileName, ".mp4") && !strings.HasSuffix(fileName, ".mkv") {
+			fileName = fileName + ".ts"
+		}
 		outPath := filepath.Join(outDir, fileName)
 		notifier := NewNotifier()
 		hls := NewHLSDownloader(rawURL, outPath, fileName, client, gs, notifier)
 		if err := hls.Download(); err != nil {
-			logError("HLS download: %v", err)
+			logError("HLS download failed: %v", err)
 			if gs != nil {
 				gs.markError(fileName)
 			}
