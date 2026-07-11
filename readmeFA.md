@@ -215,7 +215,7 @@
   <a href="https://github.com/batmanpriv/HyperAdvancedDownloader-Android/releases/download/3.6.8/HAD.apk">
     <img src="https://img.shields.io/badge/Windows-Download-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows">
   </a>
-  <a href="https://github.com/batmanpriv/had/releases/download/3.6.2/HAD.apk">
+  <a href="https://github.com/batmanpriv/had/releases/download/3.6.3/HAD.apk">
     <img src="https://img.shields.io/badge/Android-Download-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download for Android">
   </a>
 </p>
@@ -224,7 +224,7 @@
 ### با Go
 
 ```bash
-go install github.com/batmanpriv/had@3.6.2
+go install github.com/batmanpriv/had@3.6.3
 ```
 
 ### از سورس
