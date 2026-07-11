@@ -4,6 +4,10 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20ARM64-lightgrey)]()
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/batmanpriv/HYperAdvancedDownloader-Android/)
 
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Caveat&weight=600&size=28&pause=1000&color=FF6B00FF&center=true&vCenter=true&random=false&width=700&height=70&lines=DOWNLOAD+WITH+MAXIMUM+SPEED;MULTI-THREADED+POWER+UNLEASHED;RESUME+FROM+ANYWHERE;ANY+PROTOCOL+ANY+TIME;SMART+MIRROR+SELECTION;CAPTURE+PROXY+MODE;WEBSITE+BACKUP+TOOL;HLS+STREAMING+DOWNLOADER" alt="Typing SVG" />
+</p>
+
 **English** | [**فارسی**](https://github.com/batmanpriv/had/blob/main/readmeFA.md)
 
 ---
