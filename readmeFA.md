@@ -1,10 +1,10 @@
 # 🚀 هَد — دانلودر فوق‌پیشرفته
 
-[![Go Version](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat&logo=go)](https://golang.org)
+[![Go Version](https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat&logo=go)](https://golang.org)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20ARM64-lightgrey)]()
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Caveat&weight=600&size=28&pause=1000&color=FF6B00FF&center=true&vCenter=true&random=false&width=700&height=70&lines=DOWNLOAD+WITH+MAXIMUM+SPEED;MULTI-THREADED+POWER+UNLEASHED;RESUME+FROM+ANYWHERE;ANY+PROTOCOL+ANY+TIME;SMART+MIRROR+SELECTION;CAPTURE+PROXY+MODE;WEBSITE+BACKUP+TOOL;HLS+STREAMING+DOWNLOADER" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Caveat&weight=600&size=28&pause=1000&color=00D4FFFF&center=true&vCenter=true&random=false&width=700&height=70&lines=دانلود+با+بیشترین+سرعت;قدرت+چندرشته‌ای+آزاد+شد;ادامه+دانلود+از+هر+نقطه;هر+پروتکلی+در+هر+زمان;انتخاب+هوشمند+آینه;حالت+پروکسی+ضبط;ابزار+پشتیبان‌گیری+وب;دانلودر+استریم+HLS" alt="Typing SVG" />
 </p>
 
 [**English**](https://github.com/batmanpriv/had/blob/main/README.md) | **فارسی**
