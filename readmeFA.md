@@ -208,7 +208,7 @@
 همین حالا آخرین نسخه HAD را برای پلتفرم خود دریافت کنید:
 
 <p align="center">
-  <a href="https://github.com/batmanpriv/had/releases/download/3.6.1/had.exe">
+  <a href="https://github.com/batmanpriv/HyperAdvancedDownloader-Android/releases/download/3.6.8/HAD.apk">
     <img src="https://img.shields.io/badge/Windows-Download-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows">
   </a>
   <a href="https://github.com/batmanpriv/had/releases/download/3.6.1/HAD.apk">
