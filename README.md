@@ -263,10 +263,10 @@ HAD v3.6.0 brings a **complete Web UI**, smarter capture proxy, better HLS suppo
 Get the latest version of HAD for your platform right away:
 
 <p align="center">
-  <a href="https://github.com/batmanpriv/HyperAdvancedDownloader-Android/releases/download/3.6.8/HAD.apk">
+  <a href="https://github.com/batmanpriv/had/releases/download/3.6.1/had.exe">
     <img src="https://img.shields.io/badge/Windows-Download-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Download for Windows">
   </a>
-  <a href="https://github.com/batmanpriv/had/releases/download/3.6.1/HAD.apk">
+  <a href="https://github.com/batmanpriv/HyperAdvancedDownloader-Android/releases/download/3.6.8/HAD.apk">
     <img src="https://img.shields.io/badge/Android-Download-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download for Android">
   </a>
 </p>
