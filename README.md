@@ -296,7 +296,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 1. Basic Download – Single File
 
 ```bash
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **What it does:**
@@ -307,7 +307,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 2. Download with Custom Threads
 
 ```bash
-./had -t 16 https://example.com/large-file.zip
+had -t 16 https://example.com/large-file.zip
 ```
 
 **What it does:**
@@ -317,7 +317,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 3. Download Multiple Files
 
 ```bash
-./had https://example.com/file1.zip https://example.com/file2.zip
+had https://example.com/file1.zip https://example.com/file2.zip
 ```
 
 **What it does:**
@@ -327,7 +327,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 4. Download from a List
 
 ```bash
-./had -f urls.txt
+had -f urls.txt
 ```
 
 **What it does:**
@@ -337,7 +337,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 5. Speed Limit (1 MB/s)
 
 ```bash
-./had -max-speed 1048576 https://example.com/file.zip
+had -max-speed 1048576 https://example.com/file.zip
 ```
 
 **What it does:**
@@ -347,7 +347,7 @@ Download the latest release from the [Releases page](https://github.com/batmanpr
 ### 6. Resume an Interrupted Download
 
 ```bash
-./had session_20250622_143022.json
+had session_20250622_143022.json
 ```
 
 **What it does:**
@@ -363,13 +363,13 @@ The Web UI gives you a full graphical interface to manage downloads, view stats,
 ### Start the Web UI
 
 ```bash
-./had -web-ui
+had -web-ui
 ```
 
 Or use the short form:
 
 ```bash
-./had webui
+had webui
 ```
 
 Then open your browser at:  
@@ -386,7 +386,7 @@ Then open your browser at:
 **Example with custom settings:**
 
 ```bash
-HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
+HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 had -web-ui
 ```
 
 ### Web UI Features in Detail
@@ -462,7 +462,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download a Single File
 
 ```bash
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -473,7 +473,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download with Custom Threads
 
 ```bash
-./had -t 16 https://example.com/large-file.zip
+had -t 16 https://example.com/large-file.zip
 ```
 
 **Explanation:**
@@ -484,7 +484,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download Multiple Files
 
 ```bash
-./had https://example.com/file1.zip https://example.com/file2.zip https://example.com/file3.zip
+had https://example.com/file1.zip https://example.com/file2.zip https://example.com/file3.zip
 ```
 
 **Explanation:**
@@ -495,7 +495,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download from a File List
 
 ```bash
-./had -f urls.txt
+had -f urls.txt
 ```
 
 **Explanation:**
@@ -512,7 +512,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download with Speed Limit
 
 ```bash
-./had -max-speed 1048576 https://example.com/file.zip
+had -max-speed 1048576 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -523,7 +523,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download with Custom Output Directory
 
 ```bash
-./had -o ./downloads https://example.com/file.zip
+had -o ./downloads https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -533,7 +533,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download with Verbose Output
 
 ```bash
-./had -v https://example.com/file.zip
+had -v https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -548,7 +548,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download HLS Stream (Auto‑Detect FFmpeg)
 
 ```bash
-./had -hls https://example.com/stream.m3u8 -o ./videos
+had -hls https://example.com/stream.m3u8 -o ./videos
 ```
 
 **Explanation:**
@@ -560,7 +560,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Force Pure‑Go HLS Downloader
 
 ```bash
-./had -hls https://example.com/playlist.m3u8 -t 8
+had -hls https://example.com/playlist.m3u8 -t 8
 ```
 
 **Explanation:**
@@ -571,7 +571,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### Download Live HLS Stream
 
 ```bash
-./had -hls "https://example.com/live/index.m3u8" -o ./recordings
+had -hls "https://example.com/live/index.m3u8" -o ./recordings
 ```
 
 **Explanation:**
@@ -582,7 +582,7 @@ HAD_WEB_ADDR=:9000 HAD_TOKEN=secret123 ./had -web-ui
 #### HLS with Notifications
 
 ```bash
-./had -hls https://example.com/live.m3u8 -o ./videos \
+had -hls https://example.com/live.m3u8 -o ./videos \
   -notify-telegram 123456789 -notify-telegram-bot "token" \
   -post-move /completed
 ```
@@ -613,7 +613,7 @@ https://example.com/very-low.zip 1
 #### Download from Queue
 
 ```bash
-./had -queue queue.txt
+had -queue queue.txt
 ```
 
 **Explanation:**
@@ -625,7 +625,7 @@ https://example.com/very-low.zip 1
 #### Single Download with Priority
 
 ```bash
-./had -priority 100 https://example.com/urgent-file.zip
+had -priority 100 https://example.com/urgent-file.zip
 ```
 
 **Explanation:**
@@ -636,7 +636,7 @@ https://example.com/very-low.zip 1
 #### Queue with Post‑Processing
 
 ```bash
-./had -queue queue.txt -post-extract -post-move /processed
+had -queue queue.txt -post-extract -post-move /processed
 ```
 
 **Explanation:**
@@ -651,7 +651,7 @@ https://example.com/very-low.zip 1
 #### Download Only During Specific Hours
 
 ```bash
-./had -schedule-from 02:00 -schedule-to 06:00 https://example.com/large-file.zip
+had -schedule-from 02:00 -schedule-to 06:00 https://example.com/large-file.zip
 ```
 
 **Explanation:**
@@ -662,7 +662,7 @@ https://example.com/very-low.zip 1
 #### Combined with Speed Limit
 
 ```bash
-./had -schedule-from 23:00 -schedule-to 07:00 -max-speed 1048576 https://example.com/file.zip
+had -schedule-from 23:00 -schedule-to 07:00 -max-speed 1048576 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -673,7 +673,7 @@ https://example.com/very-low.zip 1
 #### Schedule with Multiple Downloads
 
 ```bash
-./had -schedule-from 00:00 -schedule-to 06:00 -f urls.txt
+had -schedule-from 00:00 -schedule-to 06:00 -f urls.txt
 ```
 
 **Explanation:**
@@ -688,7 +688,7 @@ https://example.com/very-low.zip 1
 #### Telegram Notification
 
 ```bash
-./had -notify-telegram 123456789 -notify-telegram-bot "your_bot_token" https://example.com/file.zip
+had -notify-telegram 123456789 -notify-telegram-bot "your_bot_token" https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -699,7 +699,7 @@ https://example.com/very-low.zip 1
 #### Discord Webhook Notification
 
 ```bash
-./had -notify-discord "https://discord.com/api/webhooks/..." https://example.com/file.zip
+had -notify-discord "https://discord.com/api/webhooks/..." https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -710,7 +710,7 @@ https://example.com/very-low.zip 1
 #### Desktop Notification
 
 ```bash
-./had -notify-desktop https://example.com/file.zip
+had -notify-desktop https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -721,7 +721,7 @@ https://example.com/very-low.zip 1
 #### Multiple Notification Channels
 
 ```bash
-./had -notify-telegram 123456789 -notify-telegram-bot "token" \
+had -notify-telegram 123456789 -notify-telegram-bot "token" \
   -notify-discord "https://discord.com/api/webhooks/..." \
   -notify-desktop https://example.com/file.zip
 ```
@@ -737,7 +737,7 @@ https://example.com/very-low.zip 1
 #### Auto‑Extract Archives
 
 ```bash
-./had -post-extract https://example.com/archive.zip
+had -post-extract https://example.com/archive.zip
 ```
 
 **Explanation:**
@@ -748,7 +748,7 @@ https://example.com/very-low.zip 1
 #### Move Files After Download
 
 ```bash
-./had -post-move /completed https://example.com/file.zip
+had -post-move /completed https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -759,7 +759,7 @@ https://example.com/very-low.zip 1
 #### Rename Files After Download
 
 ```bash
-./had -post-rename "{name}_{time}.zip" https://example.com/file.zip
+had -post-rename "{name}_{time}.zip" https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -771,7 +771,7 @@ https://example.com/very-low.zip 1
 #### Chain Multiple Post‑Processing Actions
 
 ```bash
-./had -post-extract -post-move /processed -post-rename "dl_{time}" https://example.com/archive.zip
+had -post-extract -post-move /processed -post-rename "dl_{time}" https://example.com/archive.zip
 ```
 
 **Explanation:**
@@ -782,7 +782,7 @@ https://example.com/very-low.zip 1
 #### Post‑Processing with Queue
 
 ```bash
-./had -queue queue.txt -post-extract -post-move /media/completed
+had -queue queue.txt -post-extract -post-move /media/completed
 ```
 
 **Explanation:**
@@ -797,7 +797,7 @@ https://example.com/very-low.zip 1
 #### Auto‑Select Fastest Mirror
 
 ```bash
-./had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" https://primary.com/file.zip
+had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" https://primary.com/file.zip
 ```
 
 **Explanation:**
@@ -808,7 +808,7 @@ https://example.com/very-low.zip 1
 #### Mirrors with Multiple URLs
 
 ```bash
-./had -mirrors "https://us.example.com/file.zip,https://eu.example.com/file.zip,https://asia.example.com/file.zip" https://primary.com/file.zip
+had -mirrors "https://us.example.com/file.zip,https://eu.example.com/file.zip,https://asia.example.com/file.zip" https://primary.com/file.zip
 ```
 
 **Explanation:**
@@ -819,7 +819,7 @@ https://example.com/very-low.zip 1
 #### Mirror Selection with Fallback
 
 ```bash
-./had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" -retries 10 https://primary.com/file.zip
+had -auto-mirror -mirrors "https://mirror1.com/file.zip,https://mirror2.com/file.zip" -retries 10 https://primary.com/file.zip
 ```
 
 **Explanation:**
@@ -834,7 +834,7 @@ https://example.com/very-low.zip 1
 #### Basic Capture Proxy
 
 ```bash
-./had -capture-proxy :8085 -capture-types video,music
+had -capture-proxy :8085 -capture-types video,music
 ```
 
 **Explanation:**
@@ -845,7 +845,7 @@ https://example.com/very-low.zip 1
 #### Capture with Custom Extensions
 
 ```bash
-./had -capture-proxy :9090 -capture-types video,archive -capture-exts .webm,.mka
+had -capture-proxy :9090 -capture-types video,archive -capture-exts .webm,.mka
 ```
 
 **Explanation:**
@@ -856,7 +856,7 @@ https://example.com/very-low.zip 1
 #### Auto‑Download Captured Files
 
 ```bash
-./had -capture-proxy :8085 -capture-auto -capture-output ./downloads
+had -capture-proxy :8085 -capture-auto -capture-output ./downloads
 ```
 
 **Explanation:**
@@ -867,7 +867,7 @@ https://example.com/very-low.zip 1
 #### Domain Filtering
 
 ```bash
-./had -capture-proxy :8085 -filter-domain example.com -capture-confidence 50
+had -capture-proxy :8085 -filter-domain example.com -capture-confidence 50
 ```
 
 **Explanation:**
@@ -878,7 +878,7 @@ https://example.com/very-low.zip 1
 #### Body Scanning (Find Hidden Links)
 
 ```bash
-./had -capture-proxy :8085 -capture-body -verbose
+had -capture-proxy :8085 -capture-body -verbose
 ```
 
 **Explanation:**
@@ -889,7 +889,7 @@ https://example.com/very-low.zip 1
 #### Install Certificate Only
 
 ```bash
-./had -install-cert
+had -install-cert
 ```
 
 **Explanation:**
@@ -900,7 +900,7 @@ https://example.com/very-low.zip 1
 #### Capture Proxy with Custom Headers
 
 ```bash
-./had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
+had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
 ```
 
 **Explanation:**
@@ -911,7 +911,7 @@ https://example.com/very-low.zip 1
 #### Capture with Size Filtering
 
 ```bash
-./had -capture-proxy :8085 -capture-min-size 1048576 -capture-max-size 1073741824
+had -capture-proxy :8085 -capture-min-size 1048576 -capture-max-size 1073741824
 ```
 
 **Explanation:**
@@ -990,7 +990,7 @@ https://example.com/very-low.zip 1
 #### Basic Full Site Backup
 
 ```bash
-./had web -url https://example.com -mode full
+had web -url https://example.com -mode full
 ```
 
 **Explanation:**
@@ -1001,7 +1001,7 @@ https://example.com/very-low.zip 1
 #### Single Page Backup with Assets
 
 ```bash
-./had web -url https://example.com/about -mode single -download-external
+had web -url https://example.com/about -mode single -download-external
 ```
 
 **Explanation:**
@@ -1012,7 +1012,7 @@ https://example.com/very-low.zip 1
 #### Backup with External CDN Assets
 
 ```bash
-./had web -url https://example.com -mode full -download-external -external-domains cdn.example.com,images.example.com
+had web -url https://example.com -mode full -download-external -external-domains cdn.example.com,images.example.com
 ```
 
 **Explanation:**
@@ -1023,7 +1023,7 @@ https://example.com/very-low.zip 1
 #### High Performance Crawling
 
 ```bash
-./had web -url https://example.com -mode full -concurrency 10 -max-pages 500
+had web -url https://example.com -mode full -concurrency 10 -max-pages 500
 ```
 
 **Explanation:**
@@ -1034,7 +1034,7 @@ https://example.com/very-low.zip 1
 #### Resume Interrupted Backup
 
 ```bash
-./had web -url https://example.com -mode full -resume -output ./backup
+had web -url https://example.com -mode full -resume -output ./backup
 ```
 
 **Explanation:**
@@ -1045,7 +1045,7 @@ https://example.com/very-low.zip 1
 #### SPA with Hash Routing
 
 ```bash
-./had web -url https://app.example.com/#!/home -mode full -crawl-hash-routes
+had web -url https://app.example.com/#!/home -mode full -crawl-hash-routes
 ```
 
 **Explanation:**
@@ -1056,7 +1056,7 @@ https://example.com/very-low.zip 1
 #### Rate Limiting and Size Limits
 
 ```bash
-./had web -url https://example.com -mode full -max-asset-size 20 -rate-limit 5
+had web -url https://example.com -mode full -max-asset-size 20 -rate-limit 5
 ```
 
 **Explanation:**
@@ -1071,7 +1071,7 @@ https://example.com/very-low.zip 1
 #### Standard FTP Download
 
 ```bash
-./had -protocol ftp ftp://example.com/file.zip
+had -protocol ftp ftp://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1082,7 +1082,7 @@ https://example.com/very-low.zip 1
 #### FTP with Credentials
 
 ```bash
-./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip
+had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1092,7 +1092,7 @@ https://example.com/very-low.zip 1
 #### FTPS (FTP over TLS)
 
 ```bash
-./had -protocol ftps ftps://example.com/secure-file.zip
+had -protocol ftps ftps://example.com/secure-file.zip
 ```
 
 **Explanation:**
@@ -1102,7 +1102,7 @@ https://example.com/very-low.zip 1
 #### SFTP with Password
 
 ```bash
-./had -protocol sftp -sftp-user myuser -sftp-pass mypass sftp://example.com/file.zip
+had -protocol sftp -sftp-user myuser -sftp-pass mypass sftp://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1112,7 +1112,7 @@ https://example.com/very-low.zip 1
 #### SFTP with SSH Key
 
 ```bash
-./had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip
+had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1122,7 +1122,7 @@ https://example.com/very-low.zip 1
 #### SFTP with Encrypted SSH Key
 
 ```bash
-./had -protocol sftp -ssh-key ~/.ssh/id_rsa -ssh-key-pass mypassphrase sftp://example.com/file.zip
+had -protocol sftp -ssh-key ~/.ssh/id_rsa -ssh-key-pass mypassphrase sftp://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1132,7 +1132,7 @@ https://example.com/very-low.zip 1
 #### FTP Multi‑Part Download
 
 ```bash
-./had -protocol ftp -ftp-multipart -ftp-parts 8 ftp://example.com/large-file.zip
+had -protocol ftp -ftp-multipart -ftp-parts 8 ftp://example.com/large-file.zip
 ```
 
 **Explanation:**
@@ -1147,7 +1147,7 @@ https://example.com/very-low.zip 1
 #### Basic Scraping
 
 ```bash
-./had -scrape https://example.com/downloads/
+had -scrape https://example.com/downloads/
 ```
 
 **Explanation:**
@@ -1158,7 +1158,7 @@ https://example.com/very-low.zip 1
 #### Scrape with Extension Filter
 
 ```bash
-./had -scrape https://example.com/downloads/ -ex .mp4,.mp3,.zip
+had -scrape https://example.com/downloads/ -ex .mp4,.mp3,.zip
 ```
 
 **Explanation:**
@@ -1168,7 +1168,7 @@ https://example.com/very-low.zip 1
 #### Scrape with Custom Threads
 
 ```bash
-./had -scrape https://example.com/files/ -t 16 -ex .pdf,.doc,.xls
+had -scrape https://example.com/files/ -t 16 -ex .pdf,.doc,.xls
 ```
 
 **Explanation:**
@@ -1178,7 +1178,7 @@ https://example.com/very-low.zip 1
 #### Scrape with Verbose Output
 
 ```bash
-./had -scrape https://example.com/media/ -ex .jpg,.png,.gif -v
+had -scrape https://example.com/media/ -ex .jpg,.png,.gif -v
 ```
 
 **Explanation:**
@@ -1192,7 +1192,7 @@ https://example.com/very-low.zip 1
 #### Simple Numeric Placeholder
 
 ```bash
-./had -parameterized-url 'https://example.com/file{}.zip' -start 1 -end 50
+had -parameterized-url 'https://example.com/file{}.zip' -start 1 -end 50
 ```
 
 **Explanation:**
@@ -1203,7 +1203,7 @@ https://example.com/very-low.zip 1
 #### Zero‑Padded Placeholders
 
 ```bash
-./had -parameterized-url 'https://example.com/image{0}.jpg' -start 1 -end 100
+had -parameterized-url 'https://example.com/image{0}.jpg' -start 1 -end 100
 ```
 
 **Explanation:**
@@ -1214,7 +1214,7 @@ https://example.com/very-low.zip 1
 #### Triple Zero‑Padded
 
 ```bash
-./had -parameterized-url 'https://example.com/page{00}.html' -start 1 -end 500 -step 2
+had -parameterized-url 'https://example.com/page{00}.html' -start 1 -end 500 -step 2
 ```
 
 **Explanation:**
@@ -1225,7 +1225,7 @@ https://example.com/very-low.zip 1
 #### Custom Step Size
 
 ```bash
-./had -parameterized-url 'https://example.com/chunk{}.bin' -start 0 -end 200 -step 10
+had -parameterized-url 'https://example.com/chunk{}.bin' -start 0 -end 200 -step 10
 ```
 
 **Explanation:**
@@ -1240,7 +1240,7 @@ https://example.com/very-low.zip 1
 #### Load Cookies from Netscape Format File
 
 ```bash
-./had -load-cookies cookies.txt https://example.com/private-file.zip
+had -load-cookies cookies.txt https://example.com/private-file.zip
 ```
 
 **Explanation:**
@@ -1258,7 +1258,7 @@ https://example.com/very-low.zip 1
 #### Save Cookies After Download
 
 ```bash
-./had -save-cookies output.txt https://example.com/file.zip
+had -save-cookies output.txt https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1268,7 +1268,7 @@ https://example.com/very-low.zip 1
 #### Direct Cookie String
 
 ```bash
-./had -c "sessionid=abc123; user=test" https://example.com/file.zip
+had -c "sessionid=abc123; user=test" https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1278,7 +1278,7 @@ https://example.com/very-low.zip 1
 #### Load and Save Cookies Together
 
 ```bash
-./had -load-cookies cookies.txt -save-cookies newcookies.txt https://example.com/file.zip
+had -load-cookies cookies.txt -save-cookies newcookies.txt https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1293,7 +1293,7 @@ https://example.com/very-low.zip 1
 #### SOCKS5 Proxy
 
 ```bash
-./had -proxy socks5://127.0.0.1:1080 https://example.com/file.zip
+had -proxy socks5://127.0.0.1:1080 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1303,7 +1303,7 @@ https://example.com/very-low.zip 1
 #### SOCKS5 with Authentication
 
 ```bash
-./had -proxy socks5://user:pass@127.0.0.1:1080 https://example.com/file.zip
+had -proxy socks5://user:pass@127.0.0.1:1080 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1313,7 +1313,7 @@ https://example.com/very-low.zip 1
 #### SOCKS4 Proxy
 
 ```bash
-./had -proxy socks4://192.168.1.1:9050 -t 16 https://example.com/file.zip
+had -proxy socks4://192.168.1.1:9050 -t 16 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1323,7 +1323,7 @@ https://example.com/very-low.zip 1
 #### HTTP Proxy
 
 ```bash
-./had -proxy http://proxy.company.com:8080 https://example.com/file.zip
+had -proxy http://proxy.company.com:8080 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1333,7 +1333,7 @@ https://example.com/very-low.zip 1
 #### HTTPS Proxy with Authentication
 
 ```bash
-./had -proxy https://user:pass@proxy.company.com:8080 https://example.com/file.zip
+had -proxy https://user:pass@proxy.company.com:8080 https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1346,7 +1346,7 @@ https://example.com/very-low.zip 1
 export HTTP_PROXY=http://proxy:8080
 export HTTPS_PROXY=http://proxy:8080
 export NO_PROXY=localhost,127.0.0.1
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1361,7 +1361,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Download from Metalink URL
 
 ```bash
-./had -metalink https://example.com/file.metalink
+had -metalink https://example.com/file.metalink
 ```
 
 **Explanation:**
@@ -1372,7 +1372,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Download from Local Metalink File
 
 ```bash
-./had -metalink ./downloads/ubuntu.metalink4
+had -metalink ./downloads/ubuntu.metalink4
 ```
 
 **Explanation:**
@@ -1383,7 +1383,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Metalink with Custom Output Directory
 
 ```bash
-./had -metalink https://example.com/file.metalink -o ./downloads
+had -metalink https://example.com/file.metalink -o ./downloads
 ```
 
 **Explanation:**
@@ -1397,7 +1397,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Start RPC Server
 
 ```bash
-./had -rpc
+had -rpc
 ```
 
 **Explanation:**
@@ -1408,7 +1408,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### Start RPC on Custom Address
 
 ```bash
-./had -rpc -rpc-addr 0.0.0.0:6800
+had -rpc -rpc-addr 0.0.0.0:6800
 ```
 
 **Explanation:**
@@ -1419,7 +1419,7 @@ export NO_PROXY=localhost,127.0.0.1
 #### RPC with Downloads Directory
 
 ```bash
-./had -rpc -rpc-addr localhost:6800 -o /downloads
+had -rpc -rpc-addr localhost:6800 -o /downloads
 ```
 
 **Explanation:**
@@ -1555,7 +1555,7 @@ curl http://localhost:6800/api/version
 #### Resume from Saved Session
 
 ```bash
-./had session_20250622_143022.json
+had session_20250622_143022.json
 ```
 
 **Explanation:**
@@ -1570,7 +1570,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Manual Resume
 
 ```bash
-./had file.zip.json
+had file.zip.json
 ```
 
 **Explanation:**
@@ -1584,7 +1584,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Verify SHA‑256 Checksum
 
 ```bash
-./had -checksum-sha256 abc123... https://example.com/file.zip
+had -checksum-sha256 abc123... https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1594,7 +1594,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Verify MD5 Checksum
 
 ```bash
-./had -checksum-md5 abc123... https://example.com/file.zip
+had -checksum-md5 abc123... https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1604,7 +1604,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Verify SHA‑1 Checksum
 
 ```bash
-./had -checksum-sha1 abc123... https://example.com/file.zip
+had -checksum-sha1 abc123... https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1614,7 +1614,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Check Integrity (Auto‑Detect)
 
 ```bash
-./had -check-integrity https://example.com/file.zip
+had -check-integrity https://example.com/file.zip
 ```
 
 **Explanation:**
@@ -1629,7 +1629,7 @@ Session files are saved as `{filename}.json` in the download directory.
 #### Start Daemon
 
 ```bash
-./had -daemon -o /downloads https://example.com/bigfile.zip
+had -daemon -o /downloads https://example.com/bigfile.zip
 ```
 
 **Explanation:**
@@ -1937,7 +1937,7 @@ https://example.com/low.zip 10
 Session files are auto‑saved as `{filename}.json`. To resume:
 
 ```bash
-./had file.zip.json
+had file.zip.json
 ```
 
 ### .netrc File Format
@@ -1979,7 +1979,7 @@ password user@example.com
 | **Is HAD free?** | Yes! HAD is **open source** and released under the **MIT License**. You can use it for personal or commercial projects without any cost. |
 | **Where can I report bugs?** | Report bugs on the [GitHub Issues page](https://github.com/batmanpriv/had/issues). Please include your OS, HAD version, and the full command you used. |
 | **Can I contribute to HAD?** | Absolutely! Contributions are welcome. Fork the repository, make your changes, and submit a Pull Request. See the [Contributing](#-contributing) section for details. |
-| **Does HAD have a graphical interface?** | Yes! HAD includes a **Web UI** (introduced in v3.6.0) that provides a full dashboard for managing downloads, viewing stats, and controlling HAD from your browser. Run `./had -web-ui` to start it. |
+| **Does HAD have a graphical interface?** | Yes! HAD includes a **Web UI** (introduced in v3.6.0) that provides a full dashboard for managing downloads, viewing stats, and controlling HAD from your browser. Run `had -web-ui` to start it. |
 | **What's the difference between HAD and wget/curl?** | HAD is a **multi‑threaded downloader** with advanced features like resume, capture proxy, HLS streaming, priority queues, notifications, post‑processing, and a Web UI. wget and curl are single‑threaded and lack these advanced automation features. |
 | **Does HAD support batch processing?** | Yes! You can use `-f` to load URLs from a file, `-queue` for priority‑based processing, or `-parameterized-url` for generating sequential URLs. |
 
@@ -1990,20 +1990,20 @@ password user@example.com
 | Question | Answer |
 |----------|--------|
 | **How can I speed up downloads?** | • Use `-t` to increase threads: `-t 16` or `-t 32` for very large files<br>• Ensure the server supports **range requests** (most modern servers do)<br>• Use `-u` to download multiple files simultaneously<br>• For FTP, enable `-ftp-multipart`<br>• Use `-auto-mirror` to select the fastest mirror |
-| **How do I resume an interrupted download?** | HAD automatically saves **session files** every 10 seconds. To resume:<br>1. Find the session file: `file.zip.json`<br>2. Run: `./had file.zip.json`<br>Alternatively, use the **Web UI Sessions tab** or the **RPC API** to resume. |
+| **How do I resume an interrupted download?** | HAD automatically saves **session files** every 10 seconds. To resume:<br>1. Find the session file: `file.zip.json`<br>2. Run: `had file.zip.json`<br>Alternatively, use the **Web UI Sessions tab** or the **RPC API** to resume. |
 | **Why is my download stuck or slow?** | Possible causes and solutions:<br>• **Server doesn't support ranges** → single‑thread only, can't speed up<br>• **Network congestion** → use `-schedule-from` to download during off‑peak hours<br>• **Proxy issues** → check proxy settings with `-proxy`<br>• **Timeout too low** → increase with `-timeout 60`<br>• **Speed limit set** → check `-max-speed`<br>• **Disk I/O bottleneck** → reduce `-disk-cache` or use a faster drive |
 | **Can I download multiple files at once?** | Yes! Use `-u` to set the number of concurrent downloads:<br>• `-u 5` downloads up to 5 files simultaneously<br>• Default is `2`<br>• For many small files, use `-u 20` for better throughput |
-| **How do I download from FTP?** | 1. Use `-protocol ftp`<br>2. Provide credentials: `-ftp-user` and `-ftp-pass`<br>3. Example: `./had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`<br>4. For FTPS (FTP over TLS), use `-protocol ftps`<br>5. For faster FTP downloads, enable `-ftp-multipart` |
-| **How do I download from SFTP?** | 1. Use `-protocol sftp`<br>2. Authenticate with **password**: `-sftp-user` and `-sftp-pass`<br>3. Or authenticate with **SSH key**: `-ssh-key ~/.ssh/id_rsa`<br>4. For encrypted keys, add `-ssh-key-pass "passphrase"`<br>5. Example: `./had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip` |
+| **How do I download from FTP?** | 1. Use `-protocol ftp`<br>2. Provide credentials: `-ftp-user` and `-ftp-pass`<br>3. Example: `had -protocol ftp -ftp-user myuser -ftp-pass mypass ftp://example.com/file.zip`<br>4. For FTPS (FTP over TLS), use `-protocol ftps`<br>5. For faster FTP downloads, enable `-ftp-multipart` |
+| **How do I download from SFTP?** | 1. Use `-protocol sftp`<br>2. Authenticate with **password**: `-sftp-user` and `-sftp-pass`<br>3. Or authenticate with **SSH key**: `-ssh-key ~/.ssh/id_rsa`<br>4. For encrypted keys, add `-ssh-key-pass "passphrase"`<br>5. Example: `had -protocol sftp -ssh-key ~/.ssh/id_rsa sftp://example.com/file.zip` |
 | **Can I set a speed limit?** | Yes! Use `-max-speed` with the speed in **bytes per second**:<br>• `-max-speed 1048576` → 1 MB/s<br>• `-max-speed 5242880` → 5 MB/s<br>• `-max-speed 0` → unlimited (default)<br>You can also combine this with `-schedule-from` and `-schedule-to` for time‑based limits. |
-| **How do I download from a list of URLs?** | 1. Create a text file (e.g., `urls.txt`) with one URL per line<br>2. Comments start with `#`<br>3. Run: `./had -f urls.txt`<br>4. You can combine this with `-u` for concurrent downloads |
+| **How do I download from a list of URLs?** | 1. Create a text file (e.g., `urls.txt`) with one URL per line<br>2. Comments start with `#`<br>3. Run: `had -f urls.txt`<br>4. You can combine this with `-u` for concurrent downloads |
 | **Can I filter by file extension?** | Yes! Use `-ex` with extensions separated by commas:<br>• `-ex .mp4,.mp3,.zip` → only download MP4, MP3, and ZIP files<br>• Works with `-scrape` and the Web UI Scrape feature |
-| **How do I download from a website (backup)?** | Use the **web downloader** sub‑command:<br>• `./had web -url https://example.com -mode full` → full site backup<br>• `./had web -url https://example.com/about -mode single` → single page<br>• See the [Website Backup](#website-backup-web-downloader) section for all options |
+| **How do I download from a website (backup)?** | Use the **web downloader** sub‑command:<br>• `had web -url https://example.com -mode full` → full site backup<br>• `had web -url https://example.com/about -mode single` → single page<br>• See the [Website Backup](#website-backup-web-downloader) section for all options |
 | **Can I download password‑protected files?** | Yes! Use:<br>• **HTTP Basic Auth:** `-H "Authorization: Basic base64..."`<br>• **Cookies:** `-load-cookies cookies.txt` or `-c "session=abc"`<br>• **.netrc file:** `-netrc ~/.netrc`<br>• **FTP:** `-ftp-user` and `-ftp-pass`<br>• **SFTP:** `-sftp-user`/`-sftp-pass` or `-ssh-key` |
-| **What happens if I press Ctrl+C?** | HAD **automatically saves a session file** (`file.zip.json`) and exits gracefully. You can resume later with `./had file.zip.json`. |
+| **What happens if I press Ctrl+C?** | HAD **automatically saves a session file** (`file.zip.json`) and exits gracefully. You can resume later with `had file.zip.json`. |
 | **How do I verify download integrity?** | Use the integrity check flags:<br>• `-checksum-sha256 abc123...`<br>• `-checksum-md5 abc123...`<br>• `-checksum-sha1 abc123...`<br>• `-check-integrity` (auto‑detects from `.sha256` file)<br>You can also use the **Checksum Verifier** tool in the Web UI. |
-| **Can I download from a magnet link?** | Yes! HAD supports **magnet links** with web seeds. Use:<br>`./had -magnet "magnet:?xt=urn:btih:..."`<br>HAD will attempt to download from web seeds (`.ws` parameter) in the magnet link. |
-| **How do I download from WebDAV?** | Use the `-webdav` flag:<br>• `./had -webdav https://example.com/webdav/ -webdav-user user -webdav-pass pass`<br>• HAD will recursively list and download all files from the WebDAV server. |
+| **Can I download from a magnet link?** | Yes! HAD supports **magnet links** with web seeds. Use:<br>`had -magnet "magnet:?xt=urn:btih:..."`<br>HAD will attempt to download from web seeds (`.ws` parameter) in the magnet link. |
+| **How do I download from WebDAV?** | Use the `-webdav` flag:<br>• `had -webdav https://example.com/webdav/ -webdav-user user -webdav-pass pass`<br>• HAD will recursively list and download all files from the WebDAV server. |
 | **Can I download from Google Drive or other cloud services?** | Not directly. However, you can use the **capture proxy** to intercept download links from your browser while using Google Drive, or extract direct download URLs and pass them to HAD. |
 
 ---
@@ -2013,9 +2013,9 @@ password user@example.com
 | Question | Answer |
 |----------|--------|
 | **What is the capture proxy?** | The capture proxy is a **MITM (Man‑in‑The‑Middle)** proxy that intercepts HTTP/HTTPS traffic and automatically detects and saves download links (videos, music, images, documents, archives, etc.) as you browse. It's useful for capturing media from streaming sites, video platforms, and download pages. |
-| **How do I start the capture proxy?** | 1. Run: `./had -capture-proxy :8085`<br>2. Configure your browser to use `localhost:8085` as a proxy<br>3. Browse normally – HAD will capture links automatically<br>4. Links are saved to `captured_links.txt` and `captured_links.json` |
-| **Why is the capture proxy not capturing anything?** | Check these common issues:<br>• **CA certificate not installed** → run `./had -install-cert`<br>• **Browser not configured** → set proxy to `localhost:8085`<br>• **HTTPS certificate warning** → accept the warning (it's HAD's certificate)<br>• **Confidence threshold too high** → lower with `-capture-confidence 30`<br>• **Domain filter too strict** → check `-filter-domain`<br>• **Body scanning disabled** → enable with `-capture-body` for hidden links |
-| **How do I install the CA certificate?** | 1. Automatic: `./had -install-cert`<br>2. Manual: Follow the instructions displayed in the terminal<br>3. The certificate file is saved as `had.crt` in the current directory<br>4. On Windows: Double‑click → Install Certificate → Trusted Root<br>5. On macOS: Double‑click → Add to Keychain → Always Trust<br>6. On Linux: `sudo cp had.crt /usr/local/share/ca-certificates/ && sudo update-ca-certificates` |
+| **How do I start the capture proxy?** | 1. Run: `had -capture-proxy :8085`<br>2. Configure your browser to use `localhost:8085` as a proxy<br>3. Browse normally – HAD will capture links automatically<br>4. Links are saved to `captured_links.txt` and `captured_links.json` |
+| **Why is the capture proxy not capturing anything?** | Check these common issues:<br>• **CA certificate not installed** → run `had -install-cert`<br>• **Browser not configured** → set proxy to `localhost:8085`<br>• **HTTPS certificate warning** → accept the warning (it's HAD's certificate)<br>• **Confidence threshold too high** → lower with `-capture-confidence 30`<br>• **Domain filter too strict** → check `-filter-domain`<br>• **Body scanning disabled** → enable with `-capture-body` for hidden links |
+| **How do I install the CA certificate?** | 1. Automatic: `had -install-cert`<br>2. Manual: Follow the instructions displayed in the terminal<br>3. The certificate file is saved as `had.crt` in the current directory<br>4. On Windows: Double‑click → Install Certificate → Trusted Root<br>5. On macOS: Double‑click → Add to Keychain → Always Trust<br>6. On Linux: `sudo cp had.crt /usr/local/share/ca-certificates/ && sudo update-ca-certificates` |
 | **Can I filter by domain?** | Yes! Use `-filter-domain example.com` to only capture links from that domain. This is useful for focusing on a specific site and ignoring other traffic. |
 | **How does confidence scoring work?** | Confidence scoring (0‑100%) is based on multiple **signals**:<br>• **File extension** (e.g., `.mp4` → +45 points)<br>• **Content‑Type** (e.g., `video/mp4` → +40 points)<br>• **URL patterns** (e.g., `/video/`, `/download/` → +10 points)<br>• **CDN hosts** (e.g., `cdn.` → +12 points)<br>• **Query parameters** (e.g., `?video=` → +8 points)<br>• **Headers** (e.g., `Range:` → +10 points)<br>• **Noise patterns** (e.g., `.css`, `.js` → -50 points)<br>Higher confidence means the proxy is more certain the link is a downloadable file. |
 | **Can I auto‑download captured files?** | Yes! Use `-capture-auto` to automatically download captured files. Optionally specify:<br>• `-capture-output ./downloads` → save to a specific directory<br>• HAD uses smart threading based on file size (1‑8 threads) |
@@ -2033,9 +2033,9 @@ password user@example.com
 
 | Question | Answer |
 |----------|--------|
-| **How do I start the Web UI?** | Run `./had -web-ui` or `./had webui`. Then open `http://localhost:8090` in your browser. The Web UI starts the RPC server automatically. |
-| **Can I change the Web UI port?** | Yes! Set the `HAD_WEB_ADDR` environment variable:<br>`HAD_WEB_ADDR=:9000 ./had -web-ui`<br>This binds the Web UI to port 9000. |
-| **Can I secure the Web UI?** | Yes! Set the `HAD_TOKEN` environment variable to enable **bearer token authentication**:<br>`HAD_TOKEN=secret123 ./had -web-ui`<br>Then include the token in requests: `Authorization: Bearer secret123` or `?token=secret123`. |
+| **How do I start the Web UI?** | Run `had -web-ui` or `had webui`. Then open `http://localhost:8090` in your browser. The Web UI starts the RPC server automatically. |
+| **Can I change the Web UI port?** | Yes! Set the `HAD_WEB_ADDR` environment variable:<br>`HAD_WEB_ADDR=:9000 had -web-ui`<br>This binds the Web UI to port 9000. |
+| **Can I secure the Web UI?** | Yes! Set the `HAD_TOKEN` environment variable to enable **bearer token authentication**:<br>`HAD_TOKEN=secret123 had -web-ui`<br>Then include the token in requests: `Authorization: Bearer secret123` or `?token=secret123`. |
 | **Why can't I connect to the Web UI?** | Common issues:<br>• HAD not running with `-web-ui`<br>• Port `8090` is already in use → change with `HAD_WEB_ADDR`<br>• Firewall blocking the port<br>• RPC server not running (it starts automatically with Web UI)<br>• Check the console output for error messages |
 | **Does the Web UI work on mobile?** | Yes! The Web UI is **fully responsive** and works on phones, tablets, and desktops. All features are accessible on mobile devices. |
 | **Can I use the Web UI remotely?** | Yes! Start HAD with `-rpc-addr 0.0.0.0:6800` and access the Web UI from another device. Make sure to:<br>1. Secure it with `HAD_TOKEN`<br>2. Open the firewall port<br>3. Use `http://your-ip:8090` to access it |
@@ -2073,12 +2073,12 @@ password user@example.com
 | Question | Answer |
 |----------|--------|
 | **What is HLS?** | HLS (HTTP Live Streaming) is a streaming protocol developed by Apple. It's used by many video platforms (YouTube Live, Twitch, Hulu, Netflix, etc.) to deliver video content. HLS uses **M3U8 playlists** that reference **TS segments**. |
-| **How do I download an HLS stream?** | Use `-hls` with the M3U8 playlist URL:<br>`./had -hls https://example.com/stream.m3u8`<br>HAD downloads all segments and combines them into a single file. |
+| **How do I download an HLS stream?** | Use `-hls` with the M3U8 playlist URL:<br>`had -hls https://example.com/stream.m3u8`<br>HAD downloads all segments and combines them into a single file. |
 | **Do I need FFmpeg?** | No, HAD has a **pure‑Go fallback**. However:<br>• **With FFmpeg** → faster, produces MP4 output<br>• **Without FFmpeg** → slower, produces TS output<br>HAD auto‑detects FFmpeg and falls back gracefully. |
 | **Can I download live streams?** | Yes! HAD supports live HLS streams. The download continues as new segments become available. The download will keep running until you stop it (Ctrl+C) or the stream ends. |
 | **Why is my HLS download failing?** | Common issues:<br>• **M3U8 URL inaccessible** → check if it works in a browser<br>• **Authentication required** → use cookies or headers<br>• **Invalid playlist** → the M3U8 might be empty or malformed<br>• **Rate limiting** → the server may be blocking multiple requests<br>• **Network issues** → check your connection<br>Use `-v` for debug output to see what's happening. |
 | **How do I specify the output format?** | • **With FFmpeg** → output is automatically MP4<br>• **Without FFmpeg** → output is TS<br>You can change the extension manually after download, or use `-post-rename` to rename it. |
-| **Can I specify the output file name?** | Use `-o` with a filename (not just a directory):<br>`./had -hls https://example.com/stream.m3u8 -o ./videos/my_video.mp4`<br>If you specify a directory, HAD uses the filename from the URL. |
+| **Can I specify the output file name?** | Use `-o` with a filename (not just a directory):<br>`had -hls https://example.com/stream.m3u8 -o ./videos/my_video.mp4`<br>If you specify a directory, HAD uses the filename from the URL. |
 | **Can I resume an HLS download?** | No, HLS downloads are not resumable because segments are downloaded once and combined. However, if a segment fails, HAD retries it (up to `-r` times). |
 | **Does HAD support DASH (MPD) streaming?** | Not yet. HAD currently supports only **HLS (M3U8)**. DASH support is planned for a future release. |
 | **Can I download DRM‑protected HLS streams?** | No, HAD cannot decrypt DRM‑protected streams (e.g., Widevine, FairPlay). It only works with unencrypted or AES‑128 encrypted streams (if the key is available in the M3U8). |
@@ -2090,7 +2090,7 @@ password user@example.com
 
 | Question | Answer |
 |----------|--------|
-| **How do I start the RPC server?** | Use the `-rpc` flag:<br>`./had -rpc`<br>By default, it listens on `localhost:6800`. You can change the address with `-rpc-addr`. |
+| **How do I start the RPC server?** | Use the `-rpc` flag:<br>`had -rpc`<br>By default, it listens on `localhost:6800`. You can change the address with `-rpc-addr`. |
 | **What is the RPC protocol?** | HAD uses **JSON‑RPC 2.0** over HTTP. There are also **REST endpoints** for common operations at `/api/*`. |
 | **How do I add a download via RPC?** | Send a POST request to `/jsonrpc` with:<br>```json<br>{"method":"had.addUri","params":{"uris":["https://example.com/file.zip"]},"id":1}<br>```<br>Response contains a `gid` (download ID). |
 | **Can I pause downloads via RPC?** | Yes! Use `had.pauseAll` to pause all downloads, or `had.pause` with a specific `gid`.<br>```json<br>{"method":"had.pause","params":{"gid":"..."},"id":2}<br>``` |
@@ -2098,7 +2098,7 @@ password user@example.com
 | **What methods are available?** | Send `{"method":"system.listMethods","id":1}` to get a list of all available RPC methods. Methods include:<br>• `had.addUri` – add a download<br>• `had.addUrls` – add multiple downloads<br>• `had.remove` – remove a download<br>• `had.removeAll` – remove all downloads<br>• `had.tellStatus` – get status of a download<br>• `had.tellAllStatus` – get status of all downloads<br>• `had.getGlobalStat` – get global statistics<br>• `had.getFiles` – get list of files<br>• `had.pause` – pause a download<br>• `had.pauseAll` – pause all downloads<br>• `had.resume` – resume a download<br>• `had.resumeAll` – resume all downloads<br>• `had.setSpeedLimit` – set speed limit<br>• `had.getSpeedLimit` – get speed limit<br>• `had.setMaxParallel` – set max parallel downloads<br>• `had.setThreads` – set threads per file<br>• `had.setOutDir` – set output directory<br>• `had.scrape` – scrape a URL<br>• `had.shutdown` – shutdown HAD<br>• `had.version` – get version info<br>• `had.getHistory` – get download history<br>• `had.clearHistory` – clear history<br>• `had.setBWSchedule` – set bandwidth schedule<br>• `had.getBWSchedule` – get bandwidth schedule<br>• `had.testMirrors` – test mirror URLs<br>• `had.fetchMeta` – fetch metadata<br>• `had.verifyChecksum` – verify checksum<br>• `had.listSessions` – list sessions<br>• `had.resumeSession` – resume a session<br>• `had.deleteSession` – delete a session<br>• `had.setMirrors` – set mirrors<br>• `had.getMirrors` – get mirrors<br>• `had.addWebDAV` – add WebDAV download<br>• `had.listWebDAV` – list WebDAV files<br>• `had.downloadWebDAVFile` – download WebDAV file<br>• `had.pauseFile` – pause a file by name<br>• `had.resumeFile` – resume a file by name<br>• `had.removeFile` – remove a file by name<br>• `had.pauseAllFiles` – pause all files<br>• `had.getPausedFiles` – get paused files |
 | **How do I use the REST API?** | The REST API is available at `/api/*`:<br>• `GET /api/status` – global status<br>• `GET /api/files` – list files<br>• `GET /api/tasks` – list tasks<br>• `GET /api/pause` – pause all<br>• `GET /api/resume` – resume all<br>• `GET /api/version` – version info |
 | **Can I use the RPC API from other programming languages?** | Yes! The JSON‑RPC API can be called from any language that can make HTTP requests. There are JSON‑RPC client libraries for Python, JavaScript, Java, C#, Ruby, PHP, and many others. |
-| **Can I use the Web UI without the RPC server?** | No, the Web UI communicates with HAD via the RPC server. The RPC server starts automatically when you run `./had -web-ui`. |
+| **Can I use the Web UI without the RPC server?** | No, the Web UI communicates with HAD via the RPC server. The RPC server starts automatically when you run `had -web-ui`. |
 | **How do I secure the RPC server?** | • Use a firewall to restrict access to trusted IPs<br>• Use the `HAD_TOKEN` environment variable for authentication<br>• Run HAD on a non‑standard port<br>• Use SSH tunneling for remote access |
 
 ---
@@ -2113,15 +2113,15 @@ password user@example.com
 | **"invalid checksum" error?** | The downloaded file's hash doesn't match the expected value:<br>1. The file may be **corrupted** – try downloading again<br>2. The **checksum is incorrect** – verify the expected hash<br>3. The file may have been **modified** after upload<br>4. Try a different mirror with `-mirrors` |
 | **"too many open files" error?** | 1. Reduce concurrent downloads: `-u 3`<br>2. Reduce threads per file: `-t 8`<br>3. Increase system file limits: `ulimit -n 4096` (Linux/macOS)<br>4. Restart your terminal or system |
 | **"no space left on device"?** | 1. Free up disk space<br>2. Use `-o` to save to a different drive with more space<br>3. Use `-post-extract` to extract and delete archives<br>4. Set a lower `-disk-cache` to reduce temporary storage |
-| **"certificate verify failed"?** | 1. For HTTPS sites, install the CA certificate: `./had -install-cert`<br>2. For self‑signed certificates, use `-insecure` (not recommended)<br>3. Check that the system date and time are correct<br>4. In the capture proxy, accept the certificate warning in your browser |
+| **"certificate verify failed"?** | 1. For HTTPS sites, install the CA certificate: `had -install-cert`<br>2. For self‑signed certificates, use `-insecure` (not recommended)<br>3. Check that the system date and time are correct<br>4. In the capture proxy, accept the certificate warning in your browser |
 | **HLS download says "no segments found"?** | 1. The M3U8 playlist might be **empty** – check it in a browser<br>2. Authentication required – add cookies or headers<br>3. The playlist might be a **live stream** that hasn't started yet<br>4. Use `-v` to see debug output and the actual playlist content |
 | **The Web UI shows "RPC unreachable"?** | 1. Make sure HAD is running with `-web-ui` (starts RPC automatically)<br>2. Check the `HAD_RPC_ADDR` environment variable<br>3. Ensure the RPC address is correct in the Web UI Settings tab<br>4. Check if the RPC port (6800) is open and not blocked<br>5. Try accessing the RPC directly: `curl http://localhost:6800/api/status` |
 | **The capture proxy is slow?** | 1. Disable body scanning: `-capture-body false`<br>2. Increase confidence threshold: `-capture-confidence 50` (fewer captures)<br>3. Use a faster machine or better network<br>4. Reduce the capture scope with `-filter-domain`<br>5. Use `-capture-types` to capture only what you need |
 | **The browser extension doesn't show cookies?** | 1. Refresh the page<br>2. Click the **REFRESH** button in the extension<br>3. Make sure you're on the correct site<br>4. Check if cookies exist in browser storage (DevTools → Application → Cookies)<br>5. Reload the extension (Developer Mode → Reload) |
 | **Download speed is slower than expected?** | 1. Increase threads: `-t 16` or `-t 32`<br>2. Check if the server supports **range requests** (most do)<br>3. Use `-u` to download multiple files simultaneously<br>4. Enable `-ftp-multipart` for FTP downloads<br>5. Use `-auto-mirror` to select the fastest mirror<br>6. Check your network bandwidth (speed test)<br>7. Reduce background network usage |
-| **Resume doesn't work?** | 1. Ensure the server supports **range requests** (`Accept-Ranges: bytes`)<br>2. Check if the session file exists (`file.zip.json`)<br>3. The file might have changed on the server (different size)<br>4. Try manual resume: `./had file.zip.json`<br>5. Some servers don't support resume – you'll need to start over |
+| **Resume doesn't work?** | 1. Ensure the server supports **range requests** (`Accept-Ranges: bytes`)<br>2. Check if the session file exists (`file.zip.json`)<br>3. The file might have changed on the server (different size)<br>4. Try manual resume: `had file.zip.json`<br>5. Some servers don't support resume – you'll need to start over |
 | **Daemon mode doesn't work?** | 1. Daemon mode is **not supported on Windows**<br>2. On Linux/macOS, check if the PID file is created<br>3. Verify permissions: `/tmp/had.pid` must be writable<br>4. Check if another instance is already running<br>5. Use `ps aux | grep had` to check for running processes |
-| **Magnet link download fails?** | 1. Magnet links require **web seeds** (`ws=` parameter)<br>2. No web seeds → HAD cannot download the file<br>3. Install a BitTorrent client to download torrent files<br>4. Try using the `-magnet` flag directly: `./had -magnet "magnet:?...&ws=http://..."`<br>5. Some trackers may be blocked – try different mirrors |
+| **Magnet link download fails?** | 1. Magnet links require **web seeds** (`ws=` parameter)<br>2. No web seeds → HAD cannot download the file<br>3. Install a BitTorrent client to download torrent files<br>4. Try using the `-magnet` flag directly: `had -magnet "magnet:?...&ws=http://..."`<br>5. Some trackers may be blocked – try different mirrors |
 | **WebDAV download fails?** | 1. Check if the WebDAV server is reachable<br>2. Verify credentials: `-webdav-user` and `-webdav-pass`<br>3. The server might require a specific path – try `-webdav https://example.com/dav/`<br>4. Some WebDAV servers don't support recursive listing – HAD may fail<br>5. Check the server logs for more information |
 ---
 
@@ -2151,7 +2151,7 @@ password user@example.com
 
 ```bash
 # Start daemon
-./had -daemon -o /downloads https://example.com/bigfile.zip
+had -daemon -o /downloads https://example.com/bigfile.zip
 
 # Check status
 cat /tmp/had.pid
@@ -2197,56 +2197,56 @@ export HAD_WEB_ADDR=:8090
 export HAD_TOKEN=secret123
 
 # Run with environment
-./had https://example.com/file.zip
+had https://example.com/file.zip
 ```
 
 ### Combining with Other Tools
 
 ```bash
 # Download and extract
-./had https://example.com/archive.zip && unzip archive.zip
+had https://example.com/archive.zip && unzip archive.zip
 
 # Download and verify signature
-./had https://example.com/file.iso && sha256sum -c file.iso.sha256
+had https://example.com/file.iso && sha256sum -c file.iso.sha256
 
 # Download list from another program output
-cat urls.txt | xargs -n1 ./had
+cat urls.txt | xargs -n1 had
 
 # Scheduled downloads with cron
 0 2 * * * /usr/local/bin/had https://example.com/daily-backup.zip -o /backups
 
 # Download and move to specific directory
-./had -post-move /media/videos https://example.com/video.mp4
+had -post-move /media/videos https://example.com/video.mp4
 ```
 
 ### Custom Headers
 
 ```bash
 # Multiple custom headers
-./had -H "Authorization: Bearer token123" -H "X-Custom-Header: value" https://api.example.com/file.zip
+had -H "Authorization: Bearer token123" -H "X-Custom-Header: value" https://api.example.com/file.zip
 
 # User-Agent override
-./had -H "User-Agent: MyCustomBot/1.0" https://example.com/file.zip
+had -H "User-Agent: MyCustomBot/1.0" https://example.com/file.zip
 
 # Referer header
-./had -H "Referer: https://google.com" https://example.com/file.zip
+had -H "Referer: https://google.com" https://example.com/file.zip
 ```
 
 ### Capture Proxy with Custom Headers
 
 ```bash
 # Add authentication headers to capture proxy
-./had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
+had -capture-proxy :8085 -capture-header "Authorization: Bearer token123" -capture-header "X-API-Key: abc123"
 
 # Pass cookies through proxy
-./had -capture-proxy :8085 -capture-cookie "sessionid=abc123; user=test"
+had -capture-proxy :8085 -capture-cookie "sessionid=abc123; user=test"
 ```
 
 ### Complete Automated Workflow
 
 ```bash
 # Download from queue with scheduling, notifications, and post‑processing
-./had \
+had \
   -queue queue.txt \
   -schedule-from 00:00 \
   -schedule-to 06:00 \
@@ -2331,7 +2331,7 @@ git clone https://github.com/batmanpriv/had.git
 cd had
 go mod download
 go build -o had main.go
-./had -v https://example.com/test.zip
+had -v https://example.com/test.zip
 ```
 
 ---
