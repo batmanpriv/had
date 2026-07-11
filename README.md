@@ -252,7 +252,7 @@ HAD v3.6.0 brings a **complete Web UI**, smarter capture proxy, better HLS suppo
 | **Website Backup (Clone)** | ![Website Backup](https://github.com/user-attachments/assets/09883fe7-14d7-4045-8269-ea3c5bd5b1ae) |
 | **Web Scraping** | ![Scraping](https://github.com/user-attachments/assets/fa49cd59-418d-4690-a8dc-b7a8ab2f043b) |
 | **HAD Browser Extension** | ![Extension](https://github.com/user-attachments/assets/ab0ea00b-7d44-45cf-8824-eb998a6c453d) |
-| **Mobile Version** | ![Extension](https://github.com/user-attachments/assets/91af36e9-a884-443c-aec6-bb1051ba465f) |
+| **Mobile Version** | ![Extension](https://github.com/user-attachments/assets/0fc8e78b-e3d9-44b2-8d85-7ba91ece0ef0) |
 
 ---
 
