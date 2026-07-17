@@ -3877,7 +3877,7 @@ func getFileName(rawURL string, resp *http.Response) string {
 	if resp != nil {
 		cd := resp.Header.Get("Content-Disposition")
 		if cd != "" {
-			re := regexp.MustCompile(`filename[^;=\n]*=(?:(['"])([^'"]+)\1|([^;\n]+))`)
+			re := regexp.MustCompile(`filename[^;=\n]*=(?:"([^"]+)"|'([^']+)'|([^;\n]+))`)
 			if m := re.FindStringSubmatch(cd); len(m) > 0 {
 				name := strings.TrimSpace(m[2])
 				if name == "" {
